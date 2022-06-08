@@ -68,12 +68,14 @@ class BotConversation extends Conversation
             $this->firstname = $answer->getText();
 
             $this->say('Un placer conocerle '.$this->firstname);
-            $bool = 0;
-            $this->askWhat($bool);
+            
+            $this->askWhat();
         });
     }
 
-    public function askWhat($bool){
+    public function askWhat(){
+        
+        
         $question = Question::create($this->firstname.', es usted una persona individual o representa a una empresa? Debe hacer click en los siguentes botones para responder:')
         ->fallback('Incapaz de hacer la pregunta')
         ->callbackId('create_database')
@@ -174,7 +176,7 @@ class BotConversation extends Conversation
                     ]);
                     $this->say('Gracias '.$this->firstname);
                     $bool = 0;
-                    $this->test();
+                    $this->test($bool);
                 } else{
                     $bool = 1;
                     $this->askEmail($bool);
@@ -271,8 +273,8 @@ class BotConversation extends Conversation
             $Responsejson = json_encode($array_merge);
             Storage::disk('public')->put('history '.$this->contacto->id.'.json', $Responsejson);
         }else{
-            $contactoss = json_decode($this->contacto, true);
-            $array_merge = array_merge($this->Responses, $contactoss);
+            $contactos = json_decode($this->contacto, true);
+            $array_merge = array_merge($this->Responses, $contactos);
             $Responsejson = json_encode($array_merge);
             Storage::disk('public')->put('history anonymous '.$this->contacto->id.'.json', $Responsejson);
         }
