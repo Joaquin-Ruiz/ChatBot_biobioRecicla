@@ -94,6 +94,7 @@ class ConversationFlow{
         // Context is required
         if($context == null) return;
         if($context->getBot() == null) return;
+        if($botResponse == null) return;
         
         // Add question or response to responses
         array_push($this->responses, $botResponse->text);
@@ -270,5 +271,12 @@ class ConversationFlow{
             $prefixToSave.'_'.($this->contact != null? $this->contact->id : str_replace(':', '_', now())).'.json',
             $dataToSaveJson
         );
+    }
+
+    public static function phone_regex(){
+        return "/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im";
+    }
+    public static function email_regex(){
+        return "/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/";
     }
 }

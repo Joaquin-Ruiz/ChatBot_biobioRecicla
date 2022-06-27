@@ -9,6 +9,7 @@ use App\Classes\BotOpenQuestion;
 use App\Classes\BotReply;
 use App\Classes\ChatButton;
 use App\Classes\ChatFlowParser;
+use App\Classes\ConversationFlow;
 use Illuminate\Support\Facades\Storage;
 
 define('HUMAN', 1);
@@ -28,7 +29,9 @@ class BotConversation extends BaseFlowConversation
 
         $contents = Storage::disk('public')->get('testchatflow.json');
         $flow = ChatFlowParser::jsonToChatFlow($contents);
-        if($flow != null) $this->start_flow($flow);
+        $root = ChatFlowParser::getRootFromJsonToChatFlow($contents);
+        if($flow == null) return;
+        $this->start_flow($flow, $root);
         return;
 
         // Lista con preguntas persona natural
@@ -55,7 +58,7 @@ class BotConversation extends BaseFlowConversation
             'Por último necesitamos su email',
             null,
             // Check if answer is an email
-            fn(Answer $answer) => \preg_match("/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/", $answer),
+            fn(Answer $answer) => preg_match(ConversationFlow::email_regex(), $answer),
             'El email debe estar en el formato de "tumail@dominio.com", intente de nuevo por favor',
             fn($answer) => $this->update_email_and_contact($answer->getText())
         );
@@ -66,7 +69,7 @@ class BotConversation extends BaseFlowConversation
             // If is a phone number, go to "emailQuestion"
             fn() => $emailQuestion,
             // Check if answer is phone number
-            fn(Answer $answer) => \preg_match("/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im", $answer),
+            fn(Answer $answer) => preg_match(ConversationFlow::phone_regex(), $answer),
             // When is not a phone number, display this error message
             'El número debe estar en el formato de "+56912345678", intente de nuevo por favor',
             fn($answer) => $this->phone = $answer->getText()
