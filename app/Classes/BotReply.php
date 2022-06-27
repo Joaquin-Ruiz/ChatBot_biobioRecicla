@@ -14,7 +14,8 @@ class BotReply extends BotResponse{
         array $additionalParams = [],
         ?Attachment $attachment = null,
         bool $saveLog = false,
-        ?float $botTypingSeconds = null
+        ?float $botTypingSeconds = null,
+        ?Closure $onExecute = null
     )
     {
         parent::__construct(
@@ -27,7 +28,8 @@ class BotReply extends BotResponse{
             $additionalParams,
             null,
             $attachment,
-            $botTypingSeconds
+            $botTypingSeconds,
+            $onExecute
         );
     }
 }

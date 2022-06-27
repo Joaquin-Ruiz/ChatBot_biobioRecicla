@@ -20,11 +20,18 @@ class BotOpenQuestion extends BotResponse{
      */
     public $onErrorBackToRoot = false;
 
+    /**
+     * @var ?Closure
+     */
+    public $onValidatedAnswer = null;
+
     public function __construct(
         string $text, 
         ?Closure $nextResponse = null, 
         ?Closure $validationCallback = null, 
         ?string $errorMessage = null, 
+        ?Closure $onValidatedAnswer = null,
+        ?Closure $onExecute = null,
         ?BotResponse $errorResponse = null, 
         bool $onErrorBackToRoot = false,
         bool $saveLog = false,
@@ -41,8 +48,10 @@ class BotOpenQuestion extends BotResponse{
             [],
             $errorMessage,
             null,
-            $botTypingSeconds
+            $botTypingSeconds,
+            $onExecute
         );
+        $this->onValidatedAnswer = $onValidatedAnswer;
         $this->errorResponse = $errorResponse;
         $this->onErrorBackToRoot = $onErrorBackToRoot;
         $this->validationCallback = $validationCallback ?? fn() => true;

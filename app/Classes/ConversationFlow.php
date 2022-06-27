@@ -4,6 +4,7 @@ namespace App\Classes;
 
 use App\Contact;
 use App\Classes\BotResponse;
+use App\Conversations\BaseFlowConversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -15,8 +16,10 @@ use Illuminate\Support\Facades\Log;
 
 class ConversationFlow{
 
-    // RootContext
-    public $rootContext;
+    /**
+     * @var BaseFlowConversation
+     */
+    public BaseFlowConversation $rootContext;
 
     // Saved responses
     public $responses = array();
@@ -108,6 +111,9 @@ class ConversationFlow{
 
         if($botResponse->botTypingSeconds != null) $context->getBot()->typesAndWaits($botResponse->botTypingSeconds);
         
+        $rootContextToUse = $this->rootContext;
+        if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);
+
         // Check if is open question
         if($botResponse instanceof BotOpenQuestion){
             $thisContext = $this;
@@ -115,26 +121,26 @@ class ConversationFlow{
                 ->fallback('Unable to ask question')
                 ->callbackId('ask_'.count($this->responses));
 
-            $rootContextToUse = $this->rootContext;
-
             return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
-                if(($botResponse->validationCallback)($answer, $rootContextToUse, $this)){
+                if($botResponse->validationCallback->call($rootContextToUse, $answer, $rootContextToUse, $this)){
                     // Answer is correct so continue or back to root response
                      // Add selected button to responses array
                     array_push($thisContext->responses, $answer->getText());
+
+                    if($botResponse->onValidatedAnswer != null) $botResponse->onValidatedAnswer->call($rootContextToUse, $answer, $rootContextToUse);
 
                     if($rootResponseToUse != null)
                         return $thisContext->create_question(
                             $this, 
                             ($botResponse->nextResponse) != null? 
-                                ($botResponse->nextResponse)($answer, $rootContextToUse) 
+                                $botResponse->nextResponse->call($rootContextToUse, $answer, $rootContextToUse) 
                                 : $rootResponseToUse, 
                             $rootResponseToUse
                         );
                     else if(($botResponse->nextResponse) != null)
                         return $thisContext->create_question(
                             $this, 
-                            ($botResponse->nextResponse)($answer, $rootContextToUse),
+                            $botResponse->nextResponse->call($rootContextToUse, $answer, $rootContextToUse),
                             $rootResponseToUse
                         );
                 }
@@ -166,7 +172,7 @@ class ConversationFlow{
             $outgoingMessage = OutgoingMessage::create($botResponse->text, $botResponse->attachment);
             $context->say($outgoingMessage, $botResponse->additionalParams);
 
-            if($botResponse->nextResponse != null) return $this->create_question($context, ($botResponse->nextResponse)($this->rootContext), $rootResponseToUse);
+            if($botResponse->nextResponse != null) return $this->create_question($context, $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), $rootResponseToUse);
             if($rootResponseToUse != null) return $this->create_question($context, $rootResponseToUse, $rootResponseToUse);
             return;
         }
@@ -179,7 +185,7 @@ class ConversationFlow{
 
         // Finally ask question and wait response
         $thisContext = $this;
-        $rootContextToUse = $this->rootContext;
+        
         return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $rootContextToUse){
             $foundButtons = array();
 
@@ -221,12 +227,12 @@ class ConversationFlow{
             if($botResponse->saveLog) $thisContext->save_conversation_log();
 
             // Execute custom on pressed from found button
-            if($foundButton->onPressed != null) ($foundButton->onPressed)($rootContextToUse);
+            if($foundButton->onPressed != null) $foundButton->onPressed->call($rootContextToUse, $rootContextToUse);
 
             // Then go to bot response from found button
             return $thisContext->create_question(
                 $this, 
-                $foundButton->createBotResponse != null? ($foundButton->createBotResponse)($rootContextToUse) : $foundButton->botResponse, 
+                $foundButton->createBotResponse != null? $foundButton->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->botResponse, 
                 $rootResponseToUse
             );
             

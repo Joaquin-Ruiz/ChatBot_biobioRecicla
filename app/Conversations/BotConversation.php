@@ -29,6 +29,7 @@ class BotConversation extends BaseFlowConversation
      */
     public function init()
     {        
+
         // Lista con preguntas persona natural
         $preguntasNatural = new BotResponse("Bienvenido! Qué desea saber?", [
             new ChatButton("Tengo bastante plastico pero no se en donde dejarlo, que debo hacer con el?", fn() => new BotResponse("Puedes dejarlo en un punto limpio para reciclarlo!")),
@@ -53,23 +54,19 @@ class BotConversation extends BaseFlowConversation
             'Por último necesitamos su email',
             null,
             // Check if answer is an email
-            function(Answer $answer, $context){
-                if(\preg_match("/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/", $answer)){
-                    $context->email = $answer->getText();
+            fn(Answer $answer) => \preg_match("/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/", $answer),
+            'El email debe estar en el formato de "tumail@dominio.com", intente de nuevo por favor',
+            function($answer){
+                $this->email = $answer->getText();
 
-                    // Get current used contact and update data
-                    $context->conversationFlow->update_contact(
-                        $context->firstname, 
-                        $context->phone,
-                        $context->email,
-                        true
-                    );
-                    
-                    return true;
-                } 
-                return false;
-            },
-            'El email debe estar en el formato de "tumail@dominio.com", intente de nuevo por favor',            
+                // Get current used contact and update data
+                $this->conversationFlow->update_contact(
+                    $this->firstname, 
+                    $this->phone,
+                    $this->email,
+                    true
+                );
+            }  
         );
 
         // Create phone question. Will be used only with consent
@@ -78,15 +75,10 @@ class BotConversation extends BaseFlowConversation
             // If is a phone number, go to "emailQuestion"
             fn() => $emailQuestion,
             // Check if answer is phone number
-            function(Answer $answer, $context){
-                if(\preg_match("/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im", $answer)){
-                    $context->phone = $answer->getText();
-                    return true;
-                } 
-                return false;
-            },
+            fn(Answer $answer) => \preg_match("/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im", $answer),
             // When is not a phone number, display this error message
             'El número debe estar en el formato de "+56912345678", intente de nuevo por favor',
+            fn($answer) => $this->phone = $answer->getText()
         );
 
         // Create question: Is business?
@@ -97,20 +89,20 @@ class BotConversation extends BaseFlowConversation
                     'Persona natural', 
                     // Go to "preguntas natural"
                     fn() => $preguntasNatural,
-                    fn($context) => $context->conversationFlow->set_user_section(HUMAN)
+                    fn() => $this->conversationFlow->set_user_section(HUMAN)
                 ),
                 new ChatButton(
                     'Empresa', 
                     // If is business, then ask about consent. 
                     // So if accepts, start with phone question. Otherwise, skip to "preguntasEmpresa"
-                    fn($context) => new BotResponse(
-                        $context->firstname.', esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?',
+                    fn() => new BotResponse(
+                        $this->firstname.', esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?',
                         [
                             new ChatButton('Si, me parece bien', fn() => $phoneQuestion),
                             new ChatButton('No estoy de acuerdo', fn() => $preguntasEmpresa)
                         ]
                     ),
-                    fn($context) => $context->conversationFlow->set_user_section(BUSINESS)
+                    fn() => $this->conversationFlow->set_user_section(BUSINESS)
                 )
             ]
         );
@@ -118,17 +110,15 @@ class BotConversation extends BaseFlowConversation
         // Create name question
         $nameQuestion = new BotOpenQuestion(
             'Cuál es su nombre?',
-            function(Answer $answer, $context) use ($businessQuestion){
-                $context->firstname = $answer->getText();
-                return new BotReply(
-                    'Un placer conocerle '.$context->firstname,
-                    fn() => $businessQuestion,
-                    [],
-                    null,
-                    false,
-                    3
-                );
-            }
+            fn() => new BotReply(
+                'Un placer conocerle '.$this->firstname,
+                fn() => $businessQuestion,
+                [],
+                null,
+                false,
+                3
+            ),
+            null, null, fn(Answer $answer) => $this->firstname = $answer->getText()
         );
 
         // Start with "name question"

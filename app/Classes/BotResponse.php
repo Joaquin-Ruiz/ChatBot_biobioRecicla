@@ -24,7 +24,7 @@ class BotResponse{          // Can be a question
 
     /**
      * Should return Bot Response
-     * @var ?SerializableClosure
+     * @var ?Closure
      */
     public $nextResponse = null;
 
@@ -48,6 +48,11 @@ class BotResponse{          // Can be a question
      */
     public ?float $botTypingSeconds = null;
 
+    /**
+     * @var ?Closure
+     */
+    public $onExecute = null;
+
     public function __construct(
         string $text, 
         ?array $buttons = null, 
@@ -58,21 +63,21 @@ class BotResponse{          // Can be a question
         array $additionalParams = [],
         string $errorMessage = null,
         ?Attachment $attachment = null,
-        ?float $botTypingSeconds = null
+        ?float $botTypingSeconds = null,
+        ?Closure $onExecute = null
     )
     {
         $this->text = $text;
         $this->saveLog = $saveLog;
         $this->buttons = $buttons;
-        if($nextResponse != null)
-            $this->nextResponse = new SerializableClosure($nextResponse);
-        else $this->nextResponse = null;
+        $this->nextResponse = $nextResponse;
         $this->rootResponse = $customRootResponse;
         $this->autoRoot = $autoRoot;
         $this->additionalParams = $additionalParams;
         $this->errorMessage = $errorMessage;
         $this->attachment = $attachment;
         $this->botTypingSeconds = $botTypingSeconds;
+        $this->onExecute = $onExecute;
     }
 
 }
