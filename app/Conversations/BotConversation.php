@@ -9,7 +9,11 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Classes\ConversationFlow;
 use App\Classes\BotResponse;
 use App\Classes\BotOpenQuestion;
+use App\Classes\BotReply;
 use App\Classes\ChatButton;
+use BotMan\BotMan\Messages\Attachments\File;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Attachments\Video;
 
 define('HUMAN', 1);
 define('BUSINESS', 0);
@@ -93,7 +97,7 @@ class BotConversation extends BaseFlowConversation
                     'Persona natural', 
                     // Go to "preguntas natural"
                     fn() => $preguntasNatural,
-                    fn() => $this->conversationFlow->set_user_section(HUMAN)
+                    fn($context) => $context->conversationFlow->set_user_section(HUMAN)
                 ),
                 new ChatButton(
                     'Empresa', 
@@ -106,7 +110,7 @@ class BotConversation extends BaseFlowConversation
                             new ChatButton('No estoy de acuerdo', fn() => $preguntasEmpresa)
                         ]
                     ),
-                    fn() => $this->conversationFlow->set_user_section(BUSINESS)
+                    fn($context) => $context->conversationFlow->set_user_section(BUSINESS)
                 )
             ]
         );
@@ -116,11 +120,13 @@ class BotConversation extends BaseFlowConversation
             'Cuál es su nombre?',
             function(Answer $answer, $context) use ($businessQuestion){
                 $context->firstname = $answer->getText();
-                return new BotResponse(
+                return new BotReply(
                     'Un placer conocerle '.$context->firstname,
+                    fn() => $businessQuestion,
+                    [],
                     null,
                     false,
-                    fn() => $businessQuestion
+                    3
                 );
             }
         );

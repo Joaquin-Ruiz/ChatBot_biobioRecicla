@@ -8,6 +8,7 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
+use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use Closure;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -104,18 +105,20 @@ class ConversationFlow{
 
         // Only declare root response to use
         $rootResponseToUse = $botResponse->rootResponse;
+
+        if($botResponse->botTypingSeconds != null) $context->getBot()->typesAndWaits($botResponse->botTypingSeconds);
         
         // Check if is open question
         if($botResponse instanceof BotOpenQuestion){
             $thisContext = $this;
             $question = Question::create($botResponse->text)
                 ->fallback('Unable to ask question')
-                ->callbackId('ask_open');
+                ->callbackId('ask_'.count($this->responses));
 
             $rootContextToUse = $this->rootContext;
 
             return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
-                if(($botResponse->onAnswerCallback)($answer, $rootContextToUse, $this)){
+                if(($botResponse->validationCallback)($answer, $rootContextToUse, $this)){
                     // Answer is correct so continue or back to root response
                      // Add selected button to responses array
                     array_push($thisContext->responses, $answer->getText());
@@ -160,7 +163,8 @@ class ConversationFlow{
 
         // If buttons are null, so display bot response text and then display root response (it's like chatbot menu)
         if($botResponse->buttons == null){
-            $context->say($botResponse->text, $botResponse->additionalParams);
+            $outgoingMessage = OutgoingMessage::create($botResponse->text, $botResponse->attachment);
+            $context->say($outgoingMessage, $botResponse->additionalParams);
 
             if($botResponse->nextResponse != null) return $this->create_question($context, ($botResponse->nextResponse)($this->rootContext), $rootResponseToUse);
             if($rootResponseToUse != null) return $this->create_question($context, $rootResponseToUse, $rootResponseToUse);
@@ -170,7 +174,7 @@ class ConversationFlow{
         // If there are buttons, so create question
         $question = Question::create($botResponse->text)
             ->fallback('Unable to ask question')
-            ->callbackId('ask_reason') // Maybe this callback Id should be calculated according to $responses last id added
+            ->callbackId('ask_'.count($this->responses)) // Maybe this callback Id should be calculated according to $responses last id added
             ->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $botResponse->buttons ));
 
         // Finally ask question and wait response
@@ -217,7 +221,7 @@ class ConversationFlow{
             if($botResponse->saveLog) $thisContext->save_conversation_log();
 
             // Execute custom on pressed from found button
-            if($foundButton->onPressed != null) ($foundButton->onPressed)();
+            if($foundButton->onPressed != null) ($foundButton->onPressed)($rootContextToUse);
 
             // Then go to bot response from found button
             return $thisContext->create_question(

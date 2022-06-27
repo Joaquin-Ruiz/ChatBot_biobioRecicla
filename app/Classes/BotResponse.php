@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use BotMan\BotMan\Messages\Attachments\Attachment;
 use Closure;
 use Opis\Closure\SerializableClosure;
 
@@ -33,9 +34,19 @@ class BotResponse{          // Can be a question
     public ?string $errorMessage = null;
 
     /**
+     * @var Attachment
+     */
+    public ?Attachment $attachment;
+
+    /**
      * @var array
      */
     public array $additionalParams = array();
+
+    /**
+     * @var ?float
+     */
+    public ?float $botTypingSeconds = null;
 
     public function __construct(
         string $text, 
@@ -45,7 +56,9 @@ class BotResponse{          // Can be a question
         bool $autoRoot = false,
         ?BotResponse $customRootResponse = null,
         array $additionalParams = [],
-        string $errorMessage = null
+        string $errorMessage = null,
+        ?Attachment $attachment = null,
+        ?float $botTypingSeconds = null
     )
     {
         $this->text = $text;
@@ -58,6 +71,8 @@ class BotResponse{          // Can be a question
         $this->autoRoot = $autoRoot;
         $this->additionalParams = $additionalParams;
         $this->errorMessage = $errorMessage;
+        $this->attachment = $attachment;
+        $this->botTypingSeconds = $botTypingSeconds;
     }
 
 }

@@ -8,7 +8,7 @@ use Opis\Closure\SerializableClosure;
 
 class BotOpenQuestion extends BotResponse{
     /// SHOULD RETURN TRUE OR FALSE IF CAN CONTINUE
-    public $onAnswerCallback;
+    public $validationCallback;
 
     /**
      * @var BotResponse
@@ -23,21 +23,28 @@ class BotOpenQuestion extends BotResponse{
     public function __construct(
         string $text, 
         ?Closure $nextResponse = null, 
-        ?Closure $onAnswerCallback = null, 
+        ?Closure $validationCallback = null, 
         ?string $errorMessage = null, 
         ?BotResponse $errorResponse = null, 
         bool $onErrorBackToRoot = false,
-        bool $saveLog = false
+        bool $saveLog = false,
+        ?float $botTypingSeconds = null
     )
     {
-        $this->text = $text;
-        $this->saveLog = $saveLog;
-        if($nextResponse != null)
-            $this->nextResponse = new SerializableClosure($nextResponse);
-        else $this->nextResponse = null;
+        parent::__construct(
+            $text,
+            null,
+            $saveLog,
+            $nextResponse,
+            false,
+            null,
+            [],
+            $errorMessage,
+            null,
+            $botTypingSeconds
+        );
         $this->errorResponse = $errorResponse;
-        $this->errorMessage = $errorMessage;
         $this->onErrorBackToRoot = $onErrorBackToRoot;
-        $this->onAnswerCallback = $onAnswerCallback ?? fn() => true;
+        $this->validationCallback = $validationCallback ?? fn() => true;
     }
 }
