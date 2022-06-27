@@ -8,6 +8,8 @@ use App\Classes\BotResponse;
 use App\Classes\BotOpenQuestion;
 use App\Classes\BotReply;
 use App\Classes\ChatButton;
+use App\Classes\ChatFlowParser;
+use Illuminate\Support\Facades\Storage;
 
 define('HUMAN', 1);
 define('BUSINESS', 0);
@@ -23,6 +25,11 @@ class BotConversation extends BaseFlowConversation
      */
     public function init()
     {        
+
+        $contents = Storage::disk('public')->get('testchatflow.json');
+        $flow = ChatFlowParser::jsonToChatFlow($contents);
+        if($flow != null) $this->start_flow($flow);
+        return;
 
         // Lista con preguntas persona natural
         $preguntasNatural = new BotResponse("Bienvenido! Qué desea saber?", [
