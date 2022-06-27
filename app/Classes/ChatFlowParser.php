@@ -5,6 +5,11 @@ namespace App\Classes;
 use App\Classes\BotResponse;
 use App\Classes\BotReply;
 use App\Conversations\BaseFlowConversation;
+use BotMan\BotMan\Messages\Attachments\Audio;
+use BotMan\BotMan\Messages\Attachments\File;
+use BotMan\BotMan\Messages\Attachments\Image;
+use BotMan\BotMan\Messages\Attachments\Location;
+use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,14 +65,47 @@ class ChatFlowParser{
             );
         };
 
+        // Bot typing effect
+        $botTypingSeconds = null;
+        if(isset($jsonObject->botTypingSeconds)) $botTypingSeconds = $jsonObject->botTypingSeconds;
+
+        // Additional parameters
+        $additionalParameters = [];
+        if(isset($jsonObject->additionalParameters)){
+            $additionalParameters = json_decode(json_encode($jsonObject->additionalParameters), true);
+        }
+
+        // Auto root
+        $autoRoot = false;
+        if(isset($jsonObject->autoRoot)) $autoRoot = $jsonObject->autoRoot;
+
+        // Attachment parameters
+        $attachment = null;
+        if(isset($jsonObject->attachment)){
+            $attachmentObject = $jsonObject->attachment;
+            
+            if($attachmentObject->type == 'Image'){
+                $attachment = new Image($attachmentObject->url);
+            } else if($attachmentObject->type == 'Video'){
+                $attachment = new Video($attachmentObject->url);
+            } else if($attachmentObject->type == 'Audio'){
+                $attachment = new Audio($attachmentObject->url);
+            } else if($attachmentObject->type == 'File'){
+                $attachment = new File($attachmentObject->url);
+            } else if($attachmentObject->type == 'Location'){
+                $attachment = new Location($attachmentObject->latitude, $attachmentObject->longitude);
+            }
+        }
+
         // Return response according to type
         if($type == 'BotReply'){
             return new BotReply(
                 $jsonObject->text,
                 $nextResponse != null? (fn() => $nextResponse) : null,
-                [],
-                null,
-                $saveLog
+                $additionalParameters,
+                $attachment,
+                $saveLog,
+                $botTypingSeconds
             );
         } else if($type == 'BotResponse'){
             $buttons = null;
@@ -79,7 +117,13 @@ class ChatFlowParser{
                 $jsonObject->text,
                 $buttons,
                 $saveLog,
-                $nextResponse != null? (fn() => $nextResponse) : null
+                $nextResponse != null? (fn() => $nextResponse) : null,
+                $autoRoot,
+                null,
+                $additionalParameters,
+                null,
+                $attachment,
+                $botTypingSeconds
             );
         } else if($type == 'BotOpenQuestion'){
             $validationRegex = null;
@@ -112,8 +156,9 @@ class ChatFlowParser{
                 fn($answer) => $onValidatedAnswer($answer),
                 null,
                 null,
-                false,
-                $saveLog
+                $autoRoot,
+                $saveLog,
+                $botTypingSeconds
             );
         }
 
