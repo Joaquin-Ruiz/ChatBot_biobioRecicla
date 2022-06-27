@@ -28,8 +28,8 @@ class BotConversation extends BaseFlowConversation
     {        
 
         $contents = Storage::disk('public')->get('testchatflow.json');
-        $flow = ChatFlowParser::jsonToChatFlow($contents);
-        $root = ChatFlowParser::getRootFromJsonToChatFlow($contents);
+        $flow = ChatFlowParser::jsonToChatFlow($this, $contents);
+        $root = ChatFlowParser::getRootFromJsonToChatFlow($this, $contents);
         if($flow == null) return;
         $this->start_flow($flow, $root);
         return;

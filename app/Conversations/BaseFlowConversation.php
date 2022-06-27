@@ -18,9 +18,16 @@ abstract class BaseFlowConversation extends Conversation
      */
     protected ConversationFlow $conversationFlow;
 
+    /**
+     * Used for variables in json chat flow
+     */
+    public array $savedKeys;
+
     protected function start_flow(BotResponse $firstResponse, ?BotResponse $rootResponse = null){
         $this->conversationFlow->start_flow($firstResponse, $rootResponse);
     }
+
+    public function getConversationFlow() { return $this->conversationFlow; }
 
     abstract protected function init();
     
