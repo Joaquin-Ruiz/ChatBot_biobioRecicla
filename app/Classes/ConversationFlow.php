@@ -109,9 +109,13 @@ class ConversationFlow{
         // Only declare root response to use
         $rootResponseToUse = $botResponse->rootResponse;
 
+        // Add bot typing effect
         if($botResponse->botTypingSeconds != null) $context->getBot()->typesAndWaits($botResponse->botTypingSeconds);
         
+        // Define root context to use, for functions that need "this" inside
         $rootContextToUse = $this->rootContext;
+
+        // Call 'onExecute' function of bot responses
         if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);
 
         // Check if is open question
@@ -122,11 +126,13 @@ class ConversationFlow{
                 ->callbackId('ask_'.count($this->responses));
 
             return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
+                // Run validation function of BotOpenQuestions
                 if($botResponse->validationCallback->call($rootContextToUse, $answer, $rootContextToUse, $this)){
                     // Answer is correct so continue or back to root response
                      // Add selected button to responses array
                     array_push($thisContext->responses, $answer->getText());
 
+                    // Call 'onValidatedAnswer' of BotOpenQuestions
                     if($botResponse->onValidatedAnswer != null) $botResponse->onValidatedAnswer->call($rootContextToUse, $answer, $rootContextToUse);
 
                     if($rootResponseToUse != null)
@@ -169,6 +175,7 @@ class ConversationFlow{
 
         // If buttons are null, so display bot response text and then display root response (it's like chatbot menu)
         if($botResponse->buttons == null){
+            // Create outgoing message with possible attachment
             $outgoingMessage = OutgoingMessage::create($botResponse->text, $botResponse->attachment);
             $context->say($outgoingMessage, $botResponse->additionalParams);
 

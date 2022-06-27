@@ -2,18 +2,12 @@
 
 namespace App\Conversations;
 
-use App\Contact;
 use BotMan\BotMan\Messages\Incoming\Answer;
-use BotMan\BotMan\Messages\Conversations\Conversation;
 
-use App\Classes\ConversationFlow;
 use App\Classes\BotResponse;
 use App\Classes\BotOpenQuestion;
 use App\Classes\BotReply;
 use App\Classes\ChatButton;
-use BotMan\BotMan\Messages\Attachments\File;
-use BotMan\BotMan\Messages\Attachments\Image;
-use BotMan\BotMan\Messages\Attachments\Video;
 
 define('HUMAN', 1);
 define('BUSINESS', 0);
@@ -56,17 +50,7 @@ class BotConversation extends BaseFlowConversation
             // Check if answer is an email
             fn(Answer $answer) => \preg_match("/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/", $answer),
             'El email debe estar en el formato de "tumail@dominio.com", intente de nuevo por favor',
-            function($answer){
-                $this->email = $answer->getText();
-
-                // Get current used contact and update data
-                $this->conversationFlow->update_contact(
-                    $this->firstname, 
-                    $this->phone,
-                    $this->email,
-                    true
-                );
-            }  
+            fn($answer) => $this->update_email_and_contact($answer->getText())
         );
 
         // Create phone question. Will be used only with consent
@@ -123,6 +107,18 @@ class BotConversation extends BaseFlowConversation
 
         // Start with "name question"
         $this->start_flow($nameQuestion, $preguntasEmpresa);
+    }
+
+    protected function update_email_and_contact(string $newEmail){
+        $this->email = $newEmail;
+
+        // Get current used contact and update data
+        $this->conversationFlow->update_contact(
+            $this->firstname, 
+            $this->phone,
+            $this->email,
+            true
+        );
     }
 }
 
