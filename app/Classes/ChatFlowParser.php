@@ -185,6 +185,8 @@ class ChatFlowParser{
     }
 
     protected static function replaceTextByVariables(BaseFlowConversation $context, string $text){
+        if(substr($text, 0, 1) == '$') $text = ' '.$text;
+
         $varpos = strpos($text, '$');
 
         if(!$varpos) return $text;

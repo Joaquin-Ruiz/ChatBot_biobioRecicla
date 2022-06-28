@@ -26,10 +26,12 @@ class BotConversation extends BaseFlowConversation
      */
     public function init()
     {        
-
         $this->start_flow_from_json('officialchatflow');
         return;
+        // $this->codeVersion();
+    }
 
+    public function codeVersion(){
         // Lista con preguntas persona natural
         $preguntasNatural = new BotResponse("Bienvenido! Qué desea saber?", [
             new ChatButton("Tengo bastante plastico pero no se en donde dejarlo, que debo hacer con el?", fn() => new BotResponse("Puedes dejarlo en un punto limpio para reciclarlo!")),
