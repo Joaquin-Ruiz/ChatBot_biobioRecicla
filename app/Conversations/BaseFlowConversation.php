@@ -10,6 +10,8 @@ use App\Classes\ConversationFlow;
 use App\Classes\BotResponse;
 use App\Classes\BotOpenQuestion;
 use App\Classes\ChatButton;
+use App\Classes\ChatFlowParser;
+use Illuminate\Support\Facades\Storage;
 
 abstract class BaseFlowConversation extends Conversation
 {
@@ -21,10 +23,18 @@ abstract class BaseFlowConversation extends Conversation
     /**
      * Used for variables in json chat flow
      */
-    public array $savedKeys;
+    public array $savedKeys = array();
 
     protected function start_flow(BotResponse $firstResponse, ?BotResponse $rootResponse = null){
         $this->conversationFlow->start_flow($firstResponse, $rootResponse);
+    }
+
+    protected function start_flow_from_json($jsonName){
+        $contents = Storage::disk('public')->get($jsonName.'.json');
+        $flow = ChatFlowParser::jsonToChatFlow($this, $contents);
+        $root = ChatFlowParser::getRootFromJsonToChatFlow($this, $contents);
+        if($flow == null) return;
+        $this->start_flow($flow, $root);
     }
 
     public function getConversationFlow() { return $this->conversationFlow; }

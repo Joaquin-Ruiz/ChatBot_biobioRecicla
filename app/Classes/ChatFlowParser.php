@@ -42,7 +42,7 @@ class ChatFlowParser{
         // Next response
         $nextResponse = null;
         if(isset($jsonObject->nextResponse))
-                $nextResponse = ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
+                $nextResponse = fn() => ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
 
         // Save log
         $saveLog = false;
@@ -64,6 +64,9 @@ class ChatFlowParser{
                 true
             );
         };
+
+        // Get Json Object Text
+        $responseText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
 
         // Bot typing effect
         $botTypingSeconds = null;
@@ -100,8 +103,8 @@ class ChatFlowParser{
         // Return response according to type
         if($type == 'BotReply'){
             return new BotReply(
-                $jsonObject->text,
-                $nextResponse != null? (fn() => $nextResponse) : null,
+                $responseText,
+                $nextResponse,
                 $additionalParameters,
                 $attachment,
                 $saveLog,
@@ -114,10 +117,10 @@ class ChatFlowParser{
             }
             
             return new BotResponse(
-                $jsonObject->text,
+                $responseText,
                 $buttons,
                 $saveLog,
-                $nextResponse != null? (fn() => $nextResponse) : null,
+                $nextResponse,
                 $autoRoot,
                 null,
                 $additionalParameters,
@@ -140,17 +143,20 @@ class ChatFlowParser{
 
             $saveKeyFunction = null;
             if(isset($jsonObject->saveAnswerKey)){
-                $saveKeyFunction = fn(Answer $answer) => $context->savedKeys[$jsonObject->saveAnswerKey] = $answer->getText();
+                $saveKeyFunction = function(Answer $answer) use ($context, $jsonObject) {
+                    Storage::disk('public')->put('test.txt', 'SAVED'.$jsonObject->saveAnswerKey.' - '.$answer);
+                    $context->savedKeys[$jsonObject->saveAnswerKey] = $answer->getText();
+                };
             }
 
             $onValidatedAnswer = function(Answer $answer) use ($saveKeyFunction, $trySaveContactData){
                 if($saveKeyFunction != null) $saveKeyFunction($answer);
-                if($trySaveContactData) $trySaveContactData();
+                if($trySaveContactData != null) $trySaveContactData();
             };
 
             return new BotOpenQuestion(
-                $jsonObject->text,
-                $nextResponse != null? (fn() => $nextResponse) : null,
+                $responseText,
+                $nextResponse,
                 $validationFunction,
                 $jsonObject->errorMessage ?? null,
                 fn($answer) => $onValidatedAnswer($answer),
@@ -168,12 +174,41 @@ class ChatFlowParser{
     public static function jsonToChatButton($context, $jsonObject, $responsesList){
         if($jsonObject == null) return null;
 
-        $nextResponse = ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
-        if($nextResponse == null) return null;
+        $nextResponse = fn() => ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
+
+        if(($nextResponse)() == null) return null;
 
         return new ChatButton(
             $jsonObject->text,
-            fn() => $nextResponse
+            $nextResponse
+        );
+    }
+
+    protected static function replaceTextByVariables(BaseFlowConversation $context, string $text){
+        $varpos = strpos($text, '$');
+
+        if(!$varpos) return $text;
+
+        $startText = substr($text, 0, $varpos);
+        $finalText = substr($text, $varpos, strlen($text));
+        $spacepos = strpos($finalText, ' ');
+
+        $variableName = '';
+        if(!$spacepos) {
+            $variableName = str_replace('$', '', substr($finalText, 0, strlen($finalText)));
+            return ChatFlowParser::replaceTextByVariables($context,
+                $startText
+                .(array_key_exists($variableName, $context->savedKeys)? $context->savedKeys[$variableName] : '')
+                .substr($finalText, strlen($variableName) + 1, strlen($finalText))
+            );
+        }
+
+        $variableName = str_replace(' ', '', str_replace('$', '', substr($finalText, 0, $spacepos - 1)));
+
+        return ChatFlowParser::replaceTextByVariables($context,
+            $startText
+            .(array_key_exists($variableName, $context->savedKeys)? $context->savedKeys[$variableName] : '')
+            .substr($finalText, $spacepos, strlen($finalText))
         );
     }
 

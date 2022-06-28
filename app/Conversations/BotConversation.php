@@ -27,11 +27,7 @@ class BotConversation extends BaseFlowConversation
     public function init()
     {        
 
-        $contents = Storage::disk('public')->get('testchatflow.json');
-        $flow = ChatFlowParser::jsonToChatFlow($this, $contents);
-        $root = ChatFlowParser::getRootFromJsonToChatFlow($this, $contents);
-        if($flow == null) return;
-        $this->start_flow($flow, $root);
+        $this->start_flow_from_json('officialchatflow');
         return;
 
         // Lista con preguntas persona natural
