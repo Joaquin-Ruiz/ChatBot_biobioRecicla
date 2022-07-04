@@ -383,35 +383,50 @@
                 "text": "Gestión de residuos",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
+                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
+                  "additionalParameters": {
+                    "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
+                  }
                 }
               },
               {
                 "text": "Puntos limpios",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/"
+                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/",
+                  "additionalParameters": {
+                    "link": "https://biobiorecicla.cl/condominios-comunidades/"
+                  }
                 }
               },
               {
                 "text": "Consultoría",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
+                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
+                  "additionalParameters": {
+                    "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
+                  }
                 }
               },
               {
                 "text": "Educación Ambiental",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/"
+                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/",
+                  "additionalParameters": {
+                    "link": "https://biobiorecicla.cl/condominios-comunidades/"
+                  }
                 }
               },
               {
                 "text": "Biciclaje",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/conciencia-ambiental/"
+                  "text": "Ingrese a este link: https://biobiorecicla.cl/conciencia-ambiental/",
+                  "additionalParameters": {
+                    "link": "https://biobiorecicla.cl/conciencia-ambiental/"
+                  }
                 }
               }
             ]
