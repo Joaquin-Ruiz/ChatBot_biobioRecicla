@@ -2,6 +2,7 @@
 
 namespace App\Conversations;
 
+use App\Classes\BioioRecicla\PuntoLimpio;
 use BotMan\BotMan\Messages\Incoming\Answer;
 
 use App\Classes\BotResponse;
@@ -31,7 +32,35 @@ class BotConversation extends BaseFlowConversation
         // $this->codeVersion();
     }
 
+    protected $puntosLimpios;
+
+    protected function getPuntoLimpio($ubicacion, $tipo) : array {
+        $toReturn = array_filter($this->puntosLimpios, function(PuntoLimpio $item) use ($ubicacion, $tipo){
+            if($ubicacion != null && $tipo == null) return $item->comuna == $ubicacion;
+            if($ubicacion == null && $tipo != null) return in_array($tipo, $item->tipos, true);
+            return $item->comuna == $ubicacion && in_array($tipo, $item->tipos, true);
+        });
+        return $toReturn;
+    }
+
     public function codeVersion(){
+
+        $this->puntosLimpios = [
+            new PuntoLimpio('punto1', 'null', 'null', '-36,781836', '-73,074929', ['Plasticos', 'Aceite'], 'Municipalidad Concepción', 'Concepcion'),
+            new PuntoLimpio('punto2', 'null', 'null', '-36,781836', '-73,074929', ['Escombros', 'Textiles', 'Metales'], 'Sodimac', 'Concepcion'),
+            new PuntoLimpio('punto3', 'Victor Lamas', '567', '-36,8328', '-73,0476', ['Papel', 'Carton', 'Latas', 'Botellas'], 'Municipalidad Concepción', 'Concepcion'),
+            new PuntoLimpio('punto4', 'Av.Collao', '1202 casilla 5-C', '-36,81115', '-73,01583', ['Papel', 'Carton', 'Latas', 'Botellas PET'], 'Municipalidad Concepción', 'Concepcion'),
+            new PuntoLimpio('punto5', 'Av. Los Carrera', '301', '-36,80494', '-73,06167', ['Papel', 'Carton', 'Botellas PET', 'Latas', 'Envases Tetrapak'], 'Sodimac', 'Concepcion'),
+            new PuntoLimpio('punto6', 'Victor Lamas', '1290 casilla 160-C', '-36,82925', '-73,03429', ['Latas', 'Plasticos', 'Papel'], 'Universidad de Concepcion', 'Concepcion'),
+            new PuntoLimpio('punto7', 'Arturo Prat', '879', '-36,82603', '-73,06154', ['Latas', 'Plasticos', 'Papel'], 'Universidad  Santo Tomas', 'Concepcion'),
+            new PuntoLimpio('punto8', 'Av. Los Carrera', '301', '-36,82872', '-73,06361', ['Papel', 'Carton', 'Botellas PET', 'Latas', 'Envases Tetrapak'], 'Tottus', 'Concepcion'),
+            new PuntoLimpio('punto9', 'Av. Costanera Andalien', '336', '-36,77542', '-73,04407', ['Papel', 'Carton', 'Botellas', 'Vidrio', 'Aceite'], 'Municipalidad Concepción', 'Concepcion'),
+        ];
+
+
+
+
+
         // Lista con preguntas persona natural
         $preguntasNatural = new BotResponse("Bienvenido! Qué desea saber?", [
             new ChatButton("Tengo bastante plastico pero no se en donde dejarlo, que debo hacer con el?", fn() => new BotResponse("Puedes dejarlo en un punto limpio para reciclarlo!")),
