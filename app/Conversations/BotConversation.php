@@ -55,6 +55,20 @@ class BotConversation extends BaseFlowConversation
             new PuntoLimpio('punto7', 'Arturo Prat', '879', '-36,82603', '-73,06154', ['Latas', 'Plasticos', 'Papel'], 'Universidad  Santo Tomas', 'Concepcion'),
             new PuntoLimpio('punto8', 'Av. Los Carrera', '301', '-36,82872', '-73,06361', ['Papel', 'Carton', 'Botellas PET', 'Latas', 'Envases Tetrapak'], 'Tottus', 'Concepcion'),
             new PuntoLimpio('punto9', 'Av. Costanera Andalien', '336', '-36,77542', '-73,04407', ['Papel', 'Carton', 'Botellas', 'Vidrio', 'Aceite'], 'Municipalidad Concepción', 'Concepcion'),
+            new PuntoLimpio('punto10', 'Av. Ejercito', '330', '-36,77611', '-73,08949', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto11', 'Las Hortensias', '4850', '-36,7556', '-73,09271', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto12', 'Las Garzas', '193', '-36,72049', '-73,14115', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto13', '28 de octubre', '205', '-36,71104', '-73,11824', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto14', 'Almte. Neff', '270', '-36,74669', '-73,09157', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto15', 'Desiderio Garcia', '979', '-36,75158', '-73,10564', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto16', 'Av. Colón', '3260', '-36,74265', '-73,09816', ['Botellas PET'], 'null', 'Talcahuano'),
+            new PuntoLimpio('punto17', 'Sgto. Aldea', '121', '-36,71406', '-73,11611', ['Botellas PET'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto18', 'A', '909', '-36,77664', '-73,07323', ['Botellas PET', 'Papel', 'Cartón', 'Aceite vegetal'], 'Municipalidad Talcahuano', 'Talcahuano'),
+            new PuntoLimpio('punto19', 'Colo colo', '249', '-36,83774', '-73,09316', ['Latas', 'Papeles', 'Cartones'], 'Municipalidad San pedro de la paz', 'San Pedro'),
+            new PuntoLimpio('punto20', 'Los fresnos', '4130000', '-36,847141', '-73,104942', ['Latas', 'Papeles', 'Cartones'], 'Municipalidad San pedro de la paz', 'San Pedro'),
+            new PuntoLimpio('punto21', 'Av. Manuel Rodriguez', '1045', '-36,93034', '-73,021767', ['Cartones', 'Papeles', 'Plasticos'], 'Municipalidad Chiguayante', 'Chiguayante'),
+            new PuntoLimpio('punto22', 'Av. 8 Oriente', '720', '-36,906445', '-73,031436', ['Cartones', 'Papeles', 'Plasticos'], 'Municipalidad Chiguayante', 'Chiguayante'),
+            new PuntoLimpio('punto23', 'Av.Gnrl Prats', '80', '-37,023102', '-73,153526', ['Cartones', 'Papeles', 'Plasticos'], 'Municipalidad Coronel', 'Coronel'),
         ];
 
 
