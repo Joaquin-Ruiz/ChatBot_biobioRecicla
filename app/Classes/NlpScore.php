@@ -6,6 +6,8 @@ use \NlpTools\Tokenizers\WhitespaceTokenizer;
 use \NlpTools\Similarity\JaccardIndex;
 use \NlpTools\Similarity\CosineSimilarity;
 use \NlpTools\Similarity\Simhash;
+use Doctrine\Inflector\InflectorFactory;
+use Doctrine\Inflector\Language;
 
 class NlpScore{
     public float $valueA;
@@ -20,6 +22,8 @@ class NlpScore{
     }
 
     public static function getNlpScore($text, $query) : NlpScore {
+
+        $inflector = InflectorFactory::createForLanguage(Language::SPANISH)->build();
         $tok = new WhitespaceTokenizer();
         $J = new JaccardIndex();
         $cos = new CosineSimilarity();
@@ -30,6 +34,9 @@ class NlpScore{
 
         $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);
         $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
+
+        $s1 = $inflector->singularize($s1);
+        $s2 = $inflector->singularize($s2);
 
         $setA = $tok->tokenize($s1);
         $setB = $tok->tokenize($s2);

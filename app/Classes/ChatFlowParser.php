@@ -38,6 +38,12 @@ class ChatFlowParser{
                 return new BotReply(ChatFlowParser::replaceTextByVariables($context, $jsonObject));
 
             return ChatFlowParser::jsonObjectToResponse($context, json_decode(json_encode($arrayResponses[$jsonObject])), $responsesList); 
+        } else if(gettype($jsonObject) == "array"){
+            $responseText = array();
+            foreach($jsonObject as $itemText){
+                array_push($responseText, ChatFlowParser::replaceTextByVariables($context, $itemText));
+            }
+            return new BotReply($responseText);
         }
 
         // Detect type
@@ -89,6 +95,7 @@ class ChatFlowParser{
         $additionalParameters = [];
         if(isset($jsonObject->additionalParameters)){
             $additionalParameters = json_decode(json_encode($jsonObject->additionalParameters), true);
+            $additionalParameters = ChatFlowParser::replaceTextByVariablesOfArray($context, $additionalParameters);
         }
 
         // Auto root
@@ -126,7 +133,8 @@ class ChatFlowParser{
         } else if($type == 'BotResponse'){
             $buttons = null;
             if(isset($jsonObject->buttons)){
-                $buttons = array_map(fn($item) => ChatFlowParser::jsonToChatButton($context, $item, $responsesList), $jsonObject->buttons);
+                $saveKey = isset($jsonObject->saveKey)? $jsonObject->saveKey : null;
+                $buttons = array_map(fn($item) => ChatFlowParser::jsonToChatButton($context, $item, $saveKey, $responsesList), $jsonObject->buttons);
             }
             
             return new BotResponse(
@@ -148,11 +156,16 @@ class ChatFlowParser{
             if(isset($jsonObject->validationRegex)) {
                 $validationRegex = $jsonObject->validationRegex;
                 if($validationRegex == 'phone'){
-                    $validationFunction = fn(Answer $answer) => preg_match(ConversationFlow::phone_regex(), $answer);
+                    $validationFunction = fn($answer) => preg_match(ConversationFlow::phone_regex(), $answer);
                 }
                 else if($validationRegex == 'email'){
-                    $validationFunction = fn(Answer $answer) => preg_match(ConversationFlow::email_regex(), $answer);
-                } else $validationFunction = fn(Answer $answer) => preg_match($validationRegex, $answer);
+                    $validationFunction = fn( $answer) => preg_match(ConversationFlow::email_regex(), $answer);
+                } else $validationFunction = fn($answer) => preg_match($validationRegex, $answer);
+            } else if(isset($jsonObject->validationRange)){
+                $validationFunction = fn($answer) => count(array_filter(
+                    $jsonObject->validationRange,
+                    fn($eachValue) => mb_strtolower(ConversationFlow::remove_accents($eachValue)) == mb_strtolower(ConversationFlow::remove_accents($answer))
+                )) > 0;
             }
 
             $saveKeyFunction = null;
@@ -193,12 +206,39 @@ class ChatFlowParser{
         }
     }
 
-    public static function jsonToChatButton($context, $jsonObject, $responsesList){
+    public static function replaceTextByVariablesOfArray($context, $array){
+        $result = array();
+
+        foreach($array as $itemKey => $itemValue){
+            $newKey = $itemKey;
+            $newValue = $itemValue;
+
+            if(gettype($itemKey) == 'string')
+                $newKey = ChatFlowParser::replaceTextByVariables($context, $itemKey);
+            
+            if(gettype($itemValue) == 'string')
+                $newValue = ChatFlowParser::replaceTextByVariables($context, $itemValue);
+            else if(gettype($itemValue) == 'array')
+                $newValue = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemValue);
+
+            $result[$newKey] = $newValue;
+        }
+        return $result;
+    }
+
+    public static function jsonToChatButton($context, $jsonObject, ?string $saveKey, $responsesList){
         if($jsonObject == null) return null;
 
         $nextResponse = fn() => ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
 
         if(($nextResponse)() == null) return null;
+
+        $buttonText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
+
+        $saveKeyFunction = null;
+        if($saveKey != null){
+            $saveKeyFunction = fn() => $context->savedKeys[$saveKey] = $buttonText;
+        }
 
         $keyWordsToUse = array();
         if(isset($jsonObject->keywords)){
@@ -208,9 +248,10 @@ class ChatFlowParser{
         }
 
         return new ChatButton(
-            ChatFlowParser::replaceTextByVariables($context, $jsonObject->text),
+            $buttonText,
             $nextResponse,
-            $keyWordsToUse
+            $keyWordsToUse,
+            $saveKeyFunction
         );
     }
 

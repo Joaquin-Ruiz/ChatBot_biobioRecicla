@@ -21,24 +21,12 @@
       "buttons": [
         {
           "text": "Busco zapatos",
-          "nextResponse": {
-            "type": "Question",
-            "text": "Si, qué modelo busca?",
-            "saveKey": "shoesModel",
-            "processAnswer": true,
-            "learningArray": [
-              "Zapatos", 
-              "Zapatillas", 
-              "Sandalias",
-              "Tacones",
-              "Botas",
-              "Botines"
-            ],
-            "nextResponse": "Ok, aquí tiene sus {shoesModel}"
-          },
+          "nextResponse": "zapatos",
           "keywords": [
             "Busco algún zapato",
-            "Busca de algunos zapatos"
+            "Busca de algunos zapatos",
+            "Estoy en busca zapatillas",
+            "Ando en busca de zapatillas"
           ]
         },
         {
@@ -48,8 +36,68 @@
             "Busco alguna camisa",
             "Busca de algunas camisas"
           ]
+        },
+        {
+          "text": "Busco pantalones",
+          "nextResponse": "pantalones"
         }
       ]
+    },
+    "zapatos": {
+      "type": "Question",
+      "text": "Si, qué modelo busca?",
+      "saveKey": "shoesModel",
+      "processAnswer": true,
+      "learningArray": [
+        "Zapatos", 
+        "Zapatillas", 
+        "Sandalias",
+        "Tacones",
+        "Botas",
+        "Botines"
+      ],
+      "nextResponse": {
+        "text": "Ok, y qué talla busca?",
+        "type": "Question",
+        "saveKey": "shoesSize",
+        "validationRange": [
+          "40", "41", "42", "43", "44"
+        ],
+        "nextResponse": "Aquí están sus {shoesModel}, talla {shoesSize}"
+      }      
+    },
+    "pantalones": {
+      "type": "Question",
+      "text": "De qué color prefiere sus pantalones?",
+      "processAnswer": true,
+      "learningArray": [
+        "Rojo", "Verde", "Azul", "Amarillo"
+      ],
+      "saveKey": "pantsColor",
+      "nextResponse": {
+        "text": "Seleccione una talla",
+        "saveKey": "pantsSize",
+        "buttons": [
+          {
+            "text": "40",
+            "nextResponse": {
+              "text": "Excelente, aqui puede encontrar pantalones {pantsColor}, talla {pantsSize}",
+              "additionalParameters": {
+                "link": "https://api.color.es/?color={pantsColor}&size={pantsSize}"
+              }
+            }
+          },
+          {
+            "text": "41",
+            "nextResponse": {
+              "text": "Excelente, aqui puede encontrar pantalones {pantsColor}, talla {pantsSize}",
+              "additionalParameters": {
+                "link": "https://api.color.es?color={pantsColor}&size={pantsSize}"
+              }
+            }
+          }
+        ]
+      }
     }
   }
 }

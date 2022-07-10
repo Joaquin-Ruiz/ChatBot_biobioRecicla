@@ -38,7 +38,7 @@ class BotOpenQuestion extends BotResponse{
 
         $rake = RakePlus::create($answerText, 'es_AR');
 
-        $phrase_scores = $rake->keywords();
+        $phrase_scores = $rake->get();
         $foundItems = array();
 
         //return join(';', $phrase_scores);
@@ -52,6 +52,8 @@ class BotOpenQuestion extends BotResponse{
 
                 $s1 = $inflector->singularize($s1);
                 $s2 = $inflector->singularize($s2);
+
+                //if($s1 == $s1) return $learnItem;
 
                 $nlpScore = NlpScore::getNlpScore($s1, $s2);
                 $idealScore = new NlpScore(0.15, 0.2, 0.4);
