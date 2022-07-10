@@ -277,14 +277,27 @@
             "buttons": [
               {
                 "text": "Si, me parece bien",
-                "nextResponse": "phoneQuestion"
+                "nextResponse": "phoneQuestion",
+                "additionalKeywords": [
+                  "Ok",
+                  "Ya",
+                  "Está bien"
+                ]
               },
               {
                 "text": "No estoy de acuerdo",
-                "nextResponse": "preguntasEmpresa"
+                "nextResponse": "preguntasEmpresa",
+                "additionalKeywords": [
+                  "No gracias",
+                  "No",
+                  "No quiero"
+                ]
               }
             ]
-          }
+          },
+          "additionalKeywords": [
+            "Negocio"
+          ]
         }
       ]
     },
@@ -497,7 +510,13 @@
           "nextResponse": {
             "type": "BotReply",
             "text": "Brindamos soluciones ambientales, para la gestión integral de residuos."
-          }
+          },
+          "additionalKeywords": [
+            "¿Qué ofrecen?",
+            "¿Qué servicios ofrecen?",
+            "¿Cuáles son los servicios que ofrecen?",
+            "Quiero saber los tipos de servicios que tienen"
+          ]
         },
         {
           "text": "Desea cotizar algun servicio que ofrecemos?",
@@ -556,11 +575,27 @@
                 }
               }
             ]
-          }
+          },
+          "additionalKeywords": [
+            "Quiero cotizar servicios",
+            "Deseo cotizar servicios"
+          ]
         },
         {
           "text":"Ubicación de empresas gestoras de residuos",
-          "nextResponse":"preguntaComunaGestores"
+          "nextResponse":"preguntaComunaGestores",
+          "additionalKeywords": [
+            "Cuáles son las empresas gestoras de residuos",
+            "Qué empresas gestionan residuos",
+            "Cuál es la ubicación de empresas gestoras de residuos",
+            "Busco empresas gestores de residuos",
+            "Quiero saber la ubicación de gestores de residuos",
+            "Busco gestores de residuos",
+            "Quiero saber las ubicaciones de empresas",
+            "Ubicaciones de gestores de residuos",
+            "ubicaciones",
+            "Donde hay gestores de residuos"
+          ]
         }
       ]
     },

@@ -96,6 +96,8 @@ class ConversationFlow{
     }
 
     
+
+    
     public static $lowProbability;
     public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null){        
         // Context is required
@@ -221,48 +223,63 @@ class ConversationFlow{
                 
 
                 // Get selected Typed button
-                $foundButtons = array_filter($botResponse->buttons, function($value, $key)  
+                $foundButtons = array_filter($botResponse->buttons, function(ChatButton $value, $key)  
                 use($thisContext, $answer, $tok, $J, $cos, $simhash, $botResponse){
 
-                    $s1 = ConversationFlow::remove_accents(strtolower($answer->getText()));
+                    $s1 = ConversationFlow::remove_accents(strtolower($answer->getText()));   
                     $s2 = ConversationFlow::remove_accents(strtolower($value->text));
 
                     $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);
                     $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
 
-                    $setA = $tok->tokenize($s1);
-                    $setB = $tok->tokenize($s2);
+                    $averageScore = NlpScore::Zero();
 
-                    $valueA = $J->similarity(
-                        $setA,
-                        $setB
-                    );
-                    $valueB = $cos->similarity(
-                        $setA,
-                        $setB
-                    );
-                    $valueC = $simhash->similarity(
-                        $setA,
-                        $setB
-                    );
+                    $mainNlpScore = NlpScore::getNlpScore($value->text, $answer->getText());
+                    $keywordsCount = count($value->additionalKeywords);
+                    $mainNlpScore->scale($keywordsCount > 0? 0.5 : 1);
+                    $averageScore = $mainNlpScore;
 
-                    if(($s1 == $s2) || ($valueA >= 0.22 && $valueB >= 0.4 && $valueC >= 0.5)){
+                    foreach($value->additionalKeywords as $keyword){
+                        
+                        $keywordNlpScore = NlpScore::getNlpScore($keyword, $answer->getText());
+                        $botResponse->additionalParams[$keyword] = clone $keywordNlpScore;
 
-                        return true;
-                    } else if($valueA >= 0.15 && $valueB >= 0.3 && $valueC >= 0.4){
-                        $botResponse->additionalParams['lowProbability'] = true;
-                        ConversationFlow::$lowProbability[$valueA + $valueB + $valueC] = clone $value;
+                        $weight = 0.5/$keywordsCount;
+
+                        $idealScore = new NlpScore(0.25, 0.35, 0.5);
+                        if(
+                            $keywordNlpScore->valueA >= $idealScore->valueA
+                            && $keywordNlpScore->valueB >= $idealScore->valueB
+                            && $keywordNlpScore->valueC >= $idealScore->valueC
+                        ) $weight = 1;
+
+                        $keywordNlpScore->scale($weight);
+                        $averageScore->add($keywordNlpScore);
                     }
 
-                    $botResponse->additionalParams['resulterror'] = (string)$valueA.'/'.(string)$valueB.'/'.(string)$valueC;
+                    $botResponse->additionalParams["keywords"] = $value->additionalKeywords;
+                    $botResponse->additionalParams["nlpscore"] = $averageScore;
+
+                    Storage::disk('public')->put('testdebug.txt', '\n'.$averageScore->valueA.'/'.$averageScore->valueB.'/'.$averageScore->valueC);
+
+                    $requiredScore = ($keywordsCount <= 0)? new NlpScore(0.22, 0.5, 0.5) : new NlpScore(0.2, 0.23, 0.3);
+
+                    if(($s1 == $s2) || (
+                        $averageScore->valueA >= $requiredScore->valueA 
+                        && $averageScore->valueB >= $requiredScore->valueB
+                        && $averageScore->valueC >= $requiredScore->valueC
+                    )){
+                        return true;
+                    } else if($averageScore->valueA >= 0.15 && $averageScore->valueB >= 0.3 && $averageScore->valueC >= 0.4){
+                        $botResponse->additionalParams['lowProbability'] = true;
+                        ConversationFlow::$lowProbability[$averageScore->valueA + $averageScore->valueB + $averageScore->valueC] = clone $value;
+                    }
+
+                    $botResponse->additionalParams['resulterror'] = (string)$averageScore->valueA.'/'.(string)$averageScore->valueB.'/'.(string)$averageScore->valueC;
 
                     return false;
                 }, ARRAY_FILTER_USE_BOTH);
             }
-
-            Storage::disk('public')->put('testdebug.txt', [
-                count(ConversationFlow::$lowProbability)
-            ]);
 
             // Just check if selected button is found
             if(count($foundButtons) <= 0 || count($foundButtons) > 1){
@@ -455,5 +472,71 @@ class ConversationFlow{
         $string = strtr($string, $chars);
 
         return $string;
+    }
+}
+
+class NlpScore{
+    public float $valueA;
+    public float $valueB;
+    public float $valueC;
+
+    public function __construct($valueA, $valueB, $valueC)
+    {
+        $this->valueA = $valueA;
+        $this->valueB = $valueB;
+        $this->valueC = $valueC;
+    }
+
+    public static function getNlpScore($text, $query) : NlpScore {
+        $tok = new WhitespaceTokenizer();
+        $J = new JaccardIndex();
+        $cos = new CosineSimilarity();
+        $simhash = new Simhash(16);
+
+        $s1 = ConversationFlow::remove_accents(strtolower($query));   
+        $s2 = ConversationFlow::remove_accents(strtolower($text));
+
+        $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);
+        $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
+
+        $setA = $tok->tokenize($s1);
+        $setB = $tok->tokenize($s2);
+
+        $valueA = $J->similarity(
+            $setA,
+            $setB
+        );
+        $valueB = $cos->similarity(
+            $setA,
+            $setB
+        );
+        $valueC = $simhash->similarity(
+            $setA,
+            $setB
+        );
+
+        return new NlpScore($valueA, $valueB, $valueC);
+    }
+
+    public function multiply(NlpScore $other){
+        $this->valueA *= $other->valueA;
+        $this->valueB *= $other->valueB;
+        $this->valueC *= $other->valueC;
+    }
+
+    public function scale(float $scale){
+        $this->valueA *= $scale;
+        $this->valueB *= $scale;
+        $this->valueC *= $scale;
+    }
+
+    public function add(NlpScore $other){
+        $this->valueA += $other->valueA;
+        $this->valueB += $other->valueB;
+        $this->valueC += $other->valueC;
+    }
+
+    public static function Zero() : NlpScore{
+        return new NlpScore(0,0,0);
     }
 }

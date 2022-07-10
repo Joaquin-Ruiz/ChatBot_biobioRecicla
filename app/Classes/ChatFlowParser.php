@@ -180,7 +180,8 @@ class ChatFlowParser{
 
         return new ChatButton(
             $jsonObject->text,
-            $nextResponse
+            $nextResponse,
+            $jsonObject->additionalKeywords ?? []
         );
     }
 
