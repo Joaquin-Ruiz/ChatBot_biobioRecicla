@@ -32,35 +32,7 @@ class BotConversation extends BaseFlowConversation
      */
     public function init()
     {      
-        $this->start_flow_from_json('officialchatflow');
-        return;
-        $s1 = ConversationFlow::remove_accents("concepcin");
-        $s2 = ConversationFlow::remove_accents("san pedro");        
-
-        $tok = new WhitespaceTokenizer();
-        $J = new JaccardIndex();
-        $cos = new CosineSimilarity();
-        $simhash = new Simhash(16); // 16 bits hash
-
-        $setA = $tok->tokenize($s1);
-        $setB = $tok->tokenize($s2);
-
-        $this->say((string)$J->similarity(
-            $setA,
-            $setB
-        ));
-        $this->say((string)$cos->similarity(
-            $setA,
-            $setB
-        ));
-        $this->say((string)$simhash->similarity(
-            $setA,
-            $setB
-        ));
-        $this->say((string)$simhash->simhash($setA));
-        $this->say((string)$simhash->simhash($setB));
-        
-
+        $this->start_flow_from_json('storetest');
         return;
         $this->start_flow_from_json('officialchatflow');
         return;

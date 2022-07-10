@@ -1,0 +1,55 @@
+{
+  "name": "Testing ChatFlow Json",
+  "variables": {
+    "testVariable": "OnlyATestVariable"
+  },
+  "responses": {
+    "start": {
+      "type": "Question",
+      "text": "Cuál es su nombre?",
+      "saveKey": "name",
+      "nextResponse": {
+        "type": "BotReply",
+        "text": "Mucho gusto {name}",
+        "nextResponse": "mainQuestion"
+      }
+    },
+    "mainQuestion": {
+      "text": "En qué lo puedo ayudar?",
+      "autoRoot": true,
+      "displayButtons": false,
+      "buttons": [
+        {
+          "text": "Busco zapatos",
+          "nextResponse": {
+            "type": "Question",
+            "text": "Si, qué modelo busca?",
+            "saveKey": "shoesModel",
+            "processAnswer": true,
+            "learningArray": [
+              "Zapatos", 
+              "Zapatillas", 
+              "Sandalias",
+              "Tacones",
+              "Botas",
+              "Botines"
+            ],
+            "nextResponse": "Ok, aquí tiene sus {shoesModel}"
+          },
+          "keywords": [
+            "Busco algún zapato",
+            "Busca de algunos zapatos"
+          ]
+        },
+        {
+          "text": "Busco camisas",
+          "nextResponse": "Si, aqui hay camisas",
+          "keywords": [
+            "Busco alguna camisa",
+            "Busca de algunas camisas"
+          ]
+        }
+      ]
+    }
+  }
+}

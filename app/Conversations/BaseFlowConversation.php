@@ -34,6 +34,7 @@ abstract class BaseFlowConversation extends Conversation
         $flow = ChatFlowParser::jsonToChatFlow($this, $contents);
         $root = ChatFlowParser::getRootFromJsonToChatFlow($this, $contents);
         if($flow == null) return;
+        $this->conversationFlow->flowFromJson = true;
         $this->start_flow($flow, $root);
     }
 
