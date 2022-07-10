@@ -6,6 +6,8 @@ use Closure;
 
 class ChatButton{
     public $text;
+    public $additionalKeywords;
+
     public $botResponse;
 
     /**
@@ -23,11 +25,13 @@ class ChatButton{
     public function __construct(
         string $text, 
         Closure $createBotResponse, 
+        array $additionalKeywords = [],
         ?Closure $onPressed = null
     )
     {
         $this->text = $text;
         $this->createBotResponse = $createBotResponse;
         $this->onPressed = $onPressed;
+        $this->additionalKeywords = $additionalKeywords;
     }
 }

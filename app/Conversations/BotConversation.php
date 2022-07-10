@@ -13,6 +13,11 @@ use App\Classes\ChatFlowParser;
 use App\Classes\ConversationFlow;
 use Illuminate\Support\Facades\Storage;
 
+use \NlpTools\Tokenizers\WhitespaceTokenizer;
+use \NlpTools\Similarity\JaccardIndex;
+use \NlpTools\Similarity\CosineSimilarity;
+use \NlpTools\Similarity\Simhash;
+
 define('HUMAN', 1);
 define('BUSINESS', 0);
 
@@ -26,7 +31,37 @@ class BotConversation extends BaseFlowConversation
      * Start the conversation
      */
     public function init()
-    {        
+    {      
+        $this->start_flow_from_json('officialchatflow');
+        return;
+        $s1 = ConversationFlow::remove_accents("concepcin");
+        $s2 = ConversationFlow::remove_accents("san pedro");        
+
+        $tok = new WhitespaceTokenizer();
+        $J = new JaccardIndex();
+        $cos = new CosineSimilarity();
+        $simhash = new Simhash(16); // 16 bits hash
+
+        $setA = $tok->tokenize($s1);
+        $setB = $tok->tokenize($s2);
+
+        $this->say((string)$J->similarity(
+            $setA,
+            $setB
+        ));
+        $this->say((string)$cos->similarity(
+            $setA,
+            $setB
+        ));
+        $this->say((string)$simhash->similarity(
+            $setA,
+            $setB
+        ));
+        $this->say((string)$simhash->simhash($setA));
+        $this->say((string)$simhash->simhash($setB));
+        
+
+        return;
         $this->start_flow_from_json('officialchatflow');
         return;
         // $this->codeVersion();
@@ -124,6 +159,7 @@ class BotConversation extends BaseFlowConversation
                     'Persona natural', 
                     // Go to "preguntas natural"
                     fn() => $preguntasNatural,
+                    [],
                     fn() => $this->conversationFlow->set_user_section(HUMAN)
                 ),
                 new ChatButton(
@@ -137,6 +173,7 @@ class BotConversation extends BaseFlowConversation
                             new ChatButton('No estoy de acuerdo', fn() => $preguntasEmpresa)
                         ]
                     ),
+                    [],
                     fn() => $this->conversationFlow->set_user_section(BUSINESS)
                 )
             ]
