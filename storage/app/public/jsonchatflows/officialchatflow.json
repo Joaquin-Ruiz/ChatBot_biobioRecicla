@@ -281,7 +281,8 @@
                 "keywords": [
                   "Ok",
                   "Ya",
-                  "Está bien"
+                  "Está bien",
+                  "No hay problema"
                 ]
               },
               {
@@ -595,7 +596,9 @@
             "Quiero saber las ubicaciones de empresas",
             "Ubicaciones de gestores de residuos",
             "ubicaciones",
-            "Donde hay gestores de residuos"
+            "Donde hay gestores de residuos",
+            "Busco empresas que reciclen",
+            "Busco empresas cercanas que reciclen residuos"
           ]
         }
       ]
