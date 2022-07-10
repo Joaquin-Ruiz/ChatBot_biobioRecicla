@@ -224,64 +224,74 @@ class ConversationFlow{
                 $rake = RakePlus::create($answer->getText(), 'es_AR');
                 $phrase_scores = $rake->get();
 
-                foreach($phrase_scores as $itemValue){   
-                }
+                $mainS1 = mb_strtolower(ConversationFlow::remove_accents($answer->getText()));  
+                $mainS1 = preg_replace('/[^A-Za-z0-9 ]/', '', $mainS1);
 
-                foreach($botResponse->buttons as $value){
-                    $s1 = mb_strtolower(ConversationFlow::remove_accents($answer->getText()));   
+                       
+                foreach($botResponse->buttons as $value){                        
                     $s2 = mb_strtolower(ConversationFlow::remove_accents($value->text));
-
-                    $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);
                     $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
 
-                    Storage::disk('public')->put('testdebug.txt', $s1.' / '.$s2);
-
-                    $mainNlpScore = NlpScore::getNlpScore($value->text, $answer->getText());
-                    $keywordsCount = count($value->additionalKeywords);
-
-                    $requiredScore = new NlpScore(0.22, 0.5, 0.5);
-                    $lowProbabilityScore = new NlpScore(0.12, 0.2, 0.3);
-
-                    $botResponse->additionalParams[$value->text] = clone $mainNlpScore;
-
-                    if(($s1 == $s2) || (
-                        $mainNlpScore->valueA >= $requiredScore->valueA 
-                        && $mainNlpScore->valueB >= $requiredScore->valueB
-                        && $mainNlpScore->valueC >= $requiredScore->valueC
-                    )){
-                        $foundButtons[$mainNlpScore->size()] = $value;
-                    } else if(
-                        $mainNlpScore->valueA >= $lowProbabilityScore->valueA
-                        && $mainNlpScore->valueB >= $lowProbabilityScore->valueB
-                        && $mainNlpScore->valueC >= $lowProbabilityScore->valueC
-                    ){
-                        $botResponse->additionalParams['lowProbability'] = true;
-                        ConversationFlow::$lowProbability[$mainNlpScore->size()] = clone $value;
+                    if($mainS1 == $s2) {
+                        $foundButtons[1] = $value;
+                        continue;
                     }
 
-                    foreach($value->additionalKeywords as $keyword){
+                    foreach($phrase_scores as $answerValue){  
+                        $s1 = mb_strtolower(ConversationFlow::remove_accents($answerValue));
+                        $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);   
                         
-                        $keywordNlpScore = NlpScore::getNlpScore($keyword, $answer->getText());
-                        $botResponse->additionalParams[$keyword] = clone $keywordNlpScore;
+                        Storage::disk('public')->put('testdebug.txt', $s1.' / '.$s2);
+
+                        $mainNlpScore = NlpScore::getNlpScore($s1, $s2);
+                        $keywordsCount = count($value->additionalKeywords);
+
+                        $requiredScore = new NlpScore(0.22, 0.5, 0.5);
+                        $lowProbabilityScore = new NlpScore(0.12, 0.2, 0.3);
+
+                        $botResponse->additionalParams[$value->text] = clone $mainNlpScore;
 
                         if(($s1 == $s2) || (
-                            $keywordNlpScore->valueA >= $requiredScore->valueA 
-                            && $keywordNlpScore->valueB >= $requiredScore->valueB
-                            && $keywordNlpScore->valueC >= $requiredScore->valueC
+                            $mainNlpScore->valueA >= $requiredScore->valueA 
+                            && $mainNlpScore->valueB >= $requiredScore->valueB
+                            && $mainNlpScore->valueC >= $requiredScore->valueC
                         )){
-                            $foundButtons[$keywordNlpScore->size()] = $value;
+                            $foundButtons[$mainNlpScore->size()] = $value;
                         } else if(
-                            $keywordNlpScore->valueA >= $lowProbabilityScore->valueA
-                            && $keywordNlpScore->valueB >= $lowProbabilityScore->valueB
-                            && $keywordNlpScore->valueC >= $lowProbabilityScore->valueC
+                            $mainNlpScore->valueA >= $lowProbabilityScore->valueA
+                            && $mainNlpScore->valueB >= $lowProbabilityScore->valueB
+                            && $mainNlpScore->valueC >= $lowProbabilityScore->valueC
                         ){
                             $botResponse->additionalParams['lowProbability'] = true;
-                            ConversationFlow::$lowProbability[$keywordNlpScore->size()] = clone $value;
+                            ConversationFlow::$lowProbability[$mainNlpScore->size()] = clone $value;
                         }
+
+                        foreach($value->additionalKeywords as $keyword){
+                            
+                            $keywordNlpScore = NlpScore::getNlpScore($keyword, $answer->getText());
+                            $botResponse->additionalParams[$keyword] = clone $keywordNlpScore;
+
+                            if(($s1 == $s2) || (
+                                $keywordNlpScore->valueA >= $requiredScore->valueA 
+                                && $keywordNlpScore->valueB >= $requiredScore->valueB
+                                && $keywordNlpScore->valueC >= $requiredScore->valueC
+                            )){
+                                $foundButtons[$keywordNlpScore->size()] = $value;
+                            } else if(
+                                $keywordNlpScore->valueA >= $lowProbabilityScore->valueA
+                                && $keywordNlpScore->valueB >= $lowProbabilityScore->valueB
+                                && $keywordNlpScore->valueC >= $lowProbabilityScore->valueC
+                            ){
+                                $botResponse->additionalParams['lowProbability'] = true;
+                                ConversationFlow::$lowProbability[$keywordNlpScore->size()] = clone $value;
+                            }
+                        }
+
+                        $botResponse->additionalParams["keywords"] = $value->additionalKeywords;
+                
                     }
 
-                    $botResponse->additionalParams["keywords"] = $value->additionalKeywords;
-                }
+                }         
             }
 
             // Just check if selected button is found
