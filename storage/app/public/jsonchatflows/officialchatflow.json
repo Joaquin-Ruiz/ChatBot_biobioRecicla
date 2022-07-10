@@ -499,6 +499,7 @@
       "type": "BotResponse",
       "text": "Bienvenido! Qué desea saber?",
       "autoRoot": true,
+      "botTypingSeconds": 1,
       "buttons": [
         {
           "text": "¿En que consiste la empresa?",
