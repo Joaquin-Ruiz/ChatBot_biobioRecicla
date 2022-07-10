@@ -278,7 +278,7 @@
               {
                 "text": "Si, me parece bien",
                 "nextResponse": "phoneQuestion",
-                "additionalKeywords": [
+                "keywords": [
                   "Ok",
                   "Ya",
                   "Está bien"
@@ -287,7 +287,7 @@
               {
                 "text": "No estoy de acuerdo",
                 "nextResponse": "preguntasEmpresa",
-                "additionalKeywords": [
+                "keywords": [
                   "No gracias",
                   "No",
                   "No quiero"
@@ -295,8 +295,9 @@
               }
             ]
           },
-          "additionalKeywords": [
-            "Negocio"
+          "keywords": [
+            "tengo un negocio",
+            "represento a una empresa"
           ]
         }
       ]
@@ -511,7 +512,7 @@
             "type": "BotReply",
             "text": "Brindamos soluciones ambientales, para la gestión integral de residuos."
           },
-          "additionalKeywords": [
+          "keywords": [
             "¿Qué ofrecen?",
             "¿Qué servicios ofrecen?",
             "¿Cuáles son los servicios que ofrecen?",
@@ -576,7 +577,7 @@
               }
             ]
           },
-          "additionalKeywords": [
+          "keywords": [
             "Quiero cotizar servicios",
             "Deseo cotizar servicios"
           ]
@@ -584,7 +585,7 @@
         {
           "text":"Ubicación de empresas gestoras de residuos",
           "nextResponse":"preguntaComunaGestores",
-          "additionalKeywords": [
+          "keywords": [
             "Cuáles son las empresas gestoras de residuos",
             "Qué empresas gestionan residuos",
             "Cuál es la ubicación de empresas gestoras de residuos",
