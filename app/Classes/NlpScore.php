@@ -81,6 +81,38 @@ class NlpScore{
         $this->valueC = NlpScore::clamp($this->valueC, 0, 1);
     }
 
+    public function size() : float{
+        return sqrt(pow($this->valueA, 2) + pow($this->valueB, 2) + pow($this->valueC, 2));
+    }
+
+    public function getDistanceFromOther(NlpScore $other) : float{
+        return NlpScore::getDistance($this, $other);
+    }
+
+    public static function getDistance(NlpScore $n1, NlpScore $n2) : float {
+        return abs($n1->size() - $n2->size());
+    }
+
+    public function isMajor(NlpScore $other) : bool{
+        return $this->size() > $other->size();
+    }
+
+    public function isEqual(NlpScore $other) : bool{
+        return $this->size() == $other->size();
+    }
+
+    public function isMajorOrEqual(NlpScore $other) : bool{
+        return $this->size() >= $other->size();
+    }
+
+    public function isMinorOrEqual(NlpScore $other) : bool{
+        return $this->size() <= $other->size();
+    }
+
+    public function isMinor(NlpScore $other) : bool {
+        return $this->size() < $other->size();
+    }
+
     public static function clamp($current, $min, $max) {
         return max($min, min($max, $current));
     }

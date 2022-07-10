@@ -181,6 +181,13 @@ class ChatFlowParser{
                 if($trySaveContactData != null) $trySaveContactData();
             };
 
+            $learningArray = [];
+            if(isset($jsonObject->learningArray)){
+                if(gettype($jsonObject->learningArray) == 'string') 
+                    $learningArray = ChatFlowParser::getVariable($context, $jsonObject->learningArray);
+                else $learningArray = $jsonObject->learningArray;
+            }
+
             return new BotOpenQuestion(
                 $responseText,
                 $nextResponse,
@@ -193,7 +200,7 @@ class ChatFlowParser{
                 $saveLog,
                 $botTypingSeconds,
                 $jsonObject->processAnswer ?? false,
-                $jsonObject->learningArray ?? []
+                $learningArray
             );
         }
 
@@ -261,6 +268,10 @@ class ChatFlowParser{
             $variableName = substr(substr($word, 1, strlen($word)), 0, strlen($word) - 2);
             return $context->savedKeys[$variableName] ?? '';
         }, $text);
+    }
+
+    protected static function getVariable($context, $variableName){
+        return $context->savedKeys[$variableName];
     }
 
 }

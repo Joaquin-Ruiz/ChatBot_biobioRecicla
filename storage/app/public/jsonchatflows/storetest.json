@@ -1,7 +1,10 @@
 {
   "name": "Testing ChatFlow Json",
   "variables": {
-    "testVariable": "OnlyATestVariable"
+    "testVariable": "OnlyATestVariable",
+    "colors": [
+      "Rojo", "Azul", "Verde", "Morado"
+    ]
   },
   "responses": {
     "start": {
@@ -70,9 +73,7 @@
       "type": "Question",
       "text": "De qué color prefiere sus pantalones?",
       "processAnswer": true,
-      "learningArray": [
-        "Rojo", "Verde", "Azul", "Amarillo"
-      ],
+      "learningArray": "colors",
       "saveKey": "pantsColor",
       "nextResponse": {
         "text": "Seleccione una talla",
