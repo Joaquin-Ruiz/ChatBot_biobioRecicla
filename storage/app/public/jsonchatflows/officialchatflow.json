@@ -497,16 +497,25 @@
     },
     "preguntasEmpresa":{
       "type": "BotResponse",
-      "text": "Bienvenido! Qué desea saber?",
+      "text": [
+        "Bienvenido! Qué desea saber?",
+        "Hola! Cómo lo puedo ayudar?",
+        "En qué puedo ayudarlo?"
+      ],
       "autoRoot": true,
       "botTypingSeconds": 1,
+      "displayButtons": false,
       "buttons": [
         {
           "text": "¿En que consiste la empresa?",
           "nextResponse": {
             "type": "BotReply",
             "text": "Somos una empresa que busca mantener una relación armónica entre las personas, la sociedad y la naturaleza, para contribuir a una mejor calidad de vida."
-          }
+          },
+          "keywords": [
+            "De qué trata la empresa?",
+            "Quiero saber de qué trata la empresa"
+          ]
         },
         {
           "text": "¿Qué tipo de servicios ofrecen?",
@@ -518,7 +527,8 @@
             "¿Qué ofrecen?",
             "¿Qué servicios ofrecen?",
             "¿Cuáles son los servicios que ofrecen?",
-            "Quiero saber los tipos de servicios que tienen"
+            "Quiero saber los tipos de servicios que tienen",
+            "Quiero saber los tipos de servicios que ofrecen"
           ]
         },
         {

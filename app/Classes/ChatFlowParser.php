@@ -66,7 +66,15 @@ class ChatFlowParser{
         };
 
         // Get Json Object Text
-        $responseText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
+        $responseText = '';
+        if(gettype($jsonObject->text) == 'array'){
+            $responseText = array();
+            foreach($jsonObject->text as $itemText){
+                array_push($responseText, ChatFlowParser::replaceTextByVariables($context, $itemText));
+            }
+            
+        } else $responseText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
+        
 
         // Bot typing effect
         $botTypingSeconds = null;
@@ -126,7 +134,8 @@ class ChatFlowParser{
                 $additionalParameters,
                 null,
                 $attachment,
-                $botTypingSeconds
+                $botTypingSeconds,
+                $jsonObject->displayButtons ?? true
             );
         } else if($type == 'BotOpenQuestion'){
             $validationRegex = null;

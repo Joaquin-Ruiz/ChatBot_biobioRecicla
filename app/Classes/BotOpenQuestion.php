@@ -26,7 +26,7 @@ class BotOpenQuestion extends BotResponse{
     public $onValidatedAnswer = null;
 
     public function __construct(
-        string $text, 
+        $text, 
         ?Closure $nextResponse = null, 
         ?Closure $validationCallback = null, 
         ?string $errorMessage = null, 
@@ -49,6 +49,7 @@ class BotOpenQuestion extends BotResponse{
             $errorMessage,
             null,
             $botTypingSeconds,
+            false,
             $onExecute
         );
         $this->onValidatedAnswer = $onValidatedAnswer;

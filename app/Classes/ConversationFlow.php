@@ -104,6 +104,9 @@ class ConversationFlow{
         if($context == null) return;
         if($context->getBot() == null) return;
         if($botResponse == null) return;
+
+        // Get text to display
+        $textToDisplay = gettype($botResponse->text) == 'array'? array_random($botResponse->text) : $botResponse->text;
         
         // Add question or response to responses
         array_push($this->responses, $botResponse->text);
@@ -126,12 +129,12 @@ class ConversationFlow{
         $rootContextToUse = $this->rootContext;
 
         // Call 'onExecute' function of bot responses
-        if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);
+        if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);        
 
         // Check if is open question
         if($botResponse instanceof BotOpenQuestion){
             $thisContext = $this;
-            $question = Question::create($botResponse->text)
+            $question = Question::create($textToDisplay)
                 ->fallback('Unable to ask question')
                 ->callbackId('ask_'.count($this->responses));
 
@@ -187,7 +190,7 @@ class ConversationFlow{
         // If buttons are null, so display bot response text and then display root response (it's like chatbot menu)
         if($botResponse->buttons == null){
             // Create outgoing message with possible attachment
-            $outgoingMessage = OutgoingMessage::create($botResponse->text, $botResponse->attachment);
+            $outgoingMessage = OutgoingMessage::create($textToDisplay, $botResponse->attachment);
             $context->say($outgoingMessage, $botResponse->additionalParams);
 
             if($botResponse->nextResponse != null) return $this->create_question($context, $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), $rootResponseToUse);
@@ -196,10 +199,11 @@ class ConversationFlow{
         }
 
         // If there are buttons, so create question
-        $question = Question::create($botResponse->text)
+        $question = Question::create($textToDisplay)
             ->fallback('Unable to ask question')
-            ->callbackId('ask_'.count($this->responses)) // Maybe this callback Id should be calculated according to $responses last id added
-            ->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $botResponse->buttons ));
+            ->callbackId('ask_'.count($this->responses)); // Maybe this callback Id should be calculated according to $responses last id added
+        if($botResponse->displayButtons)
+            $question->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $botResponse->buttons ));
 
         // Finally ask question and wait response
         $thisContext = $this;
@@ -242,7 +246,7 @@ class ConversationFlow{
 
                         $weight = 0.5/$keywordsCount;
 
-                        $idealScore = new NlpScore(0.25, 0.35, 0.5);
+                        $idealScore = new NlpScore(0.3, 0.4, 0.6);
                         $perfectScore = new NlpScore(0.95, 0.95, 0.95);
                         if(
                             $keywordNlpScore->valueA >= $perfectScore->valueA
@@ -258,6 +262,7 @@ class ConversationFlow{
 
                         $keywordNlpScore->scale($weight);
                         $averageScore->add($keywordNlpScore);
+                        $averageScore->verifyClamp();
                     }
 
                     $botResponse->additionalParams["keywords"] = $value->additionalKeywords;
@@ -271,7 +276,7 @@ class ConversationFlow{
                         && $averageScore->valueC >= $requiredScore->valueC
                     )){
                         $foundButtons[$averageScore->valueA + $averageScore->valueB + $averageScore->valueC] = $value;
-                    } else if($averageScore->valueA >= 0.15 && $averageScore->valueB >= 0.3 && $averageScore->valueC >= 0.4){
+                    } else if($averageScore->valueA >= 0.12 && $averageScore->valueB >= 0.2 && $averageScore->valueC >= 0.3){
                         $botResponse->additionalParams['lowProbability'] = true;
                         ConversationFlow::$lowProbability[$averageScore->valueA + $averageScore->valueB + $averageScore->valueC] = clone $value;
                     }
@@ -287,14 +292,19 @@ class ConversationFlow{
                     if(count(ConversationFlow::$lowProbability) > 0){
                         ksort(ConversationFlow::$lowProbability);
 
-                        $firstElem = end(ConversationFlow::$lowProbability);
+                        //$firstElem = end(ConversationFlow::$lowProbability);
+                        array_push(ConversationFlow::$lowProbability,
+                            new ChatButton('No, preguntar nuevamente', fn() => clone $botResponse)
+                        );
 
                         $probabilityQuestion = new BotResponse(
-                            '¿Quisiste decir '.$firstElem->text.'?',
-                            [
-                                new ChatButton('Si', fn() => $firstElem->createBotResponse != null? $firstElem->createBotResponse->call($rootContextToUse, $rootContextToUse) : $firstElem->botResponse),
-                                new ChatButton('No, preguntar nuevamente', fn() => clone $botResponse)
-                            ]
+                            '¿Quisiste decir alguna de estas opciones?',
+                            array_map(
+                                fn(ChatButton $buttonValue) => new ChatButton(
+                                    $buttonValue->text, 
+                                    fn() => $buttonValue->createBotResponse != null? $buttonValue->createBotResponse->call($rootContextToUse, $rootContextToUse) : $buttonValue->botResponse
+                                ), 
+                            ConversationFlow::$lowProbability)
                         );
 
                         return $thisContext->create_question($this, $probabilityQuestion, $rootResponseToUse);
@@ -311,17 +321,15 @@ class ConversationFlow{
             }
 
             $foundButton = null;
-
+            // DEBUG: $this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
             if(count($foundButtons) > 1){
+                
                 ksort($foundButtons);
                 $foundButton = end($foundButtons);
             } else {
                 // Get first found button 
                 $foundButton = array_shift($foundButtons); 
             }
-
-            
-            
 
             // Add selected button to responses array
             array_push($thisContext->responses, $foundButton->text);
@@ -445,6 +453,16 @@ class NlpScore{
         $this->valueA += $other->valueA;
         $this->valueB += $other->valueB;
         $this->valueC += $other->valueC;
+    }
+
+    public function verifyClamp(){
+        $this->valueA = NlpScore::clamp($this->valueA, 0, 1);
+        $this->valueB = NlpScore::clamp($this->valueB, 0, 1);
+        $this->valueC = NlpScore::clamp($this->valueC, 0, 1);
+    }
+
+    public static function clamp($current, $min, $max) {
+        return max($min, min($max, $current));
     }
 
     public static function Zero() : NlpScore{

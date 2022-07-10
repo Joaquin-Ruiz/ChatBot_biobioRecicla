@@ -9,6 +9,7 @@ use Opis\Closure\SerializableClosure;
 class BotResponse{          // Can be a question
     public $text;
     public $buttons;        // nullable
+    public bool $displayButtons = true;
     public $saveLog;        // true - false / Save history
 
     /**
@@ -54,7 +55,7 @@ class BotResponse{          // Can be a question
     public $onExecute = null;
 
     public function __construct(
-        string $text, 
+        $text, 
         ?array $buttons = null, 
         bool $saveLog = false, 
         ?Closure $nextResponse = null,
@@ -64,6 +65,7 @@ class BotResponse{          // Can be a question
         string $errorMessage = null,
         ?Attachment $attachment = null,
         ?float $botTypingSeconds = null,
+        bool $displayButtons = true,
         ?Closure $onExecute = null
     )
     {
@@ -78,6 +80,7 @@ class BotResponse{          // Can be a question
         $this->attachment = $attachment;
         $this->botTypingSeconds = $botTypingSeconds;
         $this->onExecute = $onExecute;
+        $this->displayButtons = $displayButtons;
     }
 
 }
