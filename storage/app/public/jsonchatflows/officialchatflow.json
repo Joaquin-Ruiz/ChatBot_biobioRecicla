@@ -252,12 +252,12 @@
   },
   "responses": {
     "start": {
-      "type": "BotOpenQuestion",
+      "type": "Question",
       "text": "Cuál es su nombre?",
-      "saveAnswerKey": "name",
+      "saveKey": "name",
       "nextResponse": {
         "type": "BotReply",
-        "text": "Mucho gusto $name",
+        "text": "Mucho gusto {name}",
         "nextResponse": "businessQuestion"
       }
     },
@@ -273,7 +273,7 @@
           "text": "Empresa",
           "nextResponse": {
             "type": "BotResponse",
-            "text": "$name, esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?",
+            "text": "{name}, esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?",
             "buttons": [
               {
                 "text": "Si, me parece bien",
@@ -304,19 +304,19 @@
       ]
     },
     "phoneQuestion":{
-      "type": "BotOpenQuestion",
+      "type": "Question",
       "text": "Cuál es su número de teléfono?",
       "nextResponse": "emailQuestion",
       "validationRegex": "phone",
-      "saveAnswerKey": "phone",
+      "saveKey": "phone",
       "errorMessage": "El número debe estar en el formato de \"+56912345678\", intente de nuevo por favor"
     },
     "emailQuestion":{
-      "type": "BotOpenQuestion",
+      "type": "Question",
       "text": "Por último necesitamos su email",
       "nextResponse": "preguntasEmpresa",
       "validationRegex": "email",
-      "saveAnswerKey": "email",
+      "saveKey": "email",
       "trySaveContactData": true,
       "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor"
     },
@@ -375,7 +375,6 @@
         {
           "text":"Aceite",
           "nextResponse":{
-            "type": "BotResponse",
             "text": "Puntos limpios de la comuna de Concepción",
             "attachment":{
               "type": "Image",
@@ -386,7 +385,6 @@
         {
           "text":"Escombros",
           "nextResponse":{
-            "type": "BotResponse",
             "text": "Puntos limpios de la comuna de Talcahuano",
             "attachment":{
               "type": "Image",

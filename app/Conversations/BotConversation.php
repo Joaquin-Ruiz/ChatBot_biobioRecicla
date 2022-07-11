@@ -32,8 +32,6 @@ class BotConversation extends BaseFlowConversation
      */
     public function init()
     {      
-        $this->start_flow_from_json('storetest');
-        return;
         $this->start_flow_from_json('officialchatflow');
         return;
         // $this->codeVersion();
@@ -77,9 +75,6 @@ class BotConversation extends BaseFlowConversation
             new PuntoLimpio('punto22', 'Av. 8 Oriente', '720', '-36,906445', '-73,031436', ['Cartones', 'Papeles', 'Plasticos'], 'Municipalidad Chiguayante', 'Chiguayante'),
             new PuntoLimpio('punto23', 'Av.Gnrl Prats', '80', '-37,023102', '-73,153526', ['Cartones', 'Papeles', 'Plasticos'], 'Municipalidad Coronel', 'Coronel'),
         ];
-
-
-
 
 
         // Lista con preguntas persona natural

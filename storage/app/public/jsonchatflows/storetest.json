@@ -3,7 +3,7 @@
   "variables": {
     "testVariable": "OnlyATestVariable",
     "colors": [
-      "Rojo", "Azul", "Verde", "Morado"
+      "Rojo", "Azul", "Verde", "Morado", "Negro"
     ]
   },
   "responses": {
@@ -23,26 +23,20 @@
       "displayButtons": false,
       "buttons": [
         {
-          "text": "Busco zapatos",
-          "nextResponse": "zapatos",
+          "text": "Necesito la lista de compras",
+          "nextResponse": "Aqui está la lista de compras",
           "keywords": [
-            "Busco algún zapato",
-            "Busca de algunos zapatos",
-            "Estoy en busca zapatillas",
-            "Ando en busca de zapatillas"
+            "Quiero una lista de compras",
+            "Busco encontrar una lista de compras"
           ]
         },
         {
-          "text": "Busco camisas",
-          "nextResponse": "Si, aqui hay camisas",
-          "keywords": [
-            "Busco alguna camisa",
-            "Busca de algunas camisas"
-          ]
+          "text": "Quiero una lista",
+          "nextResponse": "Aqui hay una lista normal"
         },
         {
-          "text": "Busco pantalones",
-          "nextResponse": "pantalones"
+          "text": "Quiero un auto",
+          "nextResponse": "Aqui hay un porsche"
         }
       ]
     },

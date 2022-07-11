@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use DonatelloZa\RakePlus\RakePlus;
 
 use App\Classes\NlpScore;
+use Opis\Closure\SerializableClosure;
 
 class ConversationFlow{
 
@@ -221,19 +222,24 @@ class ConversationFlow{
             }
             else {
                 // Get selected Typed button
-                $rake = RakePlus::create($answer->getText(), 'es_AR');
-                $phrase_scores = $rake->get();
+                $wordsCount = count(explode(' ', $answer->getText()));
 
                 $mainS1 = mb_strtolower(ConversationFlow::remove_accents($answer->getText()));  
                 $mainS1 = preg_replace('/[^A-Za-z0-9 ]/', '', $mainS1);
-
+                
+                $phrase_scores = array();
+                if($wordsCount > 1){
+                    $rake = RakePlus::create($mainS1, 'es_AR');
+                    $phrase_scores = $rake->get();
+                    array_push($phrase_scores, $mainS1);
+                } else array_push($phrase_scores, $answer->getText());    
                        
                 foreach($botResponse->buttons as $value){                        
                     $s2 = mb_strtolower(ConversationFlow::remove_accents($value->text));
                     $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
 
                     if($mainS1 == $s2) {
-                        $foundButtons[1] = $value;
+                        $foundButtons[(string)1] = $value;
                         continue;
                     }
 
@@ -244,9 +250,8 @@ class ConversationFlow{
                         Storage::disk('public')->put('testdebug.txt', $s1.' / '.$s2);
 
                         $mainNlpScore = NlpScore::getNlpScore($s1, $s2);
-                        $keywordsCount = count($value->additionalKeywords);
 
-                        $requiredScore = new NlpScore(0.22, 0.5, 0.5);
+                        $requiredScore = new NlpScore(0.22, 0.4, 0.5);
                         $lowProbabilityScore = new NlpScore(0.12, 0.2, 0.3);
 
                         $botResponse->additionalParams[$value->text] = clone $mainNlpScore;
@@ -256,7 +261,7 @@ class ConversationFlow{
                             && $mainNlpScore->valueB >= $requiredScore->valueB
                             && $mainNlpScore->valueC >= $requiredScore->valueC
                         )){
-                            $foundButtons[$mainNlpScore->size()] = $value;
+                            $foundButtons[(string)$mainNlpScore->size()] = $value;
                         } else if(
                             $mainNlpScore->valueA >= $lowProbabilityScore->valueA
                             && $mainNlpScore->valueB >= $lowProbabilityScore->valueB
@@ -276,7 +281,7 @@ class ConversationFlow{
                                 && $keywordNlpScore->valueB >= $requiredScore->valueB
                                 && $keywordNlpScore->valueC >= $requiredScore->valueC
                             )){
-                                $foundButtons[$keywordNlpScore->size()] = $value;
+                                $foundButtons[(string)$keywordNlpScore->size()] = $value;
                             } else if(
                                 $keywordNlpScore->valueA >= $lowProbabilityScore->valueA
                                 && $keywordNlpScore->valueB >= $lowProbabilityScore->valueB
@@ -304,41 +309,17 @@ class ConversationFlow{
                         ksort(ConversationFlow::$lowProbability);
 
                         //$firstElem = end(ConversationFlow::$lowProbability);
-                        array_push(ConversationFlow::$lowProbability,
-                            new ChatButton('No, preguntar nuevamente', fn() => clone $botResponse)
+                        $indecisionResponse = $thisContext->get_indecision_response(
+                            $this,
+                            ConversationFlow::$lowProbability,
+                            clone $botResponse,
+                            $rootContextToUse,
+                            $answer,
+                            $thisContext,
+                            $rootResponseToUse
                         );
 
-                        $probabilityQuestion = new BotResponse(
-                            '¿Quisiste decir alguna de estas opciones?',
-                            array_map(
-                                fn(ChatButton $buttonValue) => new ChatButton(
-                                    $buttonValue->text, 
-                                    fn() => $buttonValue->createBotResponse != null? $buttonValue->createBotResponse->call($rootContextToUse, $rootContextToUse) : $buttonValue->botResponse,
-                                    [],
-                                    function()use($answer, $buttonValue){
-                                        // Add this option to knowledge base
-                                        if($buttonValue->text == 'No, preguntar nuevamente') return;
-
-                                        $diskName = 'chatknowledge';
-                                        $fileName = 'newknowledge.csv';
-
-                                        $existsKnowledgeContent = Storage::disk($diskName)->exists($fileName);
-                                        if(!$existsKnowledgeContent){
-                                            Storage::disk($diskName)->append($fileName, 'Person Answer,Expected');
-                                        }
-
-                                        $knowledgeContent = Storage::disk($diskName)->append(
-                                            $fileName, 
-                                            $answer->getText().','.$buttonValue->text
-                                        );
-
-                                        
-                                    }
-                                ), 
-                            ConversationFlow::$lowProbability)
-                        );
-
-                        return $thisContext->create_question($this, $probabilityQuestion, $rootResponseToUse);
+                        return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
                     }
 
                     $this->say("'".$answer->getText()."' no lo entiendo. Intente nuevamente.", $botResponse->additionalParams);
@@ -352,12 +333,58 @@ class ConversationFlow{
             }
 
             $foundButton = null;
+            ksort($foundButtons, SORT_ASC);
+
+            $foundButtons = array_reduce(array_keys($foundButtons), function($prev, $keyItem) use($foundButtons) {
+                $prePrev = array_filter(
+                    $prev, 
+                    fn($prevItem, $prevItemKey) => $prevItem->text != $foundButtons[$keyItem]->text,
+                    ARRAY_FILTER_USE_BOTH
+                );
+                $prePrev[$keyItem] = $foundButtons[$keyItem];
+                return $prePrev;    
+            }, array());
+
             // DEBUG: 
-            $this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
+            //$this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
             if(count($foundButtons) > 1){
+
+                $maxKey = max(array_keys($foundButtons));
+                $finalButtons = array();
+
+                //array_push($finalButtons, $foundButtons[$maxKey]);
+                $finalButtons[$maxKey] = $foundButtons[$maxKey];
+
+                foreach($foundButtons as $eachKey => $eachButton){
+                    if($eachKey == $maxKey) continue;
+
+                    $diff = abs($eachKey - $maxKey);
+                    $botResponse->additionalParams['diff'.$eachKey] = $diff;
+                    if($diff <= 0.25) $finalButtons[$eachKey] = $eachButton; //array_push($finalButtons, $eachButton);
+                }
+
+                //$botResponse->additionalParams['FoundButtons'] = $foundButtons;
+
+                //DEBUG: 
+                //$this->say("multiple buttons: ".count($foundButtons), $botResponse->additionalParams);
+
+                if(count($finalButtons) > 1){
+                    $indecisionResponse = $thisContext->get_indecision_response(
+                        $this,
+                        $finalButtons,
+                        clone $botResponse,
+                        $rootContextToUse,
+                        $answer,
+                        $thisContext,
+                        $rootResponseToUse
+                    );
+
+                    return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
+                }
                 
-                ksort($foundButtons);
-                $foundButton = end($foundButtons);
+                $foundButton = end($finalButtons);
+
+                //$foundButton = end($foundButtons);
             } else {
                 // Get first found button 
                 $foundButton = array_shift($foundButtons); 
@@ -380,6 +407,47 @@ class ConversationFlow{
             );
             
         }, $botResponse->additionalParams);
+    }
+
+    public function get_indecision_response($thisLocalContext ,array $buttons, BotResponse $botResponse, $rootContextToUse, $answer, $thisContext, $rootResponseToUse){
+        
+        $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse);
+        array_push($buttons, $negativeQuestion);
+        
+        return new BotResponse(
+            '¿Quisiste decir alguna de estas opciones?',
+            array_map(
+                function(ChatButton $buttonValue) use ($rootContextToUse, $answer){
+                    $closure = fn() => $buttonValue->createBotResponse->call($rootContextToUse, $rootContextToUse) ?? $buttonValue->botResponse;
+                    return new ChatButton(
+                        $buttonValue->text, 
+                        new SerializableClosure($closure),
+                        [],
+                        function()use($answer, $buttonValue){
+                            // Add this option to knowledge base
+                            if($buttonValue->text == 'No, preguntar nuevamente') return;
+
+                            $diskName = 'chatknowledge';
+                            $fileName = 'newknowledge.csv';
+
+                            $existsKnowledgeContent = Storage::disk($diskName)->exists($fileName);
+                            if(!$existsKnowledgeContent){
+                                Storage::disk($diskName)->append($fileName, 'Person Answer,Expected');
+                            }
+
+                            $knowledgeContent = Storage::disk($diskName)->append(
+                                $fileName, 
+                                $answer->getText().','.$buttonValue->text
+                            );
+
+                            
+                        }
+                    );
+            }, 
+            $buttons)
+        );
+
+        
     }
 
     public function save_conversation_log(){

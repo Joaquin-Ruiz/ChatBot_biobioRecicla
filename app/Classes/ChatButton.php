@@ -12,7 +12,6 @@ class ChatButton{
 
     /**
      * Should return a bot response
-     * @var Closure
      */
     public $createBotResponse;
 
@@ -24,7 +23,7 @@ class ChatButton{
 
     public function __construct(
         string $text, 
-        Closure $createBotResponse, 
+        $createBotResponse, 
         array $additionalKeywords = [],
         ?Closure $onPressed = null
     )
