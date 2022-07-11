@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\ChatController;
 use BotMan\BotMan\BotMan;
 
 $botman = resolve('botman');
@@ -8,6 +9,7 @@ $botman = resolve('botman');
 
 
 if($botman instanceof BotMan){
+
 
     $botman->hears([
         'Hola',

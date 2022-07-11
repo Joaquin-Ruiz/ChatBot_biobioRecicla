@@ -310,13 +310,10 @@ class ConversationFlow{
 
                         //$firstElem = end(ConversationFlow::$lowProbability);
                         $indecisionResponse = $thisContext->get_indecision_response(
-                            $this,
                             ConversationFlow::$lowProbability,
                             clone $botResponse,
                             $rootContextToUse,
-                            $answer,
-                            $thisContext,
-                            $rootResponseToUse
+                            $answer
                         );
 
                         return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
@@ -360,7 +357,7 @@ class ConversationFlow{
 
                     $diff = abs($eachKey - $maxKey);
                     $botResponse->additionalParams['diff'.$eachKey] = $diff;
-                    if($diff <= 0.25) $finalButtons[$eachKey] = $eachButton; //array_push($finalButtons, $eachButton);
+                    if($diff <= 0.24) $finalButtons[$eachKey] = $eachButton; //array_push($finalButtons, $eachButton);
                 }
 
                 //$botResponse->additionalParams['FoundButtons'] = $foundButtons;
@@ -370,13 +367,10 @@ class ConversationFlow{
 
                 if(count($finalButtons) > 1){
                     $indecisionResponse = $thisContext->get_indecision_response(
-                        $this,
                         $finalButtons,
                         clone $botResponse,
                         $rootContextToUse,
-                        $answer,
-                        $thisContext,
-                        $rootResponseToUse
+                        $answer
                     );
 
                     return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
@@ -409,7 +403,7 @@ class ConversationFlow{
         }, $botResponse->additionalParams);
     }
 
-    public function get_indecision_response($thisLocalContext ,array $buttons, BotResponse $botResponse, $rootContextToUse, $answer, $thisContext, $rootResponseToUse){
+    public function get_indecision_response(array $buttons, BotResponse $botResponse, $rootContextToUse, $answer){
         
         $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse);
         array_push($buttons, $negativeQuestion);
