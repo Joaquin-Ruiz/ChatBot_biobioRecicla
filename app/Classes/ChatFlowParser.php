@@ -255,6 +255,7 @@ class ChatFlowParser{
 
                 $value = json_decode(json_encode($jsonObject->value), true);
                 if(gettype($value) == 'string') $value = ChatFlowParser::replaceTextByVariables($context, $jsonObject->value);
+                if(gettype($value) == 'array') $value = ChatFlowParser::replaceTextByVariablesOfArray($context, $value);
 
                 $condition = $jsonObject->condition;
 
@@ -271,26 +272,48 @@ class ChatFlowParser{
 
                         if(!$strict){
                             $itemValue = mb_strtolower(ConversationFlow::remove_accents($itemValue));
-                            $valueToCheck = mb_strtolower(ConversationFlow::remove_accents($valueToCheck));
+                            if(gettype($valueToCheck) == 'string')
+                                $valueToCheck = mb_strtolower(ConversationFlow::remove_accents($valueToCheck));
+                            else if(gettype($valueToCheck) == 'array')
+                                $valueToCheck = array_map(fn($item) => mb_strtolower(ConversationFlow::remove_accents($item)), $valueToCheck);
                         }
 
-                        if($condition == 'equal') return $itemValue == $valueToCheck;
-                        if($condition == 'not equal') return $itemValue != $valueToCheck;
-                        if($condition == 'contains') return str_contains($itemValue, $valueToCheck);
-                        if($condition == 'not contains') return !str_contains($itemValue, $valueToCheck);
+                        $finalArrayToCheck = gettype($valueToCheck) == 'array'? $valueToCheck : [$valueToCheck];
+
+                        foreach($finalArrayToCheck as $eachToCheck){
+                            if($condition == 'equal') if($itemValue != $eachToCheck) return false;
+                            if($condition == 'not equal') if($itemValue == $eachToCheck) return false;
+                            if($condition == 'contains') if(!str_contains($itemValue, $eachToCheck)) return false;
+                            if($condition == 'not contains') if(str_contains($itemValue, $eachToCheck)) return false;
+                        }
+                        
                         return true;
                     });
                 }
+            } else if($functionName == 'count'){
+                $countable = $array ?? $map;
+                if(!is_countable($countable)) $saveResultVariable = '0';
+                else $saveResultVariable = count($array ?? $map);
+            } else if($functionName == 'clear'){
+                $variable = $jsonObject->variable;
+                if(gettype($variable) == 'string'){
+                    $variable = [$variable];
+                }
+                foreach($variable as $eachVariable){
+                    ChatFlowParser::saveVariable($context, $eachVariable, null);
+                }
+                
             }
 
             //Save result if needed
             if($saveResultVariable != null) ChatFlowParser::saveVariable($context, $resultVariableName, $saveResultVariable);
             
             // Return next response
-            return ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
+            if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
+                return ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
         }
 
-        return null;
+        return new EmptyResponse();
     }
 
     public static function saveVariables($context, $variablesSection){

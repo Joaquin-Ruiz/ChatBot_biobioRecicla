@@ -109,6 +109,13 @@ class ConversationFlow{
         if($context->getBot() == null) return;
         if($botResponse == null) return;
 
+        if($botResponse instanceof EmptyResponse)
+            return $this->create_question(
+                $context, 
+                $rootResponse,
+                $rootResponse
+            );
+
         // Get text to display
         $textToDisplay = gettype($botResponse->text) == 'array'? array_random($botResponse->text) : $botResponse->text;
         

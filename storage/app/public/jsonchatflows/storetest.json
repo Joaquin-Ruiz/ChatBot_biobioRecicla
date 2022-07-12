@@ -369,7 +369,7 @@
           "name": "getFromMap",
           "map": "comunaToImg",
           "find": "{comuna}",
-          "result": "finalComuna",
+          "result": "comunaImg",
           "nextResponse": {
             "type": "Function",
             "name": "where",
@@ -380,13 +380,34 @@
             "result": "resultPuntosLimpios",
             "strict": false,
             "nextResponse": {
-              "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}",
-              "attachment": {
-                "type": "Image",
-                "url": "{finalComuna}"
-              },
-              "additionalParameters": {
-                "puntosLimpios": "{resultPuntosLimpios}"
+              "type": "Function",
+              "name": "where",
+              "array": "resultPuntosLimpios",
+              "key": "comuna",
+              "value": "{comuna}",
+              "condition": "contains",
+              "result": "lastresultPuntosLimpios",
+              "strict": false,
+              "nextResponse": {
+                "type": "Function",
+                "name": "count",
+                "array": "lastresultPuntosLimpios",
+                "result": "countResult",
+                "nextResponse": {
+                  "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                  "attachment": {
+                    "type": "Image",
+                    "url": "{comunaImg}"
+                  },
+                  "additionalParameters": {
+                    "puntosLimpios": "{lastresultPuntosLimpios}"
+                  },
+                  "nextResponse": {
+                    "type": "Function",
+                    "name": "clear",
+                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios"]
+                  }
+                }
               }
             }
           }
