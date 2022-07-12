@@ -49,6 +49,7 @@ class ChatFlowParser{
         // Detect type
         if(!isset($jsonObject->type)) $type = 'BotResponse';
         else $type = $jsonObject->type;
+        $type = strtolower($type);
 
         // Next response
         $nextResponse = null;
@@ -78,13 +79,15 @@ class ChatFlowParser{
 
         // Get Json Object Text
         $responseText = '';
-        if(gettype($jsonObject->text) == 'array'){
-            $responseText = array();
-            foreach($jsonObject->text as $itemText){
-                array_push($responseText, ChatFlowParser::replaceTextByVariables($context, $itemText));
-            }
-            
-        } else $responseText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
+        if(isset($jsonObject->text)){
+            if(gettype($jsonObject->text) == 'array'){
+                $responseText = array();
+                foreach($jsonObject->text as $itemText){
+                    array_push($responseText, ChatFlowParser::replaceTextByVariables($context, $itemText));
+                }
+                
+            } else $responseText = ChatFlowParser::replaceTextByVariables($context, $jsonObject->text);
+        }
         
 
         // Bot typing effect
@@ -94,8 +97,12 @@ class ChatFlowParser{
         // Additional parameters
         $additionalParameters = [];
         if(isset($jsonObject->additionalParameters)){
-            $additionalParameters = json_decode(json_encode($jsonObject->additionalParameters), true);
-            $additionalParameters = ChatFlowParser::replaceTextByVariablesOfArray($context, $additionalParameters);
+            if(gettype($jsonObject->additionalParameters) == 'string'){
+                $additionalParameters = ChatFlowParser::getVariable($context, $jsonObject->additionalParameters);
+            } else {
+                $additionalParameters = json_decode(json_encode($jsonObject->additionalParameters), true);
+                $additionalParameters = ChatFlowParser::replaceTextByVariablesOfArray($context, $additionalParameters);
+            }
         }
 
         // Auto root
@@ -122,7 +129,7 @@ class ChatFlowParser{
         }
 
         // Return response according to type
-        if($type == 'BotReply'){
+        if($type == 'botreply'){
             return new BotReply(
                 $responseText,
                 $nextResponse,
@@ -131,7 +138,7 @@ class ChatFlowParser{
                 $saveLog,
                 $botTypingSeconds
             );
-        } else if($type == 'BotResponse'){
+        } else if($type == 'botresponse'){
             $buttons = null;
             if(isset($jsonObject->buttons)){
                 $saveKey = isset($jsonObject->saveKey)? $jsonObject->saveKey : null;
@@ -151,7 +158,7 @@ class ChatFlowParser{
                 $botTypingSeconds,
                 $jsonObject->displayButtons ?? true
             );
-        } else if($type == 'Question'){
+        } else if($type == 'question'){
             $validationRegex = null;
             $validationFunction = null;
             if(isset($jsonObject->validationRegex)) {
@@ -203,6 +210,84 @@ class ChatFlowParser{
                 $jsonObject->processAnswer ?? false,
                 $learningArray
             );
+        } else if($type == 'function'){
+            $functionName = $jsonObject->name;
+            $functionName = strtolower($functionName);
+
+            // Required map
+            $map = null;
+            if(isset($jsonObject->map)){
+                $map = $jsonObject->map;
+                $map = json_decode(json_encode($map), true);
+                if(gettype($map) == 'string'){
+                    $map = ChatFlowParser::getVariable($context, ChatFlowParser::replaceTextByVariables($context, $map));
+                }
+                
+            }
+            // Required array
+            $array = null;
+            if(isset($jsonObject->array)){
+                $array = $jsonObject->array;
+                $array = json_decode(json_encode($array), true);
+                if(gettype($array) == 'string'){
+                    $array = ChatFlowParser::getVariable($context, ChatFlowParser::replaceTextByVariables($context, $array));
+                }
+                
+            }
+
+            // Result variable
+            $resultVariableName = isset($jsonObject->result)? $jsonObject->result : null;
+
+            // Save Result
+            $saveResultVariable = null;
+
+            if($functionName == 'getfrommap'){
+                // Required map
+                // Required find
+                $find = ChatFlowParser::replaceTextByVariables($context, $jsonObject->find);
+
+                // Save result
+                if(gettype($map) == 'array') $saveResultVariable = $map[$find];
+                
+            } else if($functionName == 'where'){
+                
+                $key = ChatFlowParser::replaceTextByVariables($context, $jsonObject->key);
+
+                $value = json_decode(json_encode($jsonObject->value), true);
+                if(gettype($value) == 'string') $value = ChatFlowParser::replaceTextByVariables($context, $jsonObject->value);
+
+                $condition = $jsonObject->condition;
+
+                $strict = true;
+                if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
+                
+                if(gettype($array) == 'array') {
+                    $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict) {
+                        $item = json_decode(json_encode($item), true);
+                        $itemValue = $item[$key];
+                        $valueToCheck = $value;
+
+                        // TODO: CURRENT ONLY WORKS FOR STRINGS
+
+                        if(!$strict){
+                            $itemValue = mb_strtolower(ConversationFlow::remove_accents($itemValue));
+                            $valueToCheck = mb_strtolower(ConversationFlow::remove_accents($valueToCheck));
+                        }
+
+                        if($condition == 'equal') return $itemValue == $valueToCheck;
+                        if($condition == 'not equal') return $itemValue != $valueToCheck;
+                        if($condition == 'contains') return str_contains($itemValue, $valueToCheck);
+                        if($condition == 'not contains') return !str_contains($itemValue, $valueToCheck);
+                        return true;
+                    });
+                }
+            }
+
+            //Save result if needed
+            if($saveResultVariable != null) ChatFlowParser::saveVariable($context, $resultVariableName, $saveResultVariable);
+            
+            // Return next response
+            return ChatFlowParser::jsonObjectToResponse($context, $jsonObject->nextResponse, $responsesList);
         }
 
         return null;
@@ -210,7 +295,7 @@ class ChatFlowParser{
 
     public static function saveVariables($context, $variablesSection){
         foreach($variablesSection as $itemKey => $itemValue){
-            $context->savedKeys[$itemKey] = $itemValue;
+            ChatFlowParser::saveVariable($context, $itemKey, $itemValue);
         }
     }
 
@@ -225,9 +310,17 @@ class ChatFlowParser{
                 $newKey = ChatFlowParser::replaceTextByVariables($context, $itemKey);
             
             if(gettype($itemValue) == 'string')
-                $newValue = ChatFlowParser::replaceTextByVariables($context, $itemValue);
+            {
+                $variableName = ChatFlowParser::getVariableNameFromText($itemValue);
+                $variable = ChatFlowParser::getVariable($context, $variableName);
+
+                if($variable == null || gettype($variable) == 'string') $newValue = ChatFlowParser::replaceTextByVariables($context, $itemValue);
+                else $newValue = $variable;
+            }
             else if(gettype($itemValue) == 'array')
+            {
                 $newValue = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemValue);
+            }
 
             $result[$newKey] = $newValue;
         }
@@ -263,16 +356,42 @@ class ChatFlowParser{
         );
     }
 
+    protected static function getVariableNameFromText(string $text){
+        return preg_replace_callback('/\{[^}]*\}/', function($matches){
+            $word = end($matches);
+            $variableName = substr(substr($word, 1, strlen($word)), 0, strlen($word) - 2);
+            return $variableName;
+        }, $text);
+    }
+
     protected static function replaceTextByVariables(BaseFlowConversation $context, string $text){
         return preg_replace_callback('/\{[^}]*\}/', function($matches) use ($context){
             $word = end($matches);
             $variableName = substr(substr($word, 1, strlen($word)), 0, strlen($word) - 2);
-            return $context->savedKeys[$variableName] ?? '';
+            $found = $context->savedKeys[$variableName] ?? '';
+
+            return $found;
         }, $text);
     }
 
     protected static function getVariable($context, $variableName){
+        if(!array_key_exists($variableName, $context->savedKeys)) return null;
         return $context->savedKeys[$variableName];
+    }
+
+    protected static function saveVariable($context, $variableName, $variableValue){
+        $resultValue = $variableValue;
+        if(gettype($variableValue) == 'object'){
+            $variableValue = json_decode(json_encode($variableValue), true);
+        }
+
+        if(gettype($variableValue) == 'array'){
+            $resultValue = ChatFlowParser::replaceTextByVariablesOfArray($context, $variableValue);
+        } else if(gettype($variableValue) == 'string'){
+            $resultValue = ChatFlowParser::replaceTextByVariables($context, $variableValue);
+        }
+
+        $context->savedKeys[$variableName] = $resultValue;
     }
 
 }
