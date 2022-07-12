@@ -106,15 +106,16 @@ class ChatFlowParser{
         $attachment = null;
         if(isset($jsonObject->attachment)){
             $attachmentObject = $jsonObject->attachment;
+            $attachmentUrl = ChatFlowParser::replaceTextByVariables($context, $attachmentObject->url);
             
             if($attachmentObject->type == 'Image'){
-                $attachment = new Image($attachmentObject->url);
+                $attachment = new Image($attachmentUrl);
             } else if($attachmentObject->type == 'Video'){
-                $attachment = new Video($attachmentObject->url);
+                $attachment = new Video($attachmentUrl);
             } else if($attachmentObject->type == 'Audio'){
-                $attachment = new Audio($attachmentObject->url);
+                $attachment = new Audio($attachmentUrl);
             } else if($attachmentObject->type == 'File'){
-                $attachment = new File($attachmentObject->url);
+                $attachment = new File($attachmentUrl);
             } else if($attachmentObject->type == 'Location'){
                 $attachment = new Location($attachmentObject->latitude, $attachmentObject->longitude);
             }
