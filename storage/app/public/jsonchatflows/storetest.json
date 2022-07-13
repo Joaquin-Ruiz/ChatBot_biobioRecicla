@@ -281,6 +281,7 @@
         {
           "text": "Necesito la lista de compras",
           "nextResponse": "Aqui está la lista de compras",
+          "enabled": true,
           "keywords": [
             "Quiero una lista de compras",
             "Busco encontrar una lista de compras"
@@ -288,22 +289,27 @@
         },
         {
           "text": "Quiero una lista",
+          "enabled": true,
           "nextResponse": "Aqui hay una lista normal"
         },
         {
           "text": "Quiero un auto",
           "nextResponse": "Aqui hay un porsche",
-          "visible": false
+          "visible": false,
+          "enabled": true
         },
         {
           "text": "Estoy buscando puntos limpios",
+          "enabled": true,
           "nextResponse": "puntoslimpios",
           "keywords": [
-            "Estoy en busca de puntos limpios"
+            "Estoy en busca de puntos limpios",
+            "Puntos limpios"
           ]
         },
         {
           "text": "Tengo residuos para reciclar",
+          "enabled": true,
           "nextResponse": "residuos"
         }
       ]

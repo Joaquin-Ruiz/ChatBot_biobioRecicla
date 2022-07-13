@@ -21,6 +21,8 @@ class NlpScore{
         $this->valueC = $valueC;
     }
 
+    public function sum(){ return $this->valueA + $this->valueB + $this->valueC; }
+
     public static function getNlpScore($text, $query) : NlpScore {
 
         $inflector = InflectorFactory::createForLanguage(Language::SPANISH)->build();
@@ -117,7 +119,6 @@ class NlpScore{
         return max($min, min($max, $current));
     }
 
-    public static function Zero() : NlpScore{
-        return new NlpScore(0,0,0);
-    }
+    public static function Zero() : NlpScore {return new NlpScore(0,0,0); }
+    public static function Max() : NlpScore { return new NlpScore(1,1,1); }
 }

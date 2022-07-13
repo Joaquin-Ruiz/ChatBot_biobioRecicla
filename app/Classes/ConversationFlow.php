@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use DonatelloZa\RakePlus\RakePlus;
 
 use App\Classes\NlpScore;
+use Exception;
 use Opis\Closure\SerializableClosure;
 
 class ConversationFlow{
@@ -251,84 +252,23 @@ class ConversationFlow{
                 $foundButtons = array_filter($botResponse->buttons, function($value, $key)  use($answer){
                     return $value->text == $answer->getValue();
                 }, ARRAY_FILTER_USE_BOTH);
+
+                $foundButtons = array_map(fn(ChatButton $item) => new PairNlp(
+                        new NlpScore(1,1,1),
+                        $item->text, 
+                        $item->text, 
+                        $item
+                    ), 
+                    $foundButtons
+                );
             }
             else {
-                // Get selected Typed button
-                $wordsCount = count(explode(' ', $answer->getText()));
-
-                $mainS1 = mb_strtolower(ConversationFlow::remove_accents($answer->getText()));  
-                $mainS1 = preg_replace('/[^A-Za-z0-9 ]/', '', $mainS1);
-                
-                $phrase_scores = array();
-                if($wordsCount > 1){
-                    $rake = RakePlus::create($mainS1, 'es_AR');
-                    $phrase_scores = $rake->get();
-                    array_push($phrase_scores, $mainS1);
-                } else array_push($phrase_scores, $answer->getText());    
-                       
-                foreach($botResponse->buttons as $value){                        
-                    $s2 = mb_strtolower(ConversationFlow::remove_accents($value->text));
-                    $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
-
-                    if($mainS1 == $s2) {
-                        $foundButtons[(string)1] = $value;
-                        continue;
-                    }
-
-                    foreach($phrase_scores as $answerValue){  
-                        $s1 = mb_strtolower(ConversationFlow::remove_accents($answerValue));
-                        $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);   
-                        
-                        Storage::disk('public')->put('testdebug.txt', $s1.' / '.$s2);
-
-                        $mainNlpScore = NlpScore::getNlpScore($s1, $s2);
-
-                        $requiredScore = new NlpScore(0.22, 0.4, 0.5);
-                        $lowProbabilityScore = new NlpScore(0.12, 0.2, 0.3);
-
-                        $botResponse->additionalParams[$value->text] = clone $mainNlpScore;
-
-                        if(($s1 == $s2) || (
-                            $mainNlpScore->valueA >= $requiredScore->valueA 
-                            && $mainNlpScore->valueB >= $requiredScore->valueB
-                            && $mainNlpScore->valueC >= $requiredScore->valueC
-                        )){
-                            $foundButtons[(string)$mainNlpScore->size()] = $value;
-                        } else if(
-                            $mainNlpScore->valueA >= $lowProbabilityScore->valueA
-                            && $mainNlpScore->valueB >= $lowProbabilityScore->valueB
-                            && $mainNlpScore->valueC >= $lowProbabilityScore->valueC
-                        ){
-                            $botResponse->additionalParams['lowProbability'] = true;
-                            ConversationFlow::$lowProbability[$mainNlpScore->size()] = clone $value;
-                        }
-
-                        foreach($value->additionalKeywords as $keyword){
-                            
-                            $keywordNlpScore = NlpScore::getNlpScore($keyword, $answer->getText());
-                            $botResponse->additionalParams[$keyword] = clone $keywordNlpScore;
-
-                            if(($s1 == $s2) || (
-                                $keywordNlpScore->valueA >= $requiredScore->valueA 
-                                && $keywordNlpScore->valueB >= $requiredScore->valueB
-                                && $keywordNlpScore->valueC >= $requiredScore->valueC
-                            )){
-                                $foundButtons[(string)$keywordNlpScore->size()] = $value;
-                            } else if(
-                                $keywordNlpScore->valueA >= $lowProbabilityScore->valueA
-                                && $keywordNlpScore->valueB >= $lowProbabilityScore->valueB
-                                && $keywordNlpScore->valueC >= $lowProbabilityScore->valueC
-                            ){
-                                $botResponse->additionalParams['lowProbability'] = true;
-                                ConversationFlow::$lowProbability[$keywordNlpScore->size()] = clone $value;
-                            }
-                        }
-
-                        $botResponse->additionalParams["keywords"] = $value->additionalKeywords;
-                
-                    }
-
-                }         
+                $pairsValues = array_map(fn(ChatButton $item) => new PairTypedValues($item->text, $item->additionalKeywords, $item), $botResponse->buttons);
+                $foundButtons = PairNlp::get_nlp_pairs(
+                    $answer->getText(), 
+                    $pairsValues
+                );  
+                PairNlp::sort($foundButtons);
             }
 
             // Just check if selected button is found
@@ -362,9 +302,11 @@ class ConversationFlow{
             }
 
             $foundButton = null;
-            ksort($foundButtons, SORT_ASC);
 
-            $foundButtons = array_reduce(array_keys($foundButtons), function($prev, $keyItem) use($foundButtons) {
+            PairNlp::saveTest($foundButtons, 'beforeUnique');
+            $foundButtons = PairNlp::nlp_unique($foundButtons);
+            /*
+            $foundButtons = array_reduce(array_keys($foundButtons), function($prev, PairNlp $keyItem) use($foundButtons) {
                 $prePrev = array_filter(
                     $prev, 
                     fn($prevItem, $prevItemKey) => $prevItem->text != $foundButtons[$keyItem]->text,
@@ -372,34 +314,17 @@ class ConversationFlow{
                 );
                 $prePrev[$keyItem] = $foundButtons[$keyItem];
                 return $prePrev;    
-            }, array());
+            }, array());*/
 
             // DEBUG: 
             //$this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
             if(count($foundButtons) > 1){
 
-                $maxKey = max(array_keys($foundButtons));
-                $finalButtons = array();
-
-                //array_push($finalButtons, $foundButtons[$maxKey]);
-                $finalButtons[$maxKey] = $foundButtons[$maxKey];
-
-                foreach($foundButtons as $eachKey => $eachButton){
-                    if($eachKey == $maxKey) continue;
-
-                    $diff = abs($eachKey - $maxKey);
-                    $botResponse->additionalParams['diff'.$eachKey] = $diff;
-                    if($diff <= 0.24) $finalButtons[$eachKey] = $eachButton; //array_push($finalButtons, $eachButton);
-                }
-
-                //$botResponse->additionalParams['FoundButtons'] = $foundButtons;
-
-                //DEBUG: 
-                //$this->say("multiple buttons: ".count($foundButtons), $botResponse->additionalParams);
+                $finalButtons = PairNlp::filter_by_tolerance($foundButtons);
 
                 if(count($finalButtons) > 1){
                     $indecisionResponse = $thisContext->get_indecision_response(
-                        $finalButtons,
+                        array_map(fn(PairNlp $item) => $item->value, $finalButtons),
                         clone $botResponse,
                         $rootContextToUse,
                         $answer
@@ -416,19 +341,21 @@ class ConversationFlow{
                 $foundButton = array_shift($foundButtons); 
             }
 
+            if(!$foundButton instanceof PairNlp) throw new Exception('Found button is not Pair Nlp');
+
             // Add selected button to responses array
-            array_push($thisContext->responses, $foundButton->text);
+            array_push($thisContext->responses, $foundButton->value->text);
 
             // If response should be saved, so save conversation log
             if($botResponse->saveLog) $thisContext->save_conversation_log();
 
             // Execute custom on pressed from found button
-            if($foundButton->onPressed != null) $foundButton->onPressed->call($rootContextToUse, $rootContextToUse);
+            if($foundButton->value->onPressed != null) $foundButton->value->onPressed->call($rootContextToUse, $rootContextToUse);
 
             // Then go to bot response from found button
             return $thisContext->create_question(
                 $this, 
-                $foundButton->createBotResponse != null? $foundButton->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->botResponse, 
+                $foundButton->value->createBotResponse != null? $foundButton->value->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->value->botResponse, 
                 $rootResponseToUse
             );
             
@@ -437,7 +364,7 @@ class ConversationFlow{
 
     public function get_indecision_response(array $buttons, BotResponse $botResponse, $rootContextToUse, $answer){
         
-        $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse);
+        $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse, ['No']);
         array_push($buttons, $negativeQuestion);
         
         return new BotResponse(
