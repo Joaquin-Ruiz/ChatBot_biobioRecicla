@@ -394,14 +394,22 @@
                 "array": "lastresultPuntosLimpios",
                 "result": "countResult",
                 "nextResponse": {
-                  "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
-                  "attachment": {
-                    "type": "Image",
-                    "url": "{comunaImg}"
+                  "type": "Function",
+                  "name": "if",
+                  "itemA": "{countResult}",
+                  "itemB": "0",
+                  "condition": ">",
+                  "then": {
+                    "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                    "attachment": {
+                      "type": "Image",
+                      "url": "{comunaImg}"
+                    },
+                    "additionalParameters": {
+                      "puntosLimpios": "{lastresultPuntosLimpios}"
+                    }
                   },
-                  "additionalParameters": {
-                    "puntosLimpios": "{lastresultPuntosLimpios}"
-                  },
+                  "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
                   "nextResponse": {
                     "type": "Function",
                     "name": "clear",

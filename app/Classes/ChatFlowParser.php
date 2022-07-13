@@ -240,6 +240,14 @@ class ChatFlowParser{
 
             // Save Result
             $saveResultVariable = null;
+            // Condition
+            $condition = null;
+            if(isset($jsonObject->condition))
+                $condition = $jsonObject->condition;
+
+            // Strict use
+            $strict = false;
+            if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
 
             if($functionName == 'getfrommap'){
                 // Required map
@@ -256,11 +264,6 @@ class ChatFlowParser{
                 $value = json_decode(json_encode($jsonObject->value), true);
                 if(gettype($value) == 'string') $value = ChatFlowParser::replaceTextByVariables($context, $jsonObject->value);
                 if(gettype($value) == 'array') $value = ChatFlowParser::replaceTextByVariablesOfArray($context, $value);
-
-                $condition = $jsonObject->condition;
-
-                $strict = true;
-                if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
                 
                 if(gettype($array) == 'array') {
                     $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict) {
@@ -302,6 +305,64 @@ class ChatFlowParser{
                 foreach($variable as $eachVariable){
                     ChatFlowParser::saveVariable($context, $eachVariable, null);
                 }
+            } else if($functionName == 'if'){
+                $itemA = $jsonObject->itemA;
+                $itemB = $jsonObject->itemB;
+
+                if(gettype($itemA) == 'string')
+                    $itemA = ChatFlowParser::replaceTextByVariables($context, $itemA);
+                if(gettype($itemA) == 'array')
+                    $itemA = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemA);
+
+                if(gettype($itemB) == 'string')
+                    $itemB = ChatFlowParser::replaceTextByVariables($context, $itemB);
+                if(gettype($itemB) == 'array')
+                    $itemB = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemB);
+
+                $then = $jsonObject->then;
+                $thenResponse = ChatFlowParser::jsonObjectToResponse($context, $then, $responsesList);
+
+                $else = $jsonObject->else;
+                $elseResponse = ChatFlowParser::jsonObjectToResponse($context, $else, $responsesList);
+                
+                if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
+                {
+                    if($thenResponse instanceof BotResponse)
+                        $thenResponse->nextResponse = fn() => ChatFlowParser::jsonObjectToResponse(
+                            $context, 
+                            $jsonObject->nextResponse, 
+                            $responsesList
+                        );
+                    if($elseResponse instanceof BotResponse)
+                        $elseResponse->nextResponse = fn() => ChatFlowParser::jsonObjectToResponse(
+                            $context, 
+                            $jsonObject->nextResponse, 
+                            $responsesList
+                        );
+                }
+                
+                $finalCondition = true;
+                if($condition == 'equal' || $condition == '==') $finalCondition = $itemA == $itemB;
+                if($condition == 'not equal' || $condition == '!=') $finalCondition = $itemA != $itemB;
+                if($condition == 'is greater than' || $condition == '>') $finalCondition = $itemA > $itemB;
+                if($condition == 'is greater or equal than' || $condition == '>=') $finalCondition = $itemA >= $itemB;
+                if($condition == 'is less than' || $condition == '<') $finalCondition = $itemA < $itemB;
+                if($condition == 'is less or equal than than' || $condition == '<=') $finalCondition = $itemA <= $itemB;
+
+                if($condition == 'contains') {
+                    if(gettype($itemA) == 'string' && gettype($itemB) == 'string'){
+                        if(!$strict){
+                            $itemA = mb_strtolower(ConversationFlow::remove_accents($itemA));
+                            $itemB = mb_strtolower(ConversationFlow::remove_accents($itemB));
+                        }
+                        $finalCondition = str_contains($itemA, $itemB);
+                    }
+                    if(gettype($itemA) == 'array')
+                        $finalCondition = in_array($itemB, $itemA, $strict);
+                }
+
+                if($finalCondition) return $thenResponse ?? new EmptyResponse();
+                else return $elseResponse ?? new EmptyResponse();
                 
             }
 
