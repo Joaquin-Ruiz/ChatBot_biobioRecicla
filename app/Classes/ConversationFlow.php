@@ -211,12 +211,32 @@ class ConversationFlow{
             return;
         }
 
+        // Filter buttons by enabled
+        //$buttonsToDisplay = array();
+        //$botResponse->buttons = array_filter($botResponse->buttons, function(ChatButton $item) {
+            //if($item->enabled && $item->visible) array_push($buttonsToDisplay, $item);
+            //return $item->enabled;
+        //});
+
+        $buttonsToDisplay = array();
+        $buttonsEnabled = array();
+        foreach($botResponse->buttons as $buttonRef){
+            if($buttonRef->enabled) {
+                array_push($buttonsEnabled, $buttonRef);
+                if($buttonRef->visible) array_push($buttonsToDisplay, $buttonRef);
+            }
+            else continue;
+        }
+
+        $botResponse->buttons = $buttonsEnabled;
+
         // If there are buttons, so create question
         $question = Question::create($textToDisplay)
             ->fallback('Unable to ask question')
             ->callbackId('ask_'.count($this->responses)); // Maybe this callback Id should be calculated according to $responses last id added
         if($botResponse->displayButtons)
-            $question->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $botResponse->buttons ));
+            $question->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $buttonsToDisplay ));
+        
 
         // Finally ask question and wait response
         $thisContext = $this;
@@ -424,12 +444,16 @@ class ConversationFlow{
             '¿Quisiste decir alguna de estas opciones?',
             array_map(
                 function(ChatButton $buttonValue) use ($rootContextToUse, $answer){
-                    $closure = fn() => $buttonValue->createBotResponse->call($rootContextToUse, $rootContextToUse) ?? $buttonValue->botResponse;
+                    $onPressed = function() use($buttonValue, $rootContextToUse){
+                        if($buttonValue->onPressed != null) $buttonValue->onPressed->call($rootContextToUse, $rootContextToUse);
+                    };
                     return new ChatButton(
                         $buttonValue->text, 
-                        new SerializableClosure($closure),
-                        [],
-                        function()use($answer, $buttonValue){
+                        $buttonValue->createBotResponse,
+                        $buttonValue->additionalKeywords,
+                        function()use($answer, $buttonValue, $onPressed){
+                            ($onPressed)();
+
                             // Add this option to knowledge base
                             if($buttonValue->text == 'No, preguntar nuevamente') return;
 
@@ -444,9 +468,7 @@ class ConversationFlow{
                             $knowledgeContent = Storage::disk($diskName)->append(
                                 $fileName, 
                                 $answer->getText().','.$buttonValue->text
-                            );
-
-                            
+                            );                            
                         }
                     );
             }, 

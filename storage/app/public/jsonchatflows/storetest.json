@@ -5,6 +5,18 @@
     "colors": [
       "Rojo", "Azul", "Verde", "Morado", "Negro"
     ],
+    "tiposResiduos": [
+      "Metales",
+      "Cartones",
+      "Plásticos",
+      "Aceite",
+      "Escombros",
+      "Textiles",
+      "Latas",
+      "Botellas PET",
+      "Papel",
+      "Envases Tetrapak"
+    ],
     "puntosLimpios": [
       {
         "nombre":"punto1",
@@ -264,7 +276,7 @@
     "mainQuestion": {
       "text": "En qué lo puedo ayudar?",
       "autoRoot": true,
-      "displayButtons": false,
+      "saveKey": "mainQuestionResult",
       "buttons": [
         {
           "text": "Necesito la lista de compras",
@@ -280,11 +292,41 @@
         },
         {
           "text": "Quiero un auto",
-          "nextResponse": "Aqui hay un porsche"
+          "nextResponse": "Aqui hay un porsche",
+          "visible": false
         },
         {
           "text": "Estoy buscando puntos limpios",
-          "nextResponse": "puntoslimpios"
+          "nextResponse": "puntoslimpios",
+          "keywords": [
+            "Estoy en busca de puntos limpios"
+          ]
+        },
+        {
+          "text": "Tengo residuos para reciclar",
+          "nextResponse": "residuos"
+        }
+      ]
+    },
+    "residuos": {
+      "text": "Estos son los residuos que puedes reciclar {mainQuestionResult}",
+      "buttons": [
+        {
+          "text": "Metales",
+          "nextResponse": "Estos son metales"
+        },
+        {
+          "text": "Textiles",
+          "nextResponse": "Estos son textiles",
+          "enabled": {
+            "condition": "!=",
+            "itemA": "{mainQuestionResult}",
+            "itemB": "Tengo residuos para reciclar"
+          }
+        },
+        {
+          "text": "Vidrio",
+          "nextResponse": "Estos son vidrio"
         }
       ]
     },
@@ -359,11 +401,7 @@
         "type": "Question",
         "saveKey": "residuo",
         "processAnswer": true,
-        "learningArray": [
-          "Metales",
-          "Cartones",
-          "Plásticos"
-        ],
+        "learningArray": "tiposResiduos",
         "nextResponse": {
           "type": "Function",
           "name": "getFromMap",

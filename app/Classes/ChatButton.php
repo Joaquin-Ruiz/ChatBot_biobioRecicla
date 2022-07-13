@@ -8,6 +8,9 @@ class ChatButton{
     public $text;
     public $additionalKeywords;
 
+    public $visible = true;
+    public $enabled = true;
+
     public $botResponse;
 
     /**
@@ -25,12 +28,16 @@ class ChatButton{
         string $text, 
         $createBotResponse, 
         array $additionalKeywords = [],
-        ?Closure $onPressed = null
+        ?Closure $onPressed = null,
+        bool $visible = true,
+        bool $enabled = true
     )
     {
         $this->text = $text;
         $this->createBotResponse = $createBotResponse;
         $this->onPressed = $onPressed;
         $this->additionalKeywords = $additionalKeywords;
+        $this->enabled = $enabled;
+        $this->visible = $visible;
     }
 }

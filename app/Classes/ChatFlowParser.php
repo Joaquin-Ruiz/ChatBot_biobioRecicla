@@ -11,6 +11,7 @@ use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Location;
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class ChatFlowParser{
@@ -129,7 +130,10 @@ class ChatFlowParser{
         }
 
         // Return response according to type
-        if($type == 'botreply'){
+        if($type == 'empty'){
+            return new EmptyResponse();
+        }
+        else if($type == 'botreply'){
             return new BotReply(
                 $responseText,
                 $nextResponse,
@@ -179,7 +183,6 @@ class ChatFlowParser{
             $saveKeyFunction = null;
             if(isset($jsonObject->saveKey)){
                 $saveKeyFunction = function($answer) use ($context, $jsonObject) {
-                    Storage::disk('public')->put('test.txt', 'SAVED'.$jsonObject->saveKey.' - '.$answer);
                     $context->savedKeys[$jsonObject->saveKey] = $answer;
                 };
             }
@@ -306,18 +309,6 @@ class ChatFlowParser{
                     ChatFlowParser::saveVariable($context, $eachVariable, null);
                 }
             } else if($functionName == 'if'){
-                $itemA = $jsonObject->itemA;
-                $itemB = $jsonObject->itemB;
-
-                if(gettype($itemA) == 'string')
-                    $itemA = ChatFlowParser::replaceTextByVariables($context, $itemA);
-                if(gettype($itemA) == 'array')
-                    $itemA = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemA);
-
-                if(gettype($itemB) == 'string')
-                    $itemB = ChatFlowParser::replaceTextByVariables($context, $itemB);
-                if(gettype($itemB) == 'array')
-                    $itemB = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemB);
 
                 $then = $jsonObject->then;
                 $thenResponse = ChatFlowParser::jsonObjectToResponse($context, $then, $responsesList);
@@ -340,30 +331,31 @@ class ChatFlowParser{
                             $responsesList
                         );
                 }
-                
-                $finalCondition = true;
-                if($condition == 'equal' || $condition == '==') $finalCondition = $itemA == $itemB;
-                if($condition == 'not equal' || $condition == '!=') $finalCondition = $itemA != $itemB;
-                if($condition == 'is greater than' || $condition == '>') $finalCondition = $itemA > $itemB;
-                if($condition == 'is greater or equal than' || $condition == '>=') $finalCondition = $itemA >= $itemB;
-                if($condition == 'is less than' || $condition == '<') $finalCondition = $itemA < $itemB;
-                if($condition == 'is less or equal than than' || $condition == '<=') $finalCondition = $itemA <= $itemB;
 
-                if($condition == 'contains') {
-                    if(gettype($itemA) == 'string' && gettype($itemB) == 'string'){
-                        if(!$strict){
-                            $itemA = mb_strtolower(ConversationFlow::remove_accents($itemA));
-                            $itemB = mb_strtolower(ConversationFlow::remove_accents($itemB));
-                        }
-                        $finalCondition = str_contains($itemA, $itemB);
-                    }
-                    if(gettype($itemA) == 'array')
-                        $finalCondition = in_array($itemB, $itemA, $strict);
+                $result = ChatFlowParser::checkConditions(
+                    $context, 
+                    $condition, 
+                    $jsonObject->itemA,
+                    $jsonObject->itemB,
+                    $strict
+                );
+
+                if($result) return $thenResponse ?? new EmptyResponse();
+                else return $elseResponse ?? new EmptyResponse();                
+                
+            } else if($functionName == 'foreach'){
+                /*
+                $arrayToUse = $array ?? $map;
+
+                if(gettype($arrayToUse) != 'array') throw new Exception('Is not array in foreach ChatFlow');
+
+                $preItem = ChatFlowParser::getVariable($context, 'item');
+                foreach($arrayToUse as $eachItem){
+                    ChatFlowParser::saveVariable($context, 'item', $eachItem);
+
+
                 }
-
-                if($finalCondition) return $thenResponse ?? new EmptyResponse();
-                else return $elseResponse ?? new EmptyResponse();
-                
+                ChatFlowParser::saveVariable($context, 'item', $preItem);*/
             }
 
             //Save result if needed
@@ -375,6 +367,41 @@ class ChatFlowParser{
         }
 
         return new EmptyResponse();
+    }
+
+    public static function checkConditions($context, $condition, $itemA, $itemB, $strict){
+
+        if(gettype($itemA) == 'string')
+            $itemA = ChatFlowParser::replaceTextByVariables($context, $itemA);
+        if(gettype($itemA) == 'array')
+            $itemA = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemA);
+
+        if(gettype($itemB) == 'string')
+            $itemB = ChatFlowParser::replaceTextByVariables($context, $itemB);
+        if(gettype($itemB) == 'array')
+            $itemB = ChatFlowParser::replaceTextByVariablesOfArray($context, $itemB);
+        
+        $finalCondition = true;
+        if($condition == 'equal' || $condition == '==') $finalCondition = $itemA == $itemB;
+        if($condition == 'not equal' || $condition == '!=') $finalCondition = $itemA != $itemB;
+        if($condition == 'is greater than' || $condition == '>') $finalCondition = $itemA > $itemB;
+        if($condition == 'is greater or equal than' || $condition == '>=') $finalCondition = $itemA >= $itemB;
+        if($condition == 'is less than' || $condition == '<') $finalCondition = $itemA < $itemB;
+        if($condition == 'is less or equal than than' || $condition == '<=') $finalCondition = $itemA <= $itemB;
+
+        if($condition == 'contains') {
+            if(gettype($itemA) == 'string' && gettype($itemB) == 'string'){
+                if(!$strict){
+                    $itemA = mb_strtolower(ConversationFlow::remove_accents($itemA));
+                    $itemB = mb_strtolower(ConversationFlow::remove_accents($itemB));
+                }
+                $finalCondition = str_contains($itemA, $itemB);
+            }
+            if(gettype($itemA) == 'array')
+                $finalCondition = in_array($itemB, $itemA, $strict);
+        }
+
+        return $finalCondition;
     }
 
     public static function saveVariables($context, $variablesSection){
@@ -422,7 +449,11 @@ class ChatFlowParser{
 
         $saveKeyFunction = null;
         if($saveKey != null){
-            $saveKeyFunction = fn() => $context->savedKeys[$saveKey] = $buttonText;
+            $saveKeyFunction = function() use($context, $saveKey, $buttonText){
+                $context->savedKeys[$saveKey] = $buttonText;
+                Storage::disk('public')->append('test.txt', 'SAVED'.$saveKey.' - '.ChatFlowParser::getVariable($context, $saveKey));
+            };
+            
         }
 
         $keyWordsToUse = array();
@@ -432,11 +463,49 @@ class ChatFlowParser{
             }
         }
 
+        $enabled = true;
+        if(isset($jsonObject->enabled)){
+            if(gettype($jsonObject->enabled) == 'boolean'){
+                $enabled = $jsonObject->enabled;
+            } else if(gettype($jsonObject->enabled) == 'object'){
+                $enabledObject = $jsonObject->enabled;
+
+                $condition = $enabledObject->condition;
+                $itemA = $enabledObject->itemA;
+                $itemB = $enabledObject->itemB;
+
+                $strict = false;
+                if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
+
+                $enabled = ChatFlowParser::checkConditions($context, $condition, $itemA, $itemB, $strict);
+            }
+        }
+
+        $visible = true;
+        if(isset($jsonObject->visible)){
+            if(gettype($jsonObject->visible) == 'boolean'){
+                $visible = $jsonObject->visible;
+            } else if(gettype($jsonObject->visible) == 'object'){
+                $visibleObject = $jsonObject->visible;
+
+                $condition = $visibleObject->condition;
+                $itemA = $visibleObject->itemA;
+                $itemB = $visibleObject->itemB;
+
+                $strict = false;
+                if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
+
+                $visible = ChatFlowParser::checkConditions($context, $condition, $itemA, $itemB, $strict);
+            }
+        }
+
         return new ChatButton(
             $buttonText,
             $nextResponse,
             $keyWordsToUse,
-            $saveKeyFunction
+            $saveKeyFunction,
+            $visible,
+            $enabled
         );
     }
 
@@ -458,7 +527,7 @@ class ChatFlowParser{
         }, $text);
     }
 
-    protected static function getVariable($context, $variableName){
+    public static function getVariable($context, $variableName){
         if(!array_key_exists($variableName, $context->savedKeys)) return null;
         return $context->savedKeys[$variableName];
     }
