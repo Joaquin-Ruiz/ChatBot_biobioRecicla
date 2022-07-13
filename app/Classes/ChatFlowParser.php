@@ -199,6 +199,9 @@ class ChatFlowParser{
                 else $learningArray = $jsonObject->learningArray;
             }
 
+            $isMultiple = false;
+            if(isset($jsonObject->isMultiple)) $isMultiple = $jsonObject->isMultiple;
+
             return new BotOpenQuestion(
                 $responseText,
                 $nextResponse,
@@ -211,7 +214,8 @@ class ChatFlowParser{
                 $saveLog,
                 $botTypingSeconds,
                 $jsonObject->processAnswer ?? false,
-                $learningArray
+                $learningArray,
+                $isMultiple
             );
         } else if($type == 'function'){
             $functionName = $jsonObject->name;
@@ -451,7 +455,6 @@ class ChatFlowParser{
         if($saveKey != null){
             $saveKeyFunction = function() use($context, $saveKey, $buttonText){
                 $context->savedKeys[$saveKey] = $buttonText;
-                Storage::disk('public')->append('test.txt', 'SAVED'.$saveKey.' - '.ChatFlowParser::getVariable($context, $saveKey));
             };
             
         }

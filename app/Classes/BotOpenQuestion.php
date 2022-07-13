@@ -8,6 +8,7 @@ use Opis\Closure\SerializableClosure;
 use DonatelloZa\RakePlus\RakePlus;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\Inflector\Language;
+use Illuminate\Support\Facades\Storage;
 
 class BotOpenQuestion extends BotResponse{
     /// SHOULD RETURN TRUE OR FALSE IF CAN CONTINUE
@@ -15,6 +16,7 @@ class BotOpenQuestion extends BotResponse{
 
     public bool $processKeywordFromAnswer = false;
     public array $learningArrayToProcess = array();
+    public bool $isMultiple = false;
 
     /**
      * @var BotResponse
@@ -61,12 +63,20 @@ class BotOpenQuestion extends BotResponse{
                     $nlpScore->valueA >= $idealScore->valueA
                     && $nlpScore->valueB >= $idealScore->valueB
                     && $nlpScore->valueC >= $idealScore->valueC
-                ) $foundItems[$nlpScore->valueA + $nlpScore->valueB + $nlpScore->valueC] = $learnItem;
-            }
-            
+                ) {
+
+                    $foundItems[$nlpScore->size()] = $learnItem;
+                } //$foundItems[$nlpScore->valueA + $nlpScore->valueB + $nlpScore->valueC] = $learnItem;
+            } // TODO: FOUND ITEMS HAS SCALABILITY PROBLEM: KEY CAN BE EQUAL FOR TWO VALUES. UP IS ONLY TESTING, BUT IS BETTER OPTION
+            // ADD VARIABLE TO NLPSCORE. SO WILL BE AN ARRAY WITH NLPSCORES, AND INSIDE THAT WILL BE TEXT
         }
 
         ksort($foundItems);
+        Storage::disk('public')->append(
+            'test.txt', 
+            array_reduce($foundItems, fn($prev, $item) => $prev.$item.';', '').'|'.count($foundItems)
+        );
+
         return end($foundItems);
 
     }
@@ -83,7 +93,8 @@ class BotOpenQuestion extends BotResponse{
         bool $saveLog = false,
         ?float $botTypingSeconds = null,
         bool $processKeywordFromAnswer = false,
-        array $learningArrayToProcess = array()
+        array $learningArrayToProcess = array(),
+        bool $isMultiple = false
     )
     {
         parent::__construct(
@@ -106,5 +117,6 @@ class BotOpenQuestion extends BotResponse{
         $this->errorResponse = $errorResponse;
         $this->onErrorBackToRoot = $onErrorBackToRoot;
         $this->validationCallback = $validationCallback ?? fn() => true;
+        $this->isMultiple = $isMultiple;
     }
 }

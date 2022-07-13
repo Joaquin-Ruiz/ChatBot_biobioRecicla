@@ -401,6 +401,7 @@
         "type": "Question",
         "saveKey": "residuo",
         "processAnswer": true,
+        "isMultiple": true,
         "learningArray": "tiposResiduos",
         "nextResponse": {
           "type": "Function",
