@@ -8,21 +8,28 @@ use DonatelloZa\RakePlus\RakePlus;
 use Illuminate\Support\Facades\Storage;
 
 class PairNlp{
+    public const DEBUG = true;
+
     public NlpScore $nlpScore;
     public string $typed;
     public string $comparingReference;
+
+    public ?string $evaluated;
+    public ?string $compared;
     public $value;
 
     public function weight() {return $this->nlpScore->size(); }
     public function sum() { return $this->nlpScore->sum(); }
     public function final_value(){ return $this->comparingReference; }
 
-    public function __construct(NlpScore $nlpScore, string $typed, string $comparingReference, $value = null)
+    public function __construct(NlpScore $nlpScore, string $typed, string $comparingReference, $value = null, $evaluated = null, $compared = null)
     {
         $this->nlpScore = $nlpScore;
         $this->typed = $typed;
         $this->comparingReference = $comparingReference;
         $this->value = $value;
+        $this->evaluated = $evaluated;
+        $this->compared = $compared;
     }
     
     public static function sort(array &$arrayWithPairs){
@@ -68,13 +75,13 @@ class PairNlp{
     public static function saveTest(array $arrayWithPairs, string $testName = 'nlptest'){
         Storage::disk('chatknowledge')->put(
             $testName.'.csv', 
-            'typed,finalValue,weight,sum'
+            'typed,finalValue,evaluated,compared,weight,sum'
         );
 
         foreach($arrayWithPairs as $eachItem){
             Storage::disk('chatknowledge')->append(
                 $testName.'.csv', 
-                $eachItem->typed.','.$eachItem->final_value().','.$eachItem->weight().','.$eachItem->sum()
+                $eachItem->typed.','.$eachItem->final_value().','.($eachItem->compared ?? '').','.($eachItem->evaluated ?? '').','.$eachItem->weight().','.$eachItem->sum()
             );
         }
         
@@ -137,7 +144,7 @@ class PairNlp{
             $s2 = $inflector->singularize($s2);
 
             if($mainS1 == $s2) {
-                array_push($foundValues, new PairNlp(new NlpScore(1, 1, 1), $typedAnswer, $value->main, $value->value));
+                array_push($foundValues, new PairNlp(new NlpScore(1, 1, 1), $typedAnswer, $value->main, $value->value, $mainS1,$s2));
                 continue;
             }
 
@@ -153,7 +160,7 @@ class PairNlp{
                     && $mainNlpScore->valueB >= $requiredScore->valueB
                     && $mainNlpScore->valueC >= $requiredScore->valueC
                 )){
-                    array_push($foundValues, new PairNlp($mainNlpScore, $typedAnswer, $value->main, $value->value));
+                    array_push($foundValues, new PairNlp($mainNlpScore, $typedAnswer, $value->main, $value->value, $s1, $s2));
                 } else if(
                     $mainNlpScore->valueA >= $lowProbabilityScore->valueA
                     && $mainNlpScore->valueB >= $lowProbabilityScore->valueB
@@ -178,7 +185,7 @@ class PairNlp{
                         && $keywordNlpScore->valueB >= $requiredScore->valueB
                         && $keywordNlpScore->valueC >= $requiredScore->valueC
                     )){
-                        array_push($foundValues, new PairNlp($keywordNlpScore, $typedAnswer, $value->main, $value->value));
+                        array_push($foundValues, new PairNlp($keywordNlpScore, $typedAnswer, $value->main, $value->value, $s1, $keyword));
                     } else if(
                         $keywordNlpScore->valueA >= $lowProbabilityScore->valueA
                         && $keywordNlpScore->valueB >= $lowProbabilityScore->valueB
@@ -193,6 +200,7 @@ class PairNlp{
 
         }  
 
+        if(PairNlp::DEBUG) PairNlp::saveTest($foundValues, '//debug//getNlpValues'.uniqid());
         return $foundValues;
     }
 }
