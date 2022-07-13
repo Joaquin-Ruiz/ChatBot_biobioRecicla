@@ -45,12 +45,12 @@ class BotOpenQuestion extends BotResponse{
             );
         }
 
-        //Storage::disk('public')->put('testProcess.txt', array_reduce($finalKeywordsToUse, fn($prev, $item) => $prev.$item.'|', ''));
+        Storage::disk('public')->put('testProcess.txt', array_reduce($finalKeywordsToUse, fn($prev, $item) => $prev.$item.'|', ''));
         $foundItems = PairNlp::get_nlp_pairs($answerText, $finalKeywordsToUse, new NlpScore(0.15, 0.2, 0.4));
         
         PairNlp::sort($foundItems);
 
-        if($this->isMultiple) return PairNlp::get_values($foundItems);
+        if($this->isMultiple) return count($foundItems) > 0? PairNlp::get_values($foundItems) : false;
         
         $lastItem = end($foundItems);
         if($lastItem != null) return $lastItem->final_value();

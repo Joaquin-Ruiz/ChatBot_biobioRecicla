@@ -200,7 +200,7 @@ class PairNlp{
 
         }  
 
-        if(PairNlp::DEBUG) PairNlp::saveTest($foundValues, '//debug//getNlpValues'.uniqid());
+        if(PairNlp::DEBUG) PairNlp::saveTest($foundValues, '//debug//getNlpValues'.gmdate("Y-m-d\TH-i-s\Z", time()));
         return $foundValues;
     }
 }
