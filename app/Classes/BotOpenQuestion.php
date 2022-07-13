@@ -64,20 +64,20 @@ class BotOpenQuestion extends BotResponse{
                     && $nlpScore->valueB >= $idealScore->valueB
                     && $nlpScore->valueC >= $idealScore->valueC
                 ) {
+                    array_push($foundItems, new PairNlp($nlpScore, $s1, $learnItem));
+                } 
+            } 
 
-                    $foundItems[$nlpScore->size()] = $learnItem;
-                } //$foundItems[$nlpScore->valueA + $nlpScore->valueB + $nlpScore->valueC] = $learnItem;
-            } // TODO: FOUND ITEMS HAS SCALABILITY PROBLEM: KEY CAN BE EQUAL FOR TWO VALUES. UP IS ONLY TESTING, BUT IS BETTER OPTION
-            // ADD VARIABLE TO NLPSCORE. SO WILL BE AN ARRAY WITH NLPSCORES, AND INSIDE THAT WILL BE TEXT
         }
 
-        ksort($foundItems);
-        Storage::disk('public')->append(
-            'test.txt', 
-            array_reduce($foundItems, fn($prev, $item) => $prev.$item.';', '').'|'.count($foundItems)
-        );
+        PairNlp::sort($foundItems);
+        //PairNlp::saveTest($foundItems);
 
-        return end($foundItems);
+        if($this->isMultiple) return PairNlp::get_values($foundItems);
+        
+        $lastItem = end($foundItems);
+        if($lastItem != null) return $lastItem->final_value();
+        return false;
 
     }
 

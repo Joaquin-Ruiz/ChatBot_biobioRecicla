@@ -5,18 +5,18 @@
     "colors": [
       "Rojo", "Azul", "Verde", "Morado", "Negro"
     ],
-    "tiposResiduos": [
-      "Metales",
-      "Cartones",
-      "Plásticos",
-      "Aceite",
-      "Escombros",
-      "Textiles",
-      "Latas",
-      "Botellas PET",
-      "Papel",
-      "Envases Tetrapak"
-    ],
+    "tiposResiduos": {
+      "0": "Metales",
+      "1": "Cartones",
+      "2": "Plásticos",
+      "3": "Aceite",
+      "4": "Escombros",
+      "5": "Textiles",
+      "6": "Latas",
+      "8": "Botellas PET",
+      "9": "Papel",
+      "10": "Envases Tetrapak"
+    },
     "puntosLimpios": [
       {
         "nombre":"punto1",
@@ -416,6 +416,7 @@
             "key": "residuos",
             "value": "{residuo}",
             "condition": "contains",
+            "or": true,
             "result": "resultPuntosLimpios",
             "strict": false,
             "nextResponse": {
@@ -452,7 +453,7 @@
                   "nextResponse": {
                     "type": "Function",
                     "name": "clear",
-                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios"]
+                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo"]
                   }
                 }
               }

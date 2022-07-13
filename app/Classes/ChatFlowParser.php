@@ -262,18 +262,25 @@ class ChatFlowParser{
                 $find = ChatFlowParser::replaceTextByVariables($context, $jsonObject->find);
 
                 // Save result
-                if(gettype($map) == 'array') $saveResultVariable = $map[$find];
+                if(gettype($map) == 'array') $saveResultVariable = array_key_exists($find, $map)? $map[$find] : null;
                 
             } else if($functionName == 'where'){
                 
                 $key = ChatFlowParser::replaceTextByVariables($context, $jsonObject->key);
 
+                $or = false;
+                if(isset($jsonObject->or)) $or = $jsonObject->or;
+
                 $value = json_decode(json_encode($jsonObject->value), true);
-                if(gettype($value) == 'string') $value = ChatFlowParser::replaceTextByVariables($context, $jsonObject->value);
+                if(gettype($value) == 'string') {
+                    $variableFromThis = ChatFlowParser::getVariableNameFromText($jsonObject->value);
+                    if($variableFromThis == null) $value = ChatFlowParser::replaceTextByVariables($context, $jsonObject->value);
+                    else $value = ChatFlowParser::getVariable($context, $variableFromThis);
+                }
                 if(gettype($value) == 'array') $value = ChatFlowParser::replaceTextByVariablesOfArray($context, $value);
                 
                 if(gettype($array) == 'array') {
-                    $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict) {
+                    $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict, $or) {
                         $item = json_decode(json_encode($item), true);
                         $itemValue = $item[$key];
                         $valueToCheck = $value;
@@ -290,12 +297,24 @@ class ChatFlowParser{
 
                         $finalArrayToCheck = gettype($valueToCheck) == 'array'? $valueToCheck : [$valueToCheck];
 
+                        $orFinalResult = false;
+
                         foreach($finalArrayToCheck as $eachToCheck){
-                            if($condition == 'equal') if($itemValue != $eachToCheck) return false;
-                            if($condition == 'not equal') if($itemValue == $eachToCheck) return false;
-                            if($condition == 'contains') if(!str_contains($itemValue, $eachToCheck)) return false;
-                            if($condition == 'not contains') if(str_contains($itemValue, $eachToCheck)) return false;
+                            if($or){
+                                if($condition == 'equal') if($itemValue == $eachToCheck) $orFinalResult = true;
+                                if($condition == 'not equal') if($itemValue != $eachToCheck) $orFinalResult = true;
+                                if($condition == 'contains') if(str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
+                                if($condition == 'not contains') if(!str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
+                            }
+                            else {
+                                if($condition == 'equal') if($itemValue != $eachToCheck) return false;
+                                if($condition == 'not equal') if($itemValue == $eachToCheck) return false;
+                                if($condition == 'contains') if(!str_contains($itemValue, $eachToCheck)) return false;
+                                if($condition == 'not contains') if(str_contains($itemValue, $eachToCheck)) return false;
+                            }
                         }
+
+                        if($or) return $orFinalResult;
                         
                         return true;
                     });
@@ -513,11 +532,16 @@ class ChatFlowParser{
     }
 
     protected static function getVariableNameFromText(string $text){
-        return preg_replace_callback('/\{[^}]*\}/', function($matches){
+        $text = trim($text);
+
+        $result = preg_replace_callback('/\{[^}]*\}/', function($matches){
             $word = end($matches);
             $variableName = substr(substr($word, 1, strlen($word)), 0, strlen($word) - 2);
             return $variableName;
         }, $text);
+
+        if(strlen($text) - 2 == strlen($result)) return $result;
+        else return null;
     }
 
     protected static function replaceTextByVariables(BaseFlowConversation $context, string $text){
@@ -525,6 +549,11 @@ class ChatFlowParser{
             $word = end($matches);
             $variableName = substr(substr($word, 1, strlen($word)), 0, strlen($word) - 2);
             $found = $context->savedKeys[$variableName] ?? '';
+
+            if(gettype($found) == 'array') {
+                $found = array_reduce($found, fn($prev, $item) => $prev.$item.', ', '');
+                $found = substr($found, 0, strlen($found) - 2);
+            }
 
             return $found;
         }, $text);
