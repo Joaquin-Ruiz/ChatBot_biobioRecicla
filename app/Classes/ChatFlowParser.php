@@ -196,7 +196,7 @@ class ChatFlowParser{
             if(isset($jsonObject->learningArray)){
                 if(gettype($jsonObject->learningArray) == 'string') 
                     $learningArray = ChatFlowParser::getVariable($context, $jsonObject->learningArray);
-                else $learningArray = $jsonObject->learningArray;
+                else $learningArray = json_decode(json_encode($jsonObject->learningArray), true);
             }
 
             $isMultiple = false;

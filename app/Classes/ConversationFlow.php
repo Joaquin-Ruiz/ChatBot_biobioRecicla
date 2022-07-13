@@ -212,13 +212,6 @@ class ConversationFlow{
             return;
         }
 
-        // Filter buttons by enabled
-        //$buttonsToDisplay = array();
-        //$botResponse->buttons = array_filter($botResponse->buttons, function(ChatButton $item) {
-            //if($item->enabled && $item->visible) array_push($buttonsToDisplay, $item);
-            //return $item->enabled;
-        //});
-
         $buttonsToDisplay = array();
         $buttonsEnabled = array();
         foreach($botResponse->buttons as $buttonRef){
@@ -245,6 +238,7 @@ class ConversationFlow{
         return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $rootContextToUse){
             $foundButtons = array();
 
+            // TODO: use lowProbability with pairnlp
             ConversationFlow::$lowProbability = array();
 
             if ($answer->isInteractiveMessageReply()) {
@@ -305,16 +299,6 @@ class ConversationFlow{
 
             PairNlp::saveTest($foundButtons, 'beforeUnique');
             $foundButtons = PairNlp::nlp_unique($foundButtons);
-            /*
-            $foundButtons = array_reduce(array_keys($foundButtons), function($prev, PairNlp $keyItem) use($foundButtons) {
-                $prePrev = array_filter(
-                    $prev, 
-                    fn($prevItem, $prevItemKey) => $prevItem->text != $foundButtons[$keyItem]->text,
-                    ARRAY_FILTER_USE_BOTH
-                );
-                $prePrev[$keyItem] = $foundButtons[$keyItem];
-                return $prePrev;    
-            }, array());*/
 
             // DEBUG: 
             //$this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
@@ -334,8 +318,6 @@ class ConversationFlow{
                 }
                 
                 $foundButton = end($finalButtons);
-
-                //$foundButton = end($foundButtons);
             } else {
                 // Get first found button 
                 $foundButton = array_shift($foundButtons); 

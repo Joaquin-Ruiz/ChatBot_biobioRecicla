@@ -14,4 +14,9 @@ class PairTypedValues{
         $this->value = $value;
     }
 
+    public function __toString()
+    {
+        return $this->main.','.array_reduce($this->keywords, fn($prev, $item) => $prev.$item.';', '');
+    }
+
 }

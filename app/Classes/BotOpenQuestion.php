@@ -34,44 +34,21 @@ class BotOpenQuestion extends BotResponse{
     public $onValidatedAnswer = null;
 
     public function processAnswer($answerText) {
-        if(!$this->processKeywordFromAnswer) return $answerText;
-
-        $inflector = InflectorFactory::createForLanguage(Language::SPANISH)->build();
-
-        $rake = RakePlus::create($answerText, 'es_AR');
-
-        $phrase_scores = $rake->get();
-        $foundItems = array();
-
-        //return join(';', $phrase_scores);
-        foreach($phrase_scores as $itemValue){
-            foreach($this->learningArrayToProcess as $learnItem){
-                $s1 = ConversationFlow::remove_accents($itemValue);
-                $s2 = ConversationFlow::remove_accents($learnItem);
-                
-                $s1 = mb_strtolower($s1);
-                $s2 = mb_strtolower($s2);
-
-                $s1 = $inflector->singularize($s1);
-                $s2 = $inflector->singularize($s2);
-
-                //if($s1 == $s1) return $learnItem;
-
-                $nlpScore = NlpScore::getNlpScore($s1, $s2);
-                $idealScore = new NlpScore(0.15, 0.2, 0.4);
-                if(
-                    $nlpScore->valueA >= $idealScore->valueA
-                    && $nlpScore->valueB >= $idealScore->valueB
-                    && $nlpScore->valueC >= $idealScore->valueC
-                ) {
-                    array_push($foundItems, new PairNlp($nlpScore, $s1, $learnItem));
-                } 
-            } 
-
+        if(!$this->processKeywordFromAnswer) return $answerText; 
+        
+        $finalKeywordsToUse = array();
+        foreach($this->learningArrayToProcess as $eachKey => $eachItem){
+            array_push(
+                $finalKeywordsToUse, 
+                (gettype($eachKey) != 'integer'?  new PairTypedValues($eachKey, gettype($eachItem) == 'string'? explode(',', $eachItem) : $eachItem) 
+                : new PairTypedValues($eachItem, []))
+            );
         }
 
+        //Storage::disk('public')->put('testProcess.txt', array_reduce($finalKeywordsToUse, fn($prev, $item) => $prev.$item.'|', ''));
+        $foundItems = PairNlp::get_nlp_pairs($answerText, $finalKeywordsToUse, new NlpScore(0.15, 0.2, 0.4));
+        
         PairNlp::sort($foundItems);
-        //PairNlp::saveTest($foundItems);
 
         if($this->isMultiple) return PairNlp::get_values($foundItems);
         

@@ -395,13 +395,13 @@
       "type": "Question",
       "processAnswer": true,
       "saveKey": "comuna",
-      "learningArray": [
-        "Chiguayante",
-        "Concepción",
-        "Talcahuano",
-        "San Pedro",
-        "Coronel"
-      ],
+      "learningArray": {
+        "Chiguayante": "",
+        "Concepción": "conce",
+        "Talcahuano": "",
+        "San Pedro": "",
+        "Coronel": ""
+      },
       "nextResponse": {
         "text": "¿Qué tipo de residuos?",
         "type": "Question",

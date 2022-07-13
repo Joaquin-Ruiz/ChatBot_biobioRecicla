@@ -2,6 +2,8 @@
 
 namespace App\Classes;
 
+use Doctrine\Inflector\InflectorFactory;
+use Doctrine\Inflector\Language;
 use DonatelloZa\RakePlus\RakePlus;
 use Illuminate\Support\Facades\Storage;
 
@@ -112,9 +114,11 @@ class PairNlp{
         $foundValues = array();
 
         $wordsCount = count(explode(' ', $typedAnswer));
+        $inflector = InflectorFactory::createForLanguage(Language::SPANISH)->build();
 
         $mainS1 = mb_strtolower(ConversationFlow::remove_accents($typedAnswer));  
         $mainS1 = preg_replace('/[^A-Za-z0-9 ]/', '', $mainS1);
+        $mainS1 = $inflector->singularize($mainS1);
         
         $phrase_scores = array();
         if($wordsCount > 1){
@@ -130,6 +134,7 @@ class PairNlp{
             if(!$value instanceof PairTypedValues) continue;              
             $s2 = mb_strtolower(ConversationFlow::remove_accents($value->main));
             $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
+            $s2 = $inflector->singularize($s2);
 
             if($mainS1 == $s2) {
                 array_push($foundValues, new PairNlp(new NlpScore(1, 1, 1), $typedAnswer, $value->main, $value->value));
@@ -139,6 +144,7 @@ class PairNlp{
             foreach($phrase_scores as $answerValue){  
                 $s1 = mb_strtolower(ConversationFlow::remove_accents($answerValue));
                 $s1 = preg_replace('/[^A-Za-z0-9 ]/', '', $s1);   
+                $s1 = $inflector->singularize($s1);
 
                 $mainNlpScore = NlpScore::getNlpScore($s1, $s2);
 
@@ -160,10 +166,12 @@ class PairNlp{
                 foreach($value->keywords as $keyword){
                     $keyword = mb_strtolower(ConversationFlow::remove_accents($keyword));
                     $keyword = preg_replace('/[^A-Za-z0-9 ]/', '', $keyword); 
+                    $keyword = $inflector->singularize($keyword);
+                    if(strlen($keyword) <= 0) continue;
 
                     Storage::disk('public')->put('test.txt', $keyword.'/'.$s1);
                     
-                    $keywordNlpScore = NlpScore::getNlpScore($keyword, $s1);
+                    $keywordNlpScore = NlpScore::getNlpScore($s1, $keyword);
 
                     if(($keyword == $s1) || (
                         $keywordNlpScore->valueA >= $requiredScore->valueA 
