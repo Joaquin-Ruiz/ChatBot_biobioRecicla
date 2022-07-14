@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Log;
 use DonatelloZa\RakePlus\RakePlus;
 
 use App\Classes\NlpScore;
+use App\Conversations\BotConversation;
+use BotMan\BotMan\BotMan;
 use Exception;
 use Opis\Closure\SerializableClosure;
 
@@ -147,7 +149,9 @@ class ConversationFlow{
                 ->callbackId('ask_'.count($this->responses));
 
             return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
-                $processedAnswer = $botResponse->processAnswer($answer->getText());
+                if(!$this instanceof BotConversation) return;
+                
+                $processedAnswer = $botResponse->process_answer($answer->getText());
 
                 // Run validation function of BotOpenQuestions
                 if(gettype($processedAnswer) != 'boolean' && $botResponse->validationCallback->call($rootContextToUse, $processedAnswer, $rootContextToUse, $this)){
@@ -232,6 +236,7 @@ class ConversationFlow{
         $thisContext = $this;
         
         return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $rootContextToUse){
+            if(!$this instanceof BotConversation) return;
             $foundButtons = array();
 
             // TODO: use lowProbability with pairnlp

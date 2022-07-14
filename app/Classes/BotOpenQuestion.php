@@ -33,7 +33,7 @@ class BotOpenQuestion extends BotResponse{
      */
     public $onValidatedAnswer = null;
 
-    public function processAnswer($answerText) {
+    public function process_answer($answerText) {
         if(!$this->processKeywordFromAnswer) return $answerText; 
         
         $finalKeywordsToUse = array();

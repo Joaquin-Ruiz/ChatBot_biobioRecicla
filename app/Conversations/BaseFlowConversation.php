@@ -31,14 +31,14 @@ abstract class BaseFlowConversation extends Conversation
 
     protected function start_flow_from_json($jsonName){
         $contents = Storage::disk('jsonchatflows')->get($jsonName.'.json');
-        $flow = ChatFlowParser::jsonToChatFlow($this, $contents);
-        $root = ChatFlowParser::getRootFromJsonToChatFlow($this, $contents);
+        $flow = ChatFlowParser::json_to_chat_flow($this, $contents);
+        $root = ChatFlowParser::get_root_from_json_to_chat_flow($this, $contents);
         if($flow == null) return;
         $this->conversationFlow->flowFromJson = true;
         $this->start_flow($flow, $root);
     }
 
-    public function getConversationFlow() { return $this->conversationFlow; }
+    public function get_conversation_flow() { return $this->conversationFlow; }
 
     abstract protected function init();
     
