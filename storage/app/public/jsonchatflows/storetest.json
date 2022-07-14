@@ -26,7 +26,17 @@
         "longitud":"-73,074929",
         "residuos":"Plasticos, Aceite",
         "administracion":"Municipalidad Concepción",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto1",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto2",
@@ -36,7 +46,17 @@
         "longitud":"-73,074929",
         "residuos":"Escombros, Textiles, Metales",
         "administracion":"Sodimac",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto2",
+          "description": "Sodimac",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto3",
@@ -46,7 +66,17 @@
         "longitud":"-73,0476",
         "residuos":"Papel, Carton, Latas, Botellas",
         "administracion":"Municipalidad Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto3",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto4",
@@ -56,7 +86,17 @@
         "longitud":"-73,01583",
         "residuos":"Papel, Carton, Latas, Botellas PET",
         "administracion":"Municipalidad Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto4",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto5",
@@ -66,7 +106,17 @@
         "longitud":"-73,06167",
         "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
         "administracion":"Sodimac",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto5",
+          "description": "Sodimac",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto6",
@@ -76,7 +126,17 @@
         "longitud":"-73,03429",
         "residuos":"Latas, Plasticos, Papel",
         "administracion":"Universidad de Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto6",
+          "description": "Universidad de Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto7",
@@ -86,7 +146,17 @@
         "longitud":"-73,06154",
         "residuos":"Latas, Plasticos, Papel",
         "administracion":"Universidad  Santo Tomas",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto7",
+          "description": "Universidad Santo Tomás",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto8",
@@ -96,7 +166,17 @@
         "longitud":"-73,06361",
         "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
         "administracion":"Tottus",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto8",
+          "description": "Tottus",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto9",
@@ -106,7 +186,17 @@
         "longitud":"-73,04407",
         "residuos":"Papel, Cartones, Botellas, Vidrio, Aceite",
         "administracion":"Municipalidad de Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto9",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": true
+        }
       },
       {
         "nombre":"punto10",
@@ -446,20 +536,28 @@
                   "itemB": "0",
                   "condition": ">",
                   "then": {
-                    "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
-                    "attachment": {
-                      "type": "Image",
-                      "url": "{comunaImg}"
-                    },
-                    "additionalParameters": {
-                      "puntosLimpios": "{lastresultPuntosLimpios}"
+                    "type": "Function",
+                    "name": "map",
+                    "array": "lastresultPuntosLimpios",
+                    "get": "itemImg",
+                    "result": "mapItems",
+                    "nextResponse": {
+                      "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                      "attachment": {
+                        "type": "Image",
+                        "url": "{comunaImg}"
+                      },
+                      "additionalParameters": {
+                        "puntosLimpios": "{lastresultPuntosLimpios}",
+                        "imgItems": "{mapItems}"
+                      }
                     }
                   },
                   "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
                   "nextResponse": {
                     "type": "Function",
                     "name": "clear",
-                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo"]
+                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
                   }
                 }
               }

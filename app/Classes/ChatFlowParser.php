@@ -379,6 +379,16 @@ class ChatFlowParser{
 
                 }
                 ChatFlowParser::saveVariable($context, 'item', $preItem);*/
+            } else if($functionName == 'map'){
+                $get = $jsonObject->get;
+
+                $arrayToUse = $map ?? $array;
+                $arrayToUse = json_decode(json_encode($arrayToUse), true);
+
+                if($arrayToUse != null){
+                    $saveResultVariable = array_map(fn($item) => array_key_exists($get, $item)? $item[$get] : null, $arrayToUse);
+                    $saveResultVariable = array_filter($saveResultVariable);
+                }
             }
 
             //Save result if needed
