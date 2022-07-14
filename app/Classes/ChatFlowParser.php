@@ -218,188 +218,194 @@ class ChatFlowParser{
                 $isMultiple
             );
         } else if($type == 'function'){
-            $functionName = $jsonObject->name;
-            $functionName = strtolower($functionName);
-
-            // Required map
-            $map = null;
-            if(isset($jsonObject->map)){
-                $map = $jsonObject->map;
-                $map = json_decode(json_encode($map), true);
-                if(gettype($map) == 'string'){
-                    $map = ChatFlowParser::get_variable($context, ChatFlowParser::replace_text_by_variables($context, $map));
-                }
-                
-            }
-            // Required array
-            $array = null;
-            if(isset($jsonObject->array)){
-                $array = $jsonObject->array;
-                $array = json_decode(json_encode($array), true);
-                if(gettype($array) == 'string'){
-                    $array = ChatFlowParser::get_variable($context, ChatFlowParser::replace_text_by_variables($context, $array));
-                }
-                
-            }
-
-            // Result variable
-            $resultVariableName = isset($jsonObject->result)? $jsonObject->result : null;
-
-            // Save Result
-            $saveResultVariable = null;
-            // Condition
-            $condition = null;
-            if(isset($jsonObject->condition))
-                $condition = $jsonObject->condition;
-
-            // Strict use
-            $strict = false;
-            if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
-
-            if($functionName == 'getfrommap'){
-                // Required map
-                // Required find
-                $find = ChatFlowParser::replace_text_by_variables($context, $jsonObject->find);
-
-                // Save result
-                if(gettype($map) == 'array') $saveResultVariable = array_key_exists($find, $map)? $map[$find] : null;
-                
-            } else if($functionName == 'where'){
-                
-                $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
-
-                $or = false;
-                if(isset($jsonObject->or)) $or = $jsonObject->or;
-
-                $value = json_decode(json_encode($jsonObject->value), true);
-                if(gettype($value) == 'string') {
-                    $variableFromThis = ChatFlowParser::get_variable_name_from_text($jsonObject->value);
-                    if($variableFromThis == null) $value = ChatFlowParser::replace_text_by_variables($context, $jsonObject->value);
-                    else $value = ChatFlowParser::get_variable($context, $variableFromThis);
-                }
-                if(gettype($value) == 'array') $value = ChatFlowParser::replace_text_by_variables_of_array($context, $value);
-                
-                if(gettype($array) == 'array') {
-                    $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict, $or) {
-                        $item = json_decode(json_encode($item), true);
-                        $itemValue = $item[$key];
-                        $valueToCheck = $value;
-
-                        // TODO: CURRENT ONLY WORKS FOR STRINGS
-
-                        if(!$strict){
-                            $itemValue = mb_strtolower(ConversationFlow::remove_accents($itemValue));
-                            if(gettype($valueToCheck) == 'string')
-                                $valueToCheck = mb_strtolower(ConversationFlow::remove_accents($valueToCheck));
-                            else if(gettype($valueToCheck) == 'array')
-                                $valueToCheck = array_map(fn($item) => mb_strtolower(ConversationFlow::remove_accents($item)), $valueToCheck);
-                        }
-
-                        $finalArrayToCheck = gettype($valueToCheck) == 'array'? $valueToCheck : [$valueToCheck];
-
-                        $orFinalResult = false;
-
-                        foreach($finalArrayToCheck as $eachToCheck){
-                            if($or){
-                                if($condition == 'equal') if($itemValue == $eachToCheck) $orFinalResult = true;
-                                if($condition == 'not equal') if($itemValue != $eachToCheck) $orFinalResult = true;
-                                if($condition == 'contains') if(str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
-                                if($condition == 'not contains') if(!str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
-                            }
-                            else {
-                                if($condition == 'equal') if($itemValue != $eachToCheck) return false;
-                                if($condition == 'not equal') if($itemValue == $eachToCheck) return false;
-                                if($condition == 'contains') if(!str_contains($itemValue, $eachToCheck)) return false;
-                                if($condition == 'not contains') if(str_contains($itemValue, $eachToCheck)) return false;
-                            }
-                        }
-
-                        if($or) return $orFinalResult;
-                        
-                        return true;
-                    });
-                }
-            } else if($functionName == 'count'){
-                $countable = $array ?? $map;
-                if(!is_countable($countable)) $saveResultVariable = '0';
-                else $saveResultVariable = count($array ?? $map);
-            } else if($functionName == 'clear'){
-                $variable = $jsonObject->variable;
-                if(gettype($variable) == 'string'){
-                    $variable = [$variable];
-                }
-                foreach($variable as $eachVariable){
-                    ChatFlowParser::save_variable($context, $eachVariable, null);
-                }
-            } else if($functionName == 'if'){
-
-                $then = $jsonObject->then;
-                $thenResponse = ChatFlowParser::json_object_to_response($context, $then, $responsesList);
-
-                $else = $jsonObject->else;
-                $elseResponse = ChatFlowParser::json_object_to_response($context, $else, $responsesList);
-                
-                if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
-                {
-                    if($thenResponse instanceof BotResponse)
-                        $thenResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
-                            $context, 
-                            $jsonObject->nextResponse, 
-                            $responsesList
-                        );
-                    if($elseResponse instanceof BotResponse)
-                        $elseResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
-                            $context, 
-                            $jsonObject->nextResponse, 
-                            $responsesList
-                        );
-                }
-
-                $result = ChatFlowParser::check_conditions(
-                    $context, 
-                    $condition, 
-                    $jsonObject->itemA,
-                    $jsonObject->itemB,
-                    $strict
-                );
-
-                if($result) return $thenResponse ?? new EmptyResponse();
-                else return $elseResponse ?? new EmptyResponse();                
-                
-            } else if($functionName == 'foreach'){
-                /*
-                $arrayToUse = $array ?? $map;
-
-                if(gettype($arrayToUse) != 'array') throw new Exception('Is not array in foreach ChatFlow');
-
-                $preItem = ChatFlowParser::get_variable($context, 'item');
-                foreach($arrayToUse as $eachItem){
-                    ChatFlowParser::save_variable($context, 'item', $eachItem);
-
-
-                }
-                ChatFlowParser::save_variable($context, 'item', $preItem);*/
-            } else if($functionName == 'map'){
-                $get = $jsonObject->get;
-
-                $arrayToUse = $map ?? $array;
-                $arrayToUse = json_decode(json_encode($arrayToUse), true);
-
-                if($arrayToUse != null){
-                    $saveResultVariable = array_map(fn($item) => array_key_exists($get, $item)? $item[$get] : null, $arrayToUse);
-                    $saveResultVariable = array_filter($saveResultVariable);
-                }
-            }
-
-            //Save result if needed
-            if($saveResultVariable != null) ChatFlowParser::save_variable($context, $resultVariableName, $saveResultVariable);
-            
-            // Return next response
-            if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
-                return ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
+            $return = ChatFlowParser::process_functions($context, $jsonObject, $responsesList);
+            if($return != null) return $return;
         }
 
         return new EmptyResponse();
+    }
+
+    public static function process_functions($context, $jsonObject, $responsesList){
+        $functionName = $jsonObject->name;
+        $functionName = strtolower($functionName);
+
+        // Required map
+        $map = null;
+        if(isset($jsonObject->map)){
+            $map = $jsonObject->map;
+            $map = json_decode(json_encode($map), true);
+            if(gettype($map) == 'string'){
+                $map = ChatFlowParser::get_variable($context, ChatFlowParser::replace_text_by_variables($context, $map));
+            }
+            
+        }
+        // Required array
+        $array = null;
+        if(isset($jsonObject->array)){
+            $array = $jsonObject->array;
+            $array = json_decode(json_encode($array), true);
+            if(gettype($array) == 'string'){
+                $array = ChatFlowParser::get_variable($context, ChatFlowParser::replace_text_by_variables($context, $array));
+            }
+            
+        }
+
+        // Result variable
+        $resultVariableName = isset($jsonObject->result)? $jsonObject->result : null;
+
+        // Save Result
+        $saveResultVariable = null;
+        // Condition
+        $condition = null;
+        if(isset($jsonObject->condition))
+            $condition = $jsonObject->condition;
+
+        // Strict use
+        $strict = false;
+        if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
+
+        if($functionName == 'getfrommap'){
+            // Required map
+            // Required find
+            $find = ChatFlowParser::replace_text_by_variables($context, $jsonObject->find);
+
+            // Save result
+            if(gettype($map) == 'array') $saveResultVariable = array_key_exists($find, $map)? $map[$find] : null;
+            
+        } else if($functionName == 'where'){
+            
+            $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
+
+            $or = false;
+            if(isset($jsonObject->or)) $or = $jsonObject->or;
+
+            $value = json_decode(json_encode($jsonObject->value), true);
+            if(gettype($value) == 'string') {
+                $variableFromThis = ChatFlowParser::get_variable_name_from_text($jsonObject->value);
+                if($variableFromThis == null) $value = ChatFlowParser::replace_text_by_variables($context, $jsonObject->value);
+                else $value = ChatFlowParser::get_variable($context, $variableFromThis);
+            }
+            if(gettype($value) == 'array') $value = ChatFlowParser::replace_text_by_variables_of_array($context, $value);
+            
+            if(gettype($array) == 'array') {
+                $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict, $or) {
+                    $item = json_decode(json_encode($item), true);
+                    $itemValue = $item[$key];
+                    $valueToCheck = $value;
+
+                    // TODO: CURRENT ONLY WORKS FOR STRINGS
+
+                    if(!$strict){
+                        $itemValue = mb_strtolower(ConversationFlow::remove_accents($itemValue));
+                        if(gettype($valueToCheck) == 'string')
+                            $valueToCheck = mb_strtolower(ConversationFlow::remove_accents($valueToCheck));
+                        else if(gettype($valueToCheck) == 'array')
+                            $valueToCheck = array_map(fn($item) => mb_strtolower(ConversationFlow::remove_accents($item)), $valueToCheck);
+                    }
+
+                    $finalArrayToCheck = gettype($valueToCheck) == 'array'? $valueToCheck : [$valueToCheck];
+
+                    $orFinalResult = false;
+
+                    foreach($finalArrayToCheck as $eachToCheck){
+                        if($or){
+                            if($condition == 'equal') if($itemValue == $eachToCheck) $orFinalResult = true;
+                            if($condition == 'not equal') if($itemValue != $eachToCheck) $orFinalResult = true;
+                            if($condition == 'contains') if(str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
+                            if($condition == 'not contains') if(!str_contains($itemValue, $eachToCheck)) $orFinalResult = true;
+                        }
+                        else {
+                            if($condition == 'equal') if($itemValue != $eachToCheck) return false;
+                            if($condition == 'not equal') if($itemValue == $eachToCheck) return false;
+                            if($condition == 'contains') if(!str_contains($itemValue, $eachToCheck)) return false;
+                            if($condition == 'not contains') if(str_contains($itemValue, $eachToCheck)) return false;
+                        }
+                    }
+
+                    if($or) return $orFinalResult;
+                    
+                    return true;
+                });
+            }
+        } else if($functionName == 'count'){
+            $countable = $array ?? $map;
+            if(!is_countable($countable)) $saveResultVariable = '0';
+            else $saveResultVariable = count($array ?? $map);
+        } else if($functionName == 'clear'){
+            $variable = $jsonObject->variable;
+            if(gettype($variable) == 'string'){
+                $variable = [$variable];
+            }
+            foreach($variable as $eachVariable){
+                ChatFlowParser::save_variable($context, $eachVariable, null);
+            }
+        } else if($functionName == 'if'){
+
+            $then = $jsonObject->then;
+            $thenResponse = ChatFlowParser::json_object_to_response($context, $then, $responsesList);
+
+            $else = $jsonObject->else;
+            $elseResponse = ChatFlowParser::json_object_to_response($context, $else, $responsesList);
+            
+            if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
+            {
+                if($thenResponse instanceof BotResponse)
+                    $thenResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
+                        $context, 
+                        $jsonObject->nextResponse, 
+                        $responsesList
+                    );
+                if($elseResponse instanceof BotResponse)
+                    $elseResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
+                        $context, 
+                        $jsonObject->nextResponse, 
+                        $responsesList
+                    );
+            }
+
+            $result = ChatFlowParser::check_conditions(
+                $context, 
+                $condition, 
+                $jsonObject->itemA,
+                $jsonObject->itemB,
+                $strict
+            );
+
+            if($result) return $thenResponse ?? new EmptyResponse();
+            else return $elseResponse ?? new EmptyResponse();                
+            
+        } else if($functionName == 'foreach'){
+            /*
+            $arrayToUse = $array ?? $map;
+
+            if(gettype($arrayToUse) != 'array') throw new Exception('Is not array in foreach ChatFlow');
+
+            $preItem = ChatFlowParser::get_variable($context, 'item');
+            foreach($arrayToUse as $eachItem){
+                ChatFlowParser::save_variable($context, 'item', $eachItem);
+
+
+            }
+            ChatFlowParser::save_variable($context, 'item', $preItem);*/
+        } else if($functionName == 'map'){
+            $get = $jsonObject->get;
+
+            $arrayToUse = $map ?? $array;
+            $arrayToUse = json_decode(json_encode($arrayToUse), true);
+
+            if($arrayToUse != null){
+                $saveResultVariable = array_map(fn($item) => array_key_exists($get, $item)? $item[$get] : null, $arrayToUse);
+                $saveResultVariable = array_filter($saveResultVariable);
+            }
+        }
+
+        //Save result if needed
+        if($saveResultVariable != null) ChatFlowParser::save_variable($context, $resultVariableName, $saveResultVariable);
+        
+        // Return next response
+        if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
+            return ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
+        
     }
 
     public static function check_conditions($context, $condition, $itemA, $itemB, $strict){
