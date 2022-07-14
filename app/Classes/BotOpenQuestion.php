@@ -99,4 +99,9 @@ class BotOpenQuestion extends BotResponse{
         $this->validationCallback = $validationCallback ?? fn() => true;
         $this->isMultiple = $isMultiple;
     }
+
+    public static function get_parser_name() : string
+    {
+        return 'question';
+    }
 }

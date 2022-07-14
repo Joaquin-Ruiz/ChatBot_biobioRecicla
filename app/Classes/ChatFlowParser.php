@@ -146,10 +146,10 @@ class ChatFlowParser{
         }
 
         // Return response according to type
-        if($type == 'empty'){
+        if($type == EmptyResponse::get_parser_name()){
             return new EmptyResponse();
         }
-        else if($type == 'botreply'){
+        else if($type == BotReply::get_parser_name()){
             return new BotReply(
                 $responseText,
                 $nextResponse,
@@ -158,7 +158,7 @@ class ChatFlowParser{
                 $saveLog,
                 $botTypingSeconds
             );
-        } else if($type == 'botresponse'){
+        } else if($type == BotResponse::get_parser_name()){
             $buttons = null;
             if(isset($jsonObject->buttons)){
                 $saveKey = isset($jsonObject->saveKey)? $jsonObject->saveKey : null;
@@ -178,7 +178,7 @@ class ChatFlowParser{
                 $botTypingSeconds,
                 $jsonObject->displayButtons ?? true
             );
-        } else if($type == 'question'){
+        } else if($type == BotOpenQuestion::get_parser_name()){
             $validationRegex = null;
             $validationFunction = null;
             if(isset($jsonObject->validationRegex)) {

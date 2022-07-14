@@ -10,4 +10,9 @@ class EmptyResponse extends BotResponse{
     {
         parent::__construct('');
     }
+
+    public static function get_parser_name() : string
+    {
+        return 'empty';
+    }
 }

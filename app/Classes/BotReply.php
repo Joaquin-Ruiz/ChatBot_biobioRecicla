@@ -33,4 +33,9 @@ class BotReply extends BotResponse{
             $onExecute
         );
     }
+
+    public static function get_parser_name() : string
+    {
+        return 'botreply';
+    }
 }

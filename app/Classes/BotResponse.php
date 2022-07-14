@@ -6,7 +6,7 @@ use BotMan\BotMan\Messages\Attachments\Attachment;
 use Closure;
 use Opis\Closure\SerializableClosure;
 
-class BotResponse{          // Can be a question
+class BotResponse implements IResponseParser{          // Can be a question
     public $text;
     public $buttons;        // nullable
     public bool $displayButtons = true;
@@ -81,6 +81,11 @@ class BotResponse{          // Can be a question
         $this->botTypingSeconds = $botTypingSeconds;
         $this->onExecute = $onExecute;
         $this->displayButtons = $displayButtons;
+    }
+
+    public static function get_parser_name() : string
+    {
+        return 'botresponse';
     }
 
 }
