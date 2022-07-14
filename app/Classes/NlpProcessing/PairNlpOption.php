@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Classes;
+namespace App\Classes\NlpProcessing;
 
-class PairTypedValues{
+class PairNlpOption{
     public string $main;
     public array $keywords;
     public $value;

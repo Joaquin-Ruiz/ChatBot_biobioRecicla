@@ -4,6 +4,9 @@ namespace App\Classes;
 
 use App\Contact;
 use App\Classes\BotResponse;
+use App\Classes\NlpProcessing\NlpScore;
+use App\Classes\NlpProcessing\PairNlp;
+use App\Classes\NlpProcessing\PairNlpOption;
 use App\Conversations\BaseFlowConversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -15,7 +18,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use DonatelloZa\RakePlus\RakePlus;
 
-use App\Classes\NlpScore;
 use App\Conversations\BotConversation;
 use BotMan\BotMan\BotMan;
 use Exception;
@@ -258,7 +260,7 @@ class ConversationFlow{
                 );
             }
             else {
-                $pairsValues = array_map(fn(ChatButton $item) => new PairTypedValues($item->text, $item->additionalKeywords, $item), $botResponse->buttons);
+                $pairsValues = array_map(fn(ChatButton $item) => new PairNlpOption($item->text, $item->additionalKeywords, $item), $botResponse->buttons);
                 $foundButtons = PairNlp::get_nlp_pairs(
                     $answer->getText(), 
                     $pairsValues

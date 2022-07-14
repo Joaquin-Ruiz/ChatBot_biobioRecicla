@@ -3,6 +3,9 @@
 namespace App\Classes;
 
 use App\Classes\BotResponse;
+use App\Classes\NlpProcessing\NlpScore;
+use App\Classes\NlpProcessing\PairNlp;
+use App\Classes\NlpProcessing\PairNlpOption;
 use Closure;
 use Opis\Closure\SerializableClosure;
 use DonatelloZa\RakePlus\RakePlus;
@@ -40,8 +43,8 @@ class BotOpenQuestion extends BotResponse{
         foreach($this->learningArrayToProcess as $eachKey => $eachItem){
             array_push(
                 $finalKeywordsToUse, 
-                (gettype($eachKey) != 'integer'?  new PairTypedValues($eachKey, gettype($eachItem) == 'string'? explode(',', $eachItem) : $eachItem) 
-                : new PairTypedValues($eachItem, []))
+                (gettype($eachKey) != 'integer'?  new PairNlpOption($eachKey, gettype($eachItem) == 'string'? explode(',', $eachItem) : $eachItem) 
+                : new PairNlpOption($eachItem, []))
             );
         }
 

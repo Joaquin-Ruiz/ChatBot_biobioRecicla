@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Classes;
+namespace App\Classes\NlpProcessing;
 
+use App\Classes\ConversationFlow;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\Inflector\Language;
 use DonatelloZa\RakePlus\RakePlus;
@@ -138,7 +139,7 @@ class PairNlp{
         if($lowProbabilityScore == null) $lowProbabilityScore = new NlpScore(0.12, 0.2, 0.3);
                 
         foreach($expectedValues as $value){    
-            if(!$value instanceof PairTypedValues) continue;              
+            if(!$value instanceof PairNlpOption) continue;              
             $s2 = mb_strtolower(ConversationFlow::remove_accents($value->main));
             $s2 = preg_replace('/[^A-Za-z0-9 ]/', '', $s2);
             $s2 = $inflector->singularize($s2);

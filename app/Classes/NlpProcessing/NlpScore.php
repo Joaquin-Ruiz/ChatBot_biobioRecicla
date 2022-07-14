@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Classes;
+namespace App\Classes\NlpProcessing;
 
+use App\Classes\ConversationFlow;
 use \NlpTools\Tokenizers\WhitespaceTokenizer;
 use \NlpTools\Similarity\JaccardIndex;
 use \NlpTools\Similarity\CosineSimilarity;
