@@ -99,11 +99,7 @@ class ConversationFlow{
 
     
     public static $lowProbability;
-    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null){   
-        // TODO: Detect multiple responses from Questions with process
-        // Example: Hola, quiero de color rojo, también me gustaría verde y finalmente azul
-        // Resultado: Ok, aqui tiene rojo, verde y azul
-        
+    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null){           
         
         // Context is required
         if($context == null) return;
