@@ -23,9 +23,25 @@ class ChatFlowParser{
         return null;
     }
 
-    public static function json_to_chat_flow(BaseFlowConversation $context, string $jsonText) : ?BotResponse {
+    public static function json_to_chat_flow(
+        BaseFlowConversation $context, 
+        string $jsonText,
+        ?BotResponse &$root = null
+    ) : ?BotResponse {
         $jsonObject = json_decode($jsonText);
+
+        // Load version
+        if(isset($jsonObject->version) && gettype($jsonObject->version) == 'integer')
+            $context->set_version($jsonObject->version);
+
+        // Save variables
         ChatFlowParser::save_variables($context, $jsonObject->variables);
+
+        // Get root
+        if(isset($jsonObject->responses->root))
+            $root = ChatFlowParser::json_object_to_response($context, $jsonObject->responses->root, $jsonObject->responses);
+
+        // Start
         return ChatFlowParser::json_object_to_response($context, $jsonObject->responses->start, $jsonObject->responses);
     }
 
@@ -225,7 +241,7 @@ class ChatFlowParser{
         return new EmptyResponse();
     }
 
-    public static function process_functions($context, $jsonObject, $responsesList){
+    public static function process_functions(BaseFlowConversation $context, $jsonObject, $responsesList){
         $functionName = $jsonObject->name;
         $functionName = strtolower($functionName);
 
@@ -408,7 +424,7 @@ class ChatFlowParser{
         
     }
 
-    public static function check_conditions($context, $condition, $itemA, $itemB, $strict){
+    public static function check_conditions(BaseFlowConversation $context, $condition, $itemA, $itemB, $strict){
 
         if(gettype($itemA) == 'string')
             $itemA = ChatFlowParser::replace_text_by_variables($context, $itemA);
@@ -443,13 +459,13 @@ class ChatFlowParser{
         return $finalCondition;
     }
 
-    public static function save_variables($context, $variablesSection){
+    public static function save_variables(BaseFlowConversation $context, $variablesSection){
         foreach($variablesSection as $itemKey => $itemValue){
             ChatFlowParser::save_variable($context, $itemKey, $itemValue);
         }
     }
 
-    public static function replace_text_by_variables_of_array($context, $array){
+    public static function replace_text_by_variables_of_array(BaseFlowConversation $context, $array){
         $result = array();
 
         foreach($array as $itemKey => $itemValue){
@@ -477,7 +493,7 @@ class ChatFlowParser{
         return $result;
     }
 
-    public static function json_to_chat_button($context, $jsonObject, ?string $saveKey, $responsesList){
+    public static function json_to_chat_button(BaseFlowConversation $context, $jsonObject, ?string $saveKey, $responsesList){
         if($jsonObject == null) return null;
 
         $nextResponse = fn() => ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
@@ -575,12 +591,12 @@ class ChatFlowParser{
         }, $text);
     }
 
-    public static function get_variable($context, $variableName){
+    public static function get_variable(BaseFlowConversation $context, $variableName){
         if(!array_key_exists($variableName, $context->savedKeys)) return null;
         return $context->savedKeys[$variableName];
     }
 
-    protected static function save_variable($context, $variableName, $variableValue){
+    protected static function save_variable(BaseFlowConversation $context, $variableName, $variableValue){
         $resultValue = $variableValue;
         if(gettype($variableValue) == 'object'){
             $variableValue = json_decode(json_encode($variableValue), true);

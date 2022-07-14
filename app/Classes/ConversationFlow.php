@@ -347,7 +347,7 @@ class ConversationFlow{
         }, $botResponse->additionalParams);
     }
 
-    public function get_indecision_response(array $buttons, BotResponse $botResponse, $rootContextToUse, $answer){
+    public function get_indecision_response(array $buttons, BotResponse $botResponse, BaseFlowConversation $rootContextToUse, $answer){
         
         $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse, ['No']);
         array_push($buttons, $negativeQuestion);
@@ -363,7 +363,7 @@ class ConversationFlow{
                         $buttonValue->text, 
                         $buttonValue->createBotResponse,
                         $buttonValue->additionalKeywords,
-                        function()use($answer, $buttonValue, $onPressed){
+                        function()use($answer, $buttonValue, $onPressed,$rootContextToUse){
                             ($onPressed)();
 
                             // Add this option to knowledge base
@@ -374,12 +374,12 @@ class ConversationFlow{
 
                             $existsKnowledgeContent = Storage::disk($diskName)->exists($fileName);
                             if(!$existsKnowledgeContent){
-                                Storage::disk($diskName)->append($fileName, 'Person Answer,Expected');
+                                Storage::disk($diskName)->append($fileName, 'Person Answer,Expected,FlowName,Version');
                             }
 
                             $knowledgeContent = Storage::disk($diskName)->append(
                                 $fileName, 
-                                $answer->getText().','.$buttonValue->text
+                                $answer->getText().','.$buttonValue->text.','.($rootContextToUse->get_flow_name()??'').','.($rootContextToUse->get_version() ?? '')
                             );                            
                         }
                     );
