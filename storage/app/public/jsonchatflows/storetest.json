@@ -35,7 +35,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -55,7 +56,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -75,7 +77,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -95,7 +98,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -115,7 +119,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -135,7 +140,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -155,7 +161,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -175,7 +182,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
@@ -195,7 +203,8 @@
               "left": 100,
               "top": 50
           },
-          "sticky": true
+          "sticky": true,
+          "customClassName": "interactive-item"
         }
       },
       {
