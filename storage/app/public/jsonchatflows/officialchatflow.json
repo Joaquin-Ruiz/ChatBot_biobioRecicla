@@ -1,6 +1,18 @@
 {
   "name": "Testing ChatFlow Json",
   "variables": {
+    "tiposResiduos": {
+      "0": "Metales",
+      "1": "Cartones",
+      "2": "Plásticos",
+      "3": "Aceite",
+      "4": "Escombros",
+      "5": "Textiles",
+      "6": "Latas",
+      "8": "Botellas PET",
+      "9": "Papel",
+      "10": "Envases Tetrapak"
+    },
     "puntosLimpios":[
       {
         "nombre":"punto1",
@@ -10,7 +22,18 @@
         "longitud":"-73,074929",
         "residuos":"Plasticos, Aceite",
         "administracion":"Municipalidad Concepción",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "lat: -36,781836 , lon: -73,074929",
+          "description": "Plasticos, Aceite",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto2",
@@ -20,7 +43,18 @@
         "longitud":"-73,074929",
         "residuos":"Escombros, Textiles, Metales",
         "administracion":"Sodimac",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "lat: -36,781836 , lon: -73,074929",
+          "description": "Escombros, Textiles, Metales, administrado por sodimac",
+          "position": {
+              "left": 50,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto3",
@@ -30,7 +64,18 @@
         "longitud":"-73,0476",
         "residuos":"Papel, Carton, Latas, Botellas",
         "administracion":"Municipalidad Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Victor Lamas 567",
+          "description": "Papel, Carton, Latas, Botellas",
+          "position": {
+              "left": 100,
+              "top": 200
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto4",
@@ -40,7 +85,18 @@
         "longitud":"-73,01583",
         "residuos":"Papel, Carton, Latas, Botellas PET",
         "administracion":"Municipalidad Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Av.Collao 1202 casilla 5-C",
+          "description": "Papel, Carton, Latas, Botellas PET",
+          "position": {
+              "left": 150,
+              "top": 150
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto5",
@@ -50,7 +106,18 @@
         "longitud":"-73,06167",
         "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
         "administracion":"Sodimac",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Los Carrera 301",
+          "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
+          "position": {
+              "left": 200,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto6",
@@ -60,7 +127,18 @@
         "longitud":"-73,03429",
         "residuos":"Latas, Plasticos, Papel",
         "administracion":"Universidad de Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Victor Lamas 1290 casilla 160-C",
+          "description": "Latas, Plasticos, Papel",
+          "position": {
+              "left": 250,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto7",
@@ -70,7 +148,18 @@
         "longitud":"-73,06154",
         "residuos":"Latas, Plasticos, Papel",
         "administracion":"Universidad  Santo Tomas",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Arturo Prat 879",
+          "description": "Latas, Plasticos, Papel",
+          "position": {
+              "left": 300,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto8",
@@ -80,7 +169,18 @@
         "longitud":"-73,06361",
         "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
         "administracion":"Tottus",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Los Carrera 301",
+          "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
+          "position": {
+              "left": 250,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto9",
@@ -90,7 +190,18 @@
         "longitud":"-73,04407",
         "residuos":"Papel, Cartones, Botellas, Vidrio, Aceite",
         "administracion":"Municipalidad de Concepcion",
-        "comuna": "Concepcion"
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Costanera Andalien 336",
+          "description": "Papel, Cartones, Botellas, Vidrio, Aceite",
+          "position": {
+              "left": 250,
+              "top": 250
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto10",
@@ -100,7 +211,18 @@
         "longitud":"-73,08949",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Ejercito 330",
+          "description": "Botellas PET",
+          "position": {
+              "left": 300,
+              "top": 300
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto11",
@@ -110,7 +232,18 @@
         "longitud":"-73,09271",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Las Hortensias 4850",
+          "description": "Botellas PET",
+          "position": {
+              "left": 350,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto12",
@@ -120,7 +253,18 @@
         "longitud":"-73,14115",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Las Garzas 193",
+          "description": "Botellas PET",
+          "position": {
+              "left": 350,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto13",
@@ -130,7 +274,18 @@
         "longitud":"-73,11824",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "28 de octubre 205",
+          "description": "Botellas PET",
+          "position": {
+              "left": 350,
+              "top": 150
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto14",
@@ -140,7 +295,18 @@
         "longitud":"-73,09157",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Almte. Neff 270",
+          "description": "Botellas PET",
+          "position": {
+              "left": 350,
+              "top": 200
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto15",
@@ -150,7 +316,18 @@
         "longitud":"-73,10564",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Desiderio Garcia 979",
+          "description": "Botellas PET",
+          "position": {
+              "left": 350,
+              "top": 250
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto16",
@@ -160,7 +337,18 @@
         "longitud":"-73,09816",
         "residuos":"Botellas PET",
         "administracion":"null",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Colón 3260",
+          "description": "Botellas PET",
+          "position": {
+              "left": 400,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto17",
@@ -170,7 +358,18 @@
         "longitud":"-73,11611",
         "residuos":"Botellas PET",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "Sgto. Aldea 121",
+          "description": "Botellas PET",
+          "position": {
+              "left": 400,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto18",
@@ -180,7 +379,18 @@
         "longitud":"-73,07323",
         "residuos":"Botellas PET, Papel, Cartón, Aceite vegetal",
         "administracion":"Municipalidad Talcahuano",
-        "comuna":"Talcahuano"
+        "comuna":"Talcahuano",
+        "itemImg": {
+          "type": "text",
+          "title": "A 909",
+          "description": "Botellas PET, Papel, Cartón, Aceite vegetal",
+          "position": {
+              "left": 400,
+              "top": 150
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto19",
@@ -190,7 +400,18 @@
         "longitud":"-73,09316",
         "residuos":"Latas, Papeles, Cartones",
         "administracion":"Municipalidad San pedro de la paz",
-        "comuna":"San Pedro"
+        "comuna":"San Pedro",
+        "itemImg": {
+          "type": "text",
+          "title": "Colo colo 249",
+          "description": "Latas, Papeles, Cartones",
+          "position": {
+              "left": 400,
+              "top": 200
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto20",
@@ -200,7 +421,18 @@
         "longitud":"-73,104942",
         "residuos":"Latas, Papeles, Cartones",
         "administracion":"Municipalidad San pedro de la paz",
-        "comuna":"San Pedro"
+        "comuna":"San Pedro",
+        "itemImg": {
+          "type": "text",
+          "title": "Los fresnos 4130000",
+          "description": "Latas, Papeles, Cartones",
+          "position": {
+              "left": 400,
+              "top": 250
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto21",
@@ -210,7 +442,18 @@
         "longitud":"-73,021767",
         "residuos":"Cartones, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
-        "comuna":"Chiguayante"
+        "comuna":"Chiguayante",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. Manuel Rodriguez 1045",
+          "description": "Cartones, Papeles, Plasticos",
+          "position": {
+              "left": 400,
+              "top": 300
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto22",
@@ -220,7 +463,18 @@
         "longitud":"-73,031436",
         "residuos":"Cartones, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
-        "comuna":"Chiguayante"
+        "comuna":"Chiguayante",
+        "itemImg": {
+          "type": "text",
+          "title": "Av. 8 Oriente 720",
+          "description": "Cartones, Papeles, Plasticos",
+          "position": {
+              "left": 400,
+              "top": 350
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       },
       {
         "nombre":"punto23",
@@ -230,7 +484,18 @@
         "longitud":"-73,153526",
         "residuos":"Cartones, Papeles, Plasticos",
         "administracion":"Municipalidad Coronel",
-        "comuna":"Coronel"
+        "comuna":"Coronel",
+        "itemImg": {
+          "type": "text",
+          "title": "Av.Gnrl Prats 80",
+          "description": "Cartones, Papeles, Plasticos",
+          "position": {
+              "left": 450,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       } 
     ],
     "gestoresDeResiduos":[
@@ -253,7 +518,14 @@
     "concepcionimg": "http://127.0.0.1:8000/imgs/infografias/concepcion.png",
     "talcahuanoimg": "http://127.0.0.1:8000/imgs/infografias/talcahuano.png",
     "sanpedroimg": "http://127.0.0.1:8000/imgs/infografias/sanpedro.png",
-    "coronelimg": "http://127.0.0.1:8000/imgs/infografias/coronel.png"
+    "coronelimg": "http://127.0.0.1:8000/imgs/infografias/coronel.png",
+    "comunaToImg": {
+      "Concepción": "{concepcionimg}",
+      "Talcahuano": "{talcahuanoimg}",
+      "San Pedro": "{sanpedroimg}",
+      "Coronel": "{coronelimg}",
+      "Chiguayante": "{chiguayanteimg}"
+    }
   },
   "responses": {
     "start": {
@@ -263,19 +535,15 @@
       "nextResponse": {
         "type": "BotReply",
         "text": "Mucho gusto {name}",
-        "nextResponse": "businessQuestion",
-        "attachment":{
-          "type": "Image",
-          "url": "{coronelimg}"
-        }
+        "nextResponse": "businessQuestion"
       }
     },
     "businessQuestion": {
       "type": "BotResponse",
-      "text": "Es usted una persona natural o una empresa?",
+      "text": "Es usted una persona o representa una empresa?",
       "buttons": [
         {
-          "text": "Persona natural",
+          "text": "Persona",
           "nextResponse": "preguntasNatural"
         },
         {
@@ -291,7 +559,9 @@
                   "Ok",
                   "Ya",
                   "Está bien",
-                  "No hay problema"
+                  "No hay problema",
+                  "Si",
+                  "Afirmativo"
                 ]
               },
               {
@@ -300,14 +570,17 @@
                 "keywords": [
                   "No gracias",
                   "No",
-                  "No quiero"
+                  "No quiero",
+                  "No muchas gracias",
+                  "Negativo"
                 ]
               }
             ]
           },
           "keywords": [
             "tengo un negocio",
-            "represento a una empresa"
+            "represento a una empresa",
+            "Soy una persona"
           ]
         }
       ]
@@ -336,13 +609,26 @@
       "buttons": [
         {
           "text": "Ubicación de puntos limpios para reciclar",
-          "nextResponse": "preguntaPuntosLimpios"
+          "nextResponse": "preguntaPuntosLimpios",
+          "keywords":[
+            "Puntos",
+            "limpios"
+          ]
         }
       ]
     },
     "preguntaPuntosLimpios":{
       "type": "BotResponse",
       "text": "¿En el punto limpio de que comuna desea dejar sus residuos?",
+      "processAnswer": true,
+      "saveKey": "comuna",
+      "learningArray": {
+        "Chiguayante": "",
+        "Concepción": "conce",
+        "Talcahuano": "",
+        "San Pedro": "san piter",
+        "Coronel": ""
+      },
       "buttons":[
         {
           "text": "Concepción",
@@ -369,138 +655,124 @@
     "preguntaResiduos":{
       "type":"BotResponse",
       "text":"Qué tipo de residuo desea reciclar?",
+      "saveKey": "residuo",
+      "processAnswer": true,
+      "isMultiple": true,
       "buttons":[
         {
           "text":"Plástico",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Concepción",
-            "attachment":{
-              "type": "Image",
-              "url": "{concepcionimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Aceite",
-          "nextResponse":{
-            "text": "Puntos limpios de la comuna de Concepción",
-            "attachment":{
-              "type": "Image",
-              "url": "{concepcionimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Escombros",
-          "nextResponse":{
-            "text": "Puntos limpios de la comuna de Talcahuano",
-            "attachment":{
-              "type": "Image",
-              "url": "{talcahuanoimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Textiles",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Talcahuano",
-            "attachment":{
-              "type": "Image",
-              "url": "{talcahuanoimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Metales",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de San Pedro",
-            "attachment":{
-              "type": "Image",
-              "url": "{sanpedroimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Latas",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de San Pedro",
-            "attachment":{
-              "type": "Image",
-              "url": "{sanpedroimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Papeles",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Chiguayante",
-            "attachment":{
-              "type": "Image",
-              "url": "{chiguayanteimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Cartones",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Chiguayante",
-            "attachment":{
-              "type": "Image",
-              "url": "{chiguayanteimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Botellas PET",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Coronel",
-            "attachment":{
-              "type": "Image",
-              "url": "{coronelimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Aceite Vegetal",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Coronel",
-            "attachment":{
-              "type": "Image",
-              "url": "{coronelimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Tetrapak",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Concepción",
-            "attachment":{
-              "type": "Image",
-              "url": "{concepcionimg}"
-            }
-          }
+          "nextResponse":"findComunaResiduos"
         },
         {
           "text":"Vidrio",
-          "nextResponse":{
-            "type": "BotResponse",
-            "text": "Puntos limpios de la comuna de Concepción",
-            "attachment":{
-              "type": "Image",
-              "url": "{concepcionimg}"
+          "nextResponse":"findComunaResiduos"
+        }
+      ]
+    },
+    "findComunaResiduos": {
+      "type": "Function",
+      "name": "getFromMap",
+      "map": "comunaToImg",
+      "find": "{comuna}",
+      "result": "comunaImg",
+      "nextResponse": {
+        "type": "Function",
+        "name": "where",
+        "array": "puntosLimpios",
+        "key": "residuos",
+        "value": "{residuo}",
+        "condition": "contains",
+        "or": true,
+        "result": "resultPuntosLimpios",
+        "strict": false,
+        "nextResponse": {
+          "type": "Function",
+          "name": "where",
+          "array": "resultPuntosLimpios",
+          "key": "comuna",
+          "value": "{comuna}",
+          "condition": "contains",
+          "result": "lastresultPuntosLimpios",
+          "strict": false,
+          "nextResponse": {
+            "type": "Function",
+            "name": "count",
+            "array": "lastresultPuntosLimpios",
+            "result": "countResult",
+            "nextResponse": {
+              "type": "Function",
+              "name": "if",
+              "itemA": "{countResult}",
+              "itemB": "0",
+              "condition": ">",
+              "then": {
+                "type": "Function",
+                "name": "map",
+                "array": "lastresultPuntosLimpios",
+                "get": "itemImg",
+                "result": "mapItems",
+                "nextResponse": {
+                  "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                  "attachment": {
+                    "type": "Image",
+                    "url": "{comunaImg}"
+                  },
+                  "additionalParameters": {
+                    "puntosLimpios": "{lastresultPuntosLimpios}",
+                    "imgItems": "{mapItems}"
+                  }
+                }
+              },
+              "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+              "nextResponse": {
+                "type": "Function",
+                "name": "clear",
+                "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+              }
             }
           }
         }
-      ]
+      }
     },
     "preguntasEmpresa":{
       "type": "BotResponse",
