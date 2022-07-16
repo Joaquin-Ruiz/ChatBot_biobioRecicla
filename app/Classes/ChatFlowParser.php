@@ -164,7 +164,7 @@ class ChatFlowParser{
                 $saveKey = isset($jsonObject->saveKey)? $jsonObject->saveKey : null;
                 $buttons = array_map(fn($item) => ChatFlowParser::json_to_chat_button($context, $item, $saveKey, $responsesList), $jsonObject->buttons);
             }
-            
+            Storage::disk('public')->append('calling.txt', 'CALLED BOT RESPONSE');
             return new BotResponse(
                 $responseText,
                 $buttons,
@@ -242,6 +242,7 @@ class ChatFlowParser{
     }
 
     public static function process_functions(BaseFlowConversation $context, $jsonObject, $responsesList){
+        
         $functionName = $jsonObject->name;
         $functionName = strtolower($functionName);
 
@@ -290,11 +291,14 @@ class ChatFlowParser{
             
         } else if($functionName == 'where'){
             
+            // Get key
             $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
 
+            // Get or condition
             $or = false;
             if(isset($jsonObject->or)) $or = $jsonObject->or;
 
+            // Get expected value
             $value = json_decode(json_encode($jsonObject->value), true);
             if(gettype($value) == 'string') {
                 $variableFromThis = ChatFlowParser::get_variable_name_from_text($jsonObject->value);
@@ -304,7 +308,9 @@ class ChatFlowParser{
             if(gettype($value) == 'array') $value = ChatFlowParser::replace_text_by_variables_of_array($context, $value);
             
             if(gettype($array) == 'array') {
-                $saveResultVariable = array_where($array, function($item) use($key, $value, $condition, $strict, $or) {
+                //Storage::disk('public')->append('wherefunction.txt', '---------');
+               // Storage::disk('public')->append('wherefunction.txt', 'CountArray: '.count($array));
+                $saveResultVariable = array_filter($array, function($item, $itemKey) use($key, $value, $condition, $strict, $or) {
                     $item = json_decode(json_encode($item), true);
                     $itemValue = $item[$key];
                     $valueToCheck = $value;
@@ -341,7 +347,9 @@ class ChatFlowParser{
                     if($or) return $orFinalResult;
                     
                     return true;
-                });
+                }, ARRAY_FILTER_USE_BOTH);
+
+                //Storage::disk('public')->append('wherefunction.txt', 'CountSaveResultVariable: '.count($array));
             }
         } else if($functionName == 'count'){
             $countable = $array ?? $map;
@@ -498,7 +506,9 @@ class ChatFlowParser{
 
         $nextResponse = fn() => ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
 
-        if(($nextResponse)() == null) return null;
+        // IMPORTANT: Don't call nextResponse here. that CAN'T be null.
+        // If is null, so there is runtime error, but can't be null
+        // NextResponse can return empty response in worst cases
 
         $buttonText = ChatFlowParser::replace_text_by_variables($context, $jsonObject->text);
 
