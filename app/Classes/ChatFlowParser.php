@@ -424,7 +424,7 @@ class ChatFlowParser{
             $method = 'get';
             if(isset($jsonObject->method)) $method = strtolower($jsonObject->method);
 
-            $url = $jsonObject->url;
+            $url = ChatFlowParser::replace_text_by_variables($context, $jsonObject->url);
             $queryParams = isset($jsonObject->queryParams)? json_decode(json_encode($jsonObject->queryParams)) : null;
             if($queryParams != null) $queryParams = ChatFlowParser::replace_text_by_variables_of_array($context, $queryParams);
 
