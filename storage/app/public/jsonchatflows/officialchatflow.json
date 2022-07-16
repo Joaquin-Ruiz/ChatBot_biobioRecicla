@@ -71,7 +71,7 @@
           "description": "Papel, Carton, Latas, Botellas",
           "position": {
               "left": 100,
-              "top": 200
+              "top": 50
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -91,8 +91,8 @@
           "title": "Av.Collao 1202 casilla 5-C",
           "description": "Papel, Carton, Latas, Botellas PET",
           "position": {
-              "left": 150,
-              "top": 150
+              "left": 60,
+              "top": 60
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -112,8 +112,8 @@
           "title": "Av. Los Carrera 301",
           "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
           "position": {
-              "left": 200,
-              "top": 100
+              "left": 55,
+              "top": 60
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -133,8 +133,8 @@
           "title": "Victor Lamas 1290 casilla 160-C",
           "description": "Latas, Plasticos, Papel",
           "position": {
-              "left": 250,
-              "top": 50
+              "left": 70,
+              "top": 70
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -154,8 +154,8 @@
           "title": "Arturo Prat 879",
           "description": "Latas, Plasticos, Papel",
           "position": {
-              "left": 300,
-              "top": 50
+              "left": 90,
+              "top": 80
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -175,8 +175,8 @@
           "title": "Av. Los Carrera 301",
           "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
           "position": {
-              "left": 250,
-              "top": 100
+              "left": 80,
+              "top": 90
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -196,8 +196,8 @@
           "title": "Av. Costanera Andalien 336",
           "description": "Papel, Cartones, Botellas, Vidrio, Aceite",
           "position": {
-              "left": 250,
-              "top": 250
+              "left": 200,
+              "top": 200
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -217,8 +217,8 @@
           "title": "Av. Ejercito 330",
           "description": "Botellas PET",
           "position": {
-              "left": 300,
-              "top": 300
+              "left": 120,
+              "top": 110
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -238,7 +238,7 @@
           "title": "Las Hortensias 4850",
           "description": "Botellas PET",
           "position": {
-              "left": 350,
+              "left": 100,
               "top": 50
           },
           "sticky": false,
@@ -259,8 +259,8 @@
           "title": "Las Garzas 193",
           "description": "Botellas PET",
           "position": {
-              "left": 350,
-              "top": 100
+              "left": 50,
+              "top": 50
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -280,8 +280,8 @@
           "title": "28 de octubre 205",
           "description": "Botellas PET",
           "position": {
-              "left": 350,
-              "top": 150
+              "left": 60,
+              "top": 60
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -301,8 +301,8 @@
           "title": "Almte. Neff 270",
           "description": "Botellas PET",
           "position": {
-              "left": 350,
-              "top": 200
+              "left": 80,
+              "top": 80
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -322,8 +322,8 @@
           "title": "Desiderio Garcia 979",
           "description": "Botellas PET",
           "position": {
-              "left": 350,
-              "top": 250
+              "left": 100,
+              "top": 100
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -343,8 +343,8 @@
           "title": "Av. Colón 3260",
           "description": "Botellas PET",
           "position": {
-              "left": 400,
-              "top": 50
+              "left": 40,
+              "top": 40
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -364,8 +364,8 @@
           "title": "Sgto. Aldea 121",
           "description": "Botellas PET",
           "position": {
-              "left": 400,
-              "top": 100
+              "left": 150,
+              "top": 150
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -385,8 +385,8 @@
           "title": "A 909",
           "description": "Botellas PET, Papel, Cartón, Aceite vegetal",
           "position": {
-              "left": 400,
-              "top": 150
+              "left": 160,
+              "top": 50
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -406,8 +406,8 @@
           "title": "Colo colo 249",
           "description": "Latas, Papeles, Cartones",
           "position": {
-              "left": 400,
-              "top": 200
+              "left": 100,
+              "top": 85
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -427,8 +427,8 @@
           "title": "Los fresnos 4130000",
           "description": "Latas, Papeles, Cartones",
           "position": {
-              "left": 400,
-              "top": 250
+              "left": 65,
+              "top": 100
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -448,8 +448,8 @@
           "title": "Av. Manuel Rodriguez 1045",
           "description": "Cartones, Papeles, Plasticos",
           "position": {
-              "left": 400,
-              "top": 300
+              "left": 100,
+              "top": 75
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -469,8 +469,8 @@
           "title": "Av. 8 Oriente 720",
           "description": "Cartones, Papeles, Plasticos",
           "position": {
-              "left": 400,
-              "top": 350
+              "left": 35,
+              "top": 100
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -490,7 +490,7 @@
           "title": "Av.Gnrl Prats 80",
           "description": "Cartones, Papeles, Plasticos",
           "position": {
-              "left": 450,
+              "left": 100,
               "top": 100
           },
           "sticky": false,
