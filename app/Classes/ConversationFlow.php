@@ -103,7 +103,7 @@ class ConversationFlow{
 
     
     public static $lowProbability;
-    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null){           
+    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null, ?BotResponse $temporalRootResponse = null){           
         
         // Context is required
         if($context == null) return;
@@ -114,7 +114,8 @@ class ConversationFlow{
             return $this->create_question(
                 $context, 
                 $rootResponse,
-                $rootResponse
+                $rootResponse,
+                $temporalRootResponse
             );
 
         // Get text to display
@@ -131,8 +132,22 @@ class ConversationFlow{
         // Set root response to bot response, ONLY if bot response hasn't root response
         else if($botResponse->rootResponse == null) $botResponse->rootResponse = $rootResponse;
 
-        // Only declare root response to use
-        $rootResponseToUse = $botResponse->rootResponse;
+        // Only declare root response to use (CAN BE TEMPORAL)
+        $realRootResponse = $botResponse->rootResponse;
+        $rootResponseToUse = $realRootResponse;
+
+        $shouldCallToRootResponse = true;
+
+        if($botResponse->temporalRootResponse != null){
+            $rootResponseToUse = ($botResponse->temporalRootResponse)();
+            $botResponse->temporalRootResponse = null;
+        }
+        else if($temporalRootResponse != null && $temporalRootResponse instanceof BotResponse){
+            $rootResponseToUse = $temporalRootResponse;
+            $shouldCallToRootResponse = false;
+        }
+
+        Storage::disk('public')->append('rootTest.txt', ($temporalRootResponse != null)? 'NOT NULL' : 'NULL');
 
         // Add bot typing effect
         if($botResponse->botTypingSeconds != null) $context->getBot()->typesAndWaits($botResponse->botTypingSeconds);
@@ -150,7 +165,7 @@ class ConversationFlow{
                 ->fallback('Unable to ask question')
                 ->callbackId('ask_'.count($this->responses));
 
-            return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
+            return $context->ask($question, function(Answer $answer) use ($thisContext, $shouldCallToRootResponse, $botResponse, $rootResponseToUse, $realRootResponse, $rootContextToUse){
                 if(!$this instanceof BotConversation) return;
                 
                 $processedAnswer = $botResponse->process_answer($answer->getText());
@@ -171,13 +186,15 @@ class ConversationFlow{
                             ($botResponse->nextResponse) != null? 
                                 $botResponse->nextResponse->call($rootContextToUse, $processedAnswer, $rootContextToUse) 
                                 : $rootResponseToUse, 
-                            $rootResponseToUse
+                            $realRootResponse,
+                            $shouldCallToRootResponse? $rootResponseToUse : null
                         );
                     else if(($botResponse->nextResponse) != null)
                         return $thisContext->create_question(
                             $this, 
                             $botResponse->nextResponse->call($rootContextToUse, $processedAnswer, $rootContextToUse),
-                            $rootResponseToUse
+                            $realRootResponse,
+                            $shouldCallToRootResponse? $rootResponseToUse : null
                         );
                 }
                 
@@ -191,13 +208,15 @@ class ConversationFlow{
                     return $thisContext->create_question(
                         $this, 
                         $botResponse->errorResponse ?? $botResponse->onErrorBackToRoot? $rootResponseToUse : $botResponse, 
-                        $rootResponseToUse
+                        $realRootResponse,
+                        $shouldCallToRootResponse? $rootResponseToUse : null
                     );
                 else
                     return $thisContext->create_question(
                         $this, 
                         $botResponse->errorResponse ?? $botResponse, 
-                        $rootResponseToUse
+                        $realRootResponse,
+                        $shouldCallToRootResponse? $rootResponseToUse : null
                     );
                 
             }, $botResponse->additionalParams);
@@ -209,8 +228,17 @@ class ConversationFlow{
             $outgoingMessage = OutgoingMessage::create($textToDisplay, $botResponse->attachment);
             $context->say($outgoingMessage, $botResponse->additionalParams);
 
-            if($botResponse->nextResponse != null) return $this->create_question($context, $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), $rootResponseToUse);
-            if($rootResponseToUse != null) return $this->create_question($context, $rootResponseToUse, $rootResponseToUse);
+            if($botResponse->nextResponse != null) return $this->create_question(
+                $context, 
+                $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), 
+                $realRootResponse,
+                $shouldCallToRootResponse? $rootResponseToUse : null);
+            if($rootResponseToUse != null) return $this->create_question(
+                $context, 
+                $rootResponseToUse,
+                $realRootResponse,
+                $shouldCallToRootResponse? $rootResponseToUse : null
+            );
             return;
         }
 
@@ -237,7 +265,7 @@ class ConversationFlow{
         // Finally ask question and wait response
         $thisContext = $this;
         
-        return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $rootContextToUse){
+        return $context->ask($question, function (Answer $answer) use ($thisContext, $shouldCallToRootResponse, $context, $botResponse, $rootResponseToUse, $realRootResponse, $rootContextToUse){
             if(!$this instanceof BotConversation) return;
             $foundButtons = array();
 
@@ -285,7 +313,12 @@ class ConversationFlow{
                             $answer
                         );
 
-                        return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
+                        return $thisContext->create_question(
+                            $this, 
+                            $indecisionResponse, 
+                            $realRootResponse,
+                            $shouldCallToRootResponse? $rootResponseToUse : null
+                        );
                     }
 
                     $this->say("'".$answer->getText()."' no lo entiendo. Intente nuevamente.", $botResponse->additionalParams);
@@ -294,7 +327,8 @@ class ConversationFlow{
                 return $thisContext->create_question(
                     $this, 
                     clone $botResponse, 
-                    $rootResponseToUse
+                    $realRootResponse,
+                    $shouldCallToRootResponse? $rootResponseToUse : null
                 );
             }
 
@@ -317,7 +351,12 @@ class ConversationFlow{
                         $answer
                     );
 
-                    return $thisContext->create_question($this, $indecisionResponse, $rootResponseToUse);
+                    return $thisContext->create_question(
+                        $this, 
+                        $indecisionResponse, 
+                        $realRootResponse, 
+                        $shouldCallToRootResponse? $rootResponseToUse : null
+                    );
                 }
                 
                 $foundButton = end($finalButtons);
@@ -341,7 +380,8 @@ class ConversationFlow{
             return $thisContext->create_question(
                 $this, 
                 $foundButton->value->createBotResponse != null? $foundButton->value->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->value->botResponse, 
-                $rootResponseToUse
+                $realRootResponse,
+                $shouldCallToRootResponse? $rootResponseToUse : null
             );
             
         }, $botResponse->additionalParams);

@@ -615,6 +615,10 @@
             "Puntos",
             "limpios"
           ]
+        },
+        {
+          "text": "Test",
+          "nextResponse": "wena"
         }
       ]
     },
@@ -760,11 +764,17 @@
                   }
                 }
               },
-              "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+              "else": {
+                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+                "nextResponse": "Tamos casi listos"
+              },
               "nextResponse": {
-                "type": "Function",
-                "name": "clear",
-                "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                "text": "Tamos listos con el if",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "clear",
+                  "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                }
               }
             }
           }

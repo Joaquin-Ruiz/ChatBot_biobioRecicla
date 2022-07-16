@@ -308,8 +308,6 @@ class ChatFlowParser{
             if(gettype($value) == 'array') $value = ChatFlowParser::replace_text_by_variables_of_array($context, $value);
             
             if(gettype($array) == 'array') {
-                //Storage::disk('public')->append('wherefunction.txt', '---------');
-               // Storage::disk('public')->append('wherefunction.txt', 'CountArray: '.count($array));
                 $saveResultVariable = array_filter($array, function($item, $itemKey) use($key, $value, $condition, $strict, $or) {
                     $item = json_decode(json_encode($item), true);
                     $itemValue = $item[$key];
@@ -348,8 +346,6 @@ class ChatFlowParser{
                     
                     return true;
                 }, ARRAY_FILTER_USE_BOTH);
-
-                //Storage::disk('public')->append('wherefunction.txt', 'CountSaveResultVariable: '.count($array));
             }
         } else if($functionName == 'count'){
             $countable = $array ?? $map;
@@ -374,13 +370,13 @@ class ChatFlowParser{
             if(isset($jsonObject->nextResponse) && $jsonObject->nextResponse != null)
             {
                 if($thenResponse instanceof BotResponse)
-                    $thenResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
+                    $thenResponse->temporalRootResponse = fn() => ChatFlowParser::json_object_to_response(
                         $context, 
                         $jsonObject->nextResponse, 
                         $responsesList
                     );
                 if($elseResponse instanceof BotResponse)
-                    $elseResponse->nextResponse = fn() => ChatFlowParser::json_object_to_response(
+                    $elseResponse->temporalRootResponse = fn() => ChatFlowParser::json_object_to_response(
                         $context, 
                         $jsonObject->nextResponse, 
                         $responsesList

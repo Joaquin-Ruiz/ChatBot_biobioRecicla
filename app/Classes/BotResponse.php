@@ -23,6 +23,8 @@ class BotResponse implements IResponseParser{          // Can be a question
      */
     public ?BotResponse $rootResponse = null;
 
+    public $temporalRootResponse = null;
+
     /**
      * Should return Bot Response
      * @var ?Closure

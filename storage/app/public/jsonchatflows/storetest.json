@@ -564,9 +564,12 @@
                   },
                   "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
                   "nextResponse": {
-                    "type": "Function",
-                    "name": "clear",
-                    "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                    "text": "Tamos listos con el if",
+                    "nextResponse": {
+                      "type": "Function",
+                      "name": "clear",
+                      "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                    }
                   }
                 }
               }
