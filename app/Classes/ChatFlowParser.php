@@ -404,11 +404,20 @@ class ChatFlowParser{
             if(gettype($arrayToUse) != 'array') throw new Exception('Is not array in foreach ChatFlow');
 
             $preItem = ChatFlowParser::get_variable($context, 'item');
-            foreach($arrayToUse as $eachItem){
+            $arrayToUse = array_map(fn($item) => $item, $arrayToUse);
+
+            $body = fn() => ChatFlowParser::json_object_to_response($context, $jsonObject->body, $responsesList);
+
+            $arrayLen = count($arrayToUse);
+
+            for ($i=0; $i < $arrayLen; $i++) { 
+                $eachItem = $arrayToUse[$i];
                 ChatFlowParser::save_variable($context, 'item', $eachItem);
 
 
+                if($i < $arrayLen - 1);
             }
+
             ChatFlowParser::save_variable($context, 'item', $preItem);*/
         } else if($functionName == 'map'){
             $get = $jsonObject->get;

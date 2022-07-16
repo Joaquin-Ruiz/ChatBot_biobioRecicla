@@ -10,14 +10,8 @@ $botman = resolve('botman');
 
 if($botman instanceof BotMan){
 
-
-    $botman->hears([
-        'Hola',
-        'Hola!',
-        'Hey',
-        'Necesito ayuda',
-        'ayuda'
-    ], 'App\Http\Controllers\ChatController@index');
+    $regex = ".*?";
+    $botman->hears($regex, 'App\Http\Controllers\ChatController@index');
     //El primer parametro "hola bot" será el que active nuestro bot, llamará a la función
     //index de nuestro controlador chatController.php y ésta a la función hello
 

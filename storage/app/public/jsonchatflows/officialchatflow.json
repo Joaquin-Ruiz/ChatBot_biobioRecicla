@@ -32,7 +32,11 @@
               "top": 100
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/search/?api=1&query=-36.781836%2C-73.074929"
+          }
         }
       },
       {
