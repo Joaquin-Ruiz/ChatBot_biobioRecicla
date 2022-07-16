@@ -7,7 +7,7 @@
     ],
     "tiposResiduos": {
       "0": "Metales",
-      "1": "Cartones",
+      "1": "Carton",
       "2": "Plásticos",
       "3": "Aceite",
       "4": "Escombros",
@@ -192,7 +192,7 @@
         "numero":"336",
         "latitud":"-36,77542",
         "longitud":"-73,04407",
-        "residuos":"Papel, Cartones, Botellas, Vidrio, Aceite",
+        "residuos":"Papel, Carton, Botellas, Vidrio, Aceite",
         "administracion":"Municipalidad de Concepcion",
         "comuna": "Concepcion",
         "itemImg": {
@@ -293,7 +293,7 @@
         "numero":"909",
         "latitud":"-36,77664",
         "longitud":"-73,07323",
-        "residuos":"Botellas PET, Papel, Cartón, Aceite vegetal",
+        "residuos":"Botellas PET, Papel, Carton, Aceite vegetal",
         "administracion":"Municipalidad Talcahuano",
         "comuna":"Talcahuano"
       },
@@ -303,7 +303,7 @@
         "numero":"249",
         "latitud":"-36,83774",
         "longitud":"-73,09316",
-        "residuos":"Latas, Papeles, Cartones",
+        "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
         "comuna":"San Pedro"
       },
@@ -313,7 +313,7 @@
         "numero":"4130000",
         "latitud":"-36,847141",
         "longitud":"-73,104942",
-        "residuos":"Latas, Papeles, Cartones",
+        "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
         "comuna":"San Pedro"
       },
@@ -323,7 +323,7 @@
         "numero":"1045",
         "latitud":"-36,93034",
         "longitud":"-73,021767",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
         "comuna":"Chiguayante"
       },
@@ -333,7 +333,7 @@
         "numero":"720",
         "latitud":"-36,906445",
         "longitud":"-73,031436",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
         "comuna":"Chiguayante"
       },
@@ -343,7 +343,7 @@
         "numero":"80",
         "latitud":"-37,023102",
         "longitud":"-73,153526",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Coronel",
         "comuna":"Coronel"
       } 

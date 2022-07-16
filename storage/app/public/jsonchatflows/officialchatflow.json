@@ -3,7 +3,7 @@
   "variables": {
     "tiposResiduos": {
       "0": "Metales",
-      "1": "Cartones",
+      "1": "Carton",
       "2": "Plásticos",
       "3": "Aceite",
       "4": "Escombros",
@@ -188,13 +188,13 @@
         "numero":"336",
         "latitud":"-36,77542",
         "longitud":"-73,04407",
-        "residuos":"Papel, Cartones, Botellas, Vidrio, Aceite",
+        "residuos":"Papel, Carton, Botellas, Vidrio, Aceite",
         "administracion":"Municipalidad de Concepcion",
         "comuna": "Concepcion",
         "itemImg": {
           "type": "text",
           "title": "Av. Costanera Andalien 336",
-          "description": "Papel, Cartones, Botellas, Vidrio, Aceite",
+          "description": "Papel, Carton, Botellas, Vidrio, Aceite",
           "position": {
               "left": 200,
               "top": 200
@@ -377,13 +377,13 @@
         "numero":"909",
         "latitud":"-36,77664",
         "longitud":"-73,07323",
-        "residuos":"Botellas PET, Papel, Cartón, Aceite vegetal",
+        "residuos":"Botellas PET, Papel, Carton, Aceite vegetal",
         "administracion":"Municipalidad Talcahuano",
         "comuna":"Talcahuano",
         "itemImg": {
           "type": "text",
           "title": "A 909",
-          "description": "Botellas PET, Papel, Cartón, Aceite vegetal",
+          "description": "Botellas PET, Papel, Carton, Aceite vegetal",
           "position": {
               "left": 160,
               "top": 50
@@ -398,13 +398,13 @@
         "numero":"249",
         "latitud":"-36,83774",
         "longitud":"-73,09316",
-        "residuos":"Latas, Papeles, Cartones",
+        "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
         "comuna":"San Pedro",
         "itemImg": {
           "type": "text",
           "title": "Colo colo 249",
-          "description": "Latas, Papeles, Cartones",
+          "description": "Latas, Papeles, Carton",
           "position": {
               "left": 100,
               "top": 85
@@ -419,13 +419,13 @@
         "numero":"4130000",
         "latitud":"-36,847141",
         "longitud":"-73,104942",
-        "residuos":"Latas, Papeles, Cartones",
+        "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
         "comuna":"San Pedro",
         "itemImg": {
           "type": "text",
           "title": "Los fresnos 4130000",
-          "description": "Latas, Papeles, Cartones",
+          "description": "Latas, Papeles, Carton",
           "position": {
               "left": 65,
               "top": 100
@@ -440,13 +440,13 @@
         "numero":"1045",
         "latitud":"-36,93034",
         "longitud":"-73,021767",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
         "comuna":"Chiguayante",
         "itemImg": {
           "type": "text",
           "title": "Av. Manuel Rodriguez 1045",
-          "description": "Cartones, Papeles, Plasticos",
+          "description": "Carton, Papeles, Plasticos",
           "position": {
               "left": 100,
               "top": 75
@@ -461,13 +461,13 @@
         "numero":"720",
         "latitud":"-36,906445",
         "longitud":"-73,031436",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Chiguayante",
         "comuna":"Chiguayante",
         "itemImg": {
           "type": "text",
           "title": "Av. 8 Oriente 720",
-          "description": "Cartones, Papeles, Plasticos",
+          "description": "Carton, Papeles, Plasticos",
           "position": {
               "left": 35,
               "top": 100
@@ -482,13 +482,13 @@
         "numero":"80",
         "latitud":"-37,023102",
         "longitud":"-73,153526",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "administracion":"Municipalidad Coronel",
         "comuna":"Coronel",
         "itemImg": {
           "type": "text",
           "title": "Av.Gnrl Prats 80",
-          "description": "Cartones, Papeles, Plasticos",
+          "description": "Carton, Papeles, Plasticos",
           "position": {
               "left": 100,
               "top": 100
@@ -510,7 +510,7 @@
         "numero":"Concepcion",
         "latitud":"-36,098994",
         "longitud":"-73,078909",
-        "residuos":"Cartones, Papeles, Plasticos",
+        "residuos":"Carton, Papeles, Plasticos",
         "tipoEmpresa":"Certificada"
       }
     ],
@@ -561,7 +561,8 @@
                   "Está bien",
                   "No hay problema",
                   "Si",
-                  "Afirmativo"
+                  "Afirmativo",
+                  "Bueno"
                 ]
               },
               {
@@ -620,19 +621,14 @@
     "preguntaPuntosLimpios":{
       "type": "BotResponse",
       "text": "¿En el punto limpio de que comuna desea dejar sus residuos?",
-      "processAnswer": true,
       "saveKey": "comuna",
-      "learningArray": {
-        "Chiguayante": "",
-        "Concepción": "conce",
-        "Talcahuano": "",
-        "San Pedro": "san piter",
-        "Coronel": ""
-      },
       "buttons":[
         {
           "text": "Concepción",
-          "nextResponse":"preguntaResiduos"
+          "nextResponse":"preguntaResiduos",
+          "keywords":[
+            "conce"
+          ]
         },
         {
           "text":"Talcahuano",
@@ -640,7 +636,10 @@
         },
         {
           "text": "San Pedro de la Paz",
-          "nextResponse":"preguntaResiduos"
+          "nextResponse":"preguntaResiduos",
+          "keywords":[
+            "san piter"
+          ]
         },
         {
           "text": "Chiguayante",
@@ -656,8 +655,6 @@
       "type":"BotResponse",
       "text":"Qué tipo de residuo desea reciclar?",
       "saveKey": "residuo",
-      "processAnswer": true,
-      "isMultiple": true,
       "buttons":[
         {
           "text":"Plástico",
@@ -688,7 +685,7 @@
           "nextResponse":"findComunaResiduos"
         },
         {
-          "text":"Cartones",
+          "text":"Carton",
           "nextResponse":"findComunaResiduos"
         },
         {
@@ -1001,7 +998,7 @@
           }
         },
         {
-          "text":"Cartón",
+          "text":"Carton",
           "nextResponse":{
             "type": "BotResponse",
             "text": "Gestores de residuos de la comuna de Chiguayante",
