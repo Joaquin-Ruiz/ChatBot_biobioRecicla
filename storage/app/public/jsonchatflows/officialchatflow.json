@@ -507,11 +507,122 @@
         "direccionWeb":"www.hola.cl",
         "comuna":"Concepcion",
         "calle":"calle1",
-        "numero":"Concepcion",
+        "numero":"1",
         "latitud":"-36,098994",
         "longitud":"-73,078909",
-        "residuos":"Carton, Papeles, Plasticos",
-        "tipoEmpresa":"Certificada"
+        "residuos":"Carton, Papeles, Plasticos, Aceite",
+        "tipoEmpresa":"Certificada",
+        "itemImg": {
+          "type": "text",
+          "title": "Gestor S.A, Certificada",
+          "description": "Carton, Papeles, Plasticos, Aceite",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"Biobio Recicla",
+        "giro":"giro1",
+        "telefono":"numero1",
+        "email":"email@f.com",
+        "direccionWeb":"www.hola.cl",
+        "comuna":"Talcahuano",
+        "calle":"calle1",
+        "numero":"255",
+        "latitud":"-36,098994",
+        "longitud":"-73,078909",
+        "residuos":"Electrónica, Plasticos",
+        "tipoEmpresa":"Certificada",
+        "itemImg": {
+          "type": "text",
+          "title": "Biobio Recicla, Certificada",
+          "description": "Electrónica, Plásticos",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"gestor2",
+        "giro":"giro2",
+        "telefono":"numero2",
+        "email":"email@f2.com",
+        "direccionWeb":"www.hola2.cl",
+        "comuna":"San Pedro",
+        "calle":"calle2",
+        "numero":"2",
+        "latitud":"-36,098994",
+        "longitud":"-73,078909",
+        "residuos":"Neumáticos, Pilas, Escombros",
+        "tipoEmpresa":"Certificada",
+        "itemImg": {
+          "type": "text",
+          "title": "Gestorsitos S.A, Certificada",
+          "description": "Neumáticos, Pilas, Escombros",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"gestor3",
+        "giro":"giro3",
+        "telefono":"numero3",
+        "email":"email@f3.com",
+        "direccionWeb":"www.hola3.cl",
+        "comuna":"Chiguayante",
+        "calle":"calle3",
+        "numero":"3",
+        "latitud":"-36,098994",
+        "longitud":"-73,078909",
+        "residuos":"Madera, Papel, Textiles",
+        "tipoEmpresa":"Certificada",
+        "itemImg": {
+          "type": "text",
+          "title": "Gestortotes S.A, Certificada",
+          "description": "Madera, Papel, Textiles",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"gestor4",
+        "giro":"giro4",
+        "telefono":"numero4",
+        "email":"email@f4.com",
+        "direccionWeb":"www.hola4.cl",
+        "comuna":"Coronel",
+        "calle":"calle4",
+        "numero":"4",
+        "latitud":"-36,098994",
+        "longitud":"-73,078909",
+        "residuos":"Orgánicos, Metales, Escombros",
+        "tipoEmpresa":"Certificada",
+        "itemImg": {
+          "type": "text",
+          "title": "Gestorsaurios S.A, Certificada",
+          "description": "Orgánicos, Metales, Escombros",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
       }
     ],
     "chiguayanteimg": "http://127.0.0.1:8000/imgs/infografias/chiguayante.png",
@@ -770,10 +881,81 @@
               },
               "nextResponse": {
                 "text": "Tamos listos con el if",
+              "nextResponse": {
+                "type": "Function",
+                "name": "clear",
+                "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "findGestorResiduos": {
+      "type": "Function",
+      "name": "getFromMap",
+      "map": "comunaToImg",
+      "find": "{comuna}",
+      "result": "comunaImg",
+      "nextResponse": {
+        "type": "Function",
+        "name": "where",
+        "array": "gestoresDeResiduos",
+        "key": "residuos",
+        "value": "{residuo}",
+        "condition": "contains",
+        "or": true,
+        "result": "resultGestorResiduo",
+        "strict": false,
+        "nextResponse": {
+          "type": "Function",
+          "name": "where",
+          "array": "resultGestorResiduo",
+          "key": "comuna",
+          "value": "{comuna}",
+          "condition": "contains",
+          "result": "lastresultGestorResiduo",
+          "strict": false,
+          "nextResponse": {
+            "type": "Function",
+            "name": "count",
+            "array": "lastresultGestorResiduo",
+            "result": "countResult",
+            "nextResponse": {
+              "type": "Function",
+              "name": "if",
+              "itemA": "{countResult}",
+              "itemB": "0",
+              "condition": ">",
+              "then": {
+                "type": "Function",
+                "name": "map",
+                "array": "lastresultGestorResiduo",
+                "get": "itemImg",
+                "result": "mapItems",
                 "nextResponse": {
-                  "type": "Function",
-                  "name": "clear",
-                  "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                  "text": "Ok, aqui tiene gestores de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                  "attachment": {
+                    "type": "Image",
+                    "url": "{comunaImg}"
+                  },
+                  "additionalParameters": {
+                    "puntosLimpios": "{lastresultGestorResiduo}",
+                    "imgItems": "{mapItems}"
+                  }
+                }
+              },
+              "else": {
+                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+                "nextResponse": "Tamos casi listos"
+              },
+              "nextResponse": {
+                "text": "Tamos listos con el if",
+              "nextResponse": {
+                "type": "Function",
+                "name": "clear",
+                "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
                 }
               }
             }
