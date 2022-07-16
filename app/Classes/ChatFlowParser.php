@@ -12,6 +12,7 @@ use BotMan\BotMan\Messages\Attachments\Location;
 use BotMan\BotMan\Messages\Attachments\Video;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use Exception;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class ChatFlowParser{
@@ -281,13 +282,15 @@ class ChatFlowParser{
         $strict = false;
         if(isset($jsonObject->strict)) $strict = $jsonObject->strict;
 
-        if($functionName == 'getfrommap'){
-            // Required map
+        if($functionName == 'get' || $functionName == 'getfrommap'){
             // Required find
             $find = ChatFlowParser::replace_text_by_variables($context, $jsonObject->find);
-
-            // Save result
-            if(gettype($map) == 'array') $saveResultVariable = array_key_exists($find, $map)? $map[$find] : null;
+            if($map != null){
+                // Save result
+                if(gettype($map) == 'array') $saveResultVariable = array_key_exists($find, $map)? $map[$find] : null;
+            } else {
+                if(gettype($array) == 'array') $saveResultVariable = $array[$find];
+            }
             
         } else if($functionName == 'where'){
             
@@ -417,6 +420,34 @@ class ChatFlowParser{
                 $saveResultVariable = array_map(fn($item) => array_key_exists($get, $item)? $item[$get] : null, $arrayToUse);
                 $saveResultVariable = array_filter($saveResultVariable);
             }
+        } else if($functionName == 'api'){
+            $method = 'get';
+            if(isset($jsonObject->method)) $method = strtolower($jsonObject->method);
+
+            $url = $jsonObject->url;
+            $queryParams = isset($jsonObject->queryParams)? json_decode(json_encode($jsonObject->queryParams)) : null;
+            if($queryParams != null) $queryParams = ChatFlowParser::replace_text_by_variables_of_array($context, $queryParams);
+
+            $headers = [];
+            if(isset($jsonObject->headers)) $headers = json_decode(json_encode($jsonObject->headers), true);
+            $headers = ChatFlowParser::replace_text_by_variables_of_array($context, $headers);
+
+            $response = null;
+            if($method == 'get'){
+                $response = Http::withHeaders($headers)->get($url, $queryParams);
+
+                $saveResultVariable = $response->json();                
+            } else if($method == 'post'){
+                $response = Http::withHeaders($headers)->post($url, $queryParams);
+
+                $saveResultVariable = $response->json();
+            }
+
+            if($response != null && $response->failed() && isset($jsonObject->onError) && $jsonObject->onError != null)
+                    return ChatFlowParser::json_object_to_response($context, $jsonObject->onError, $responsesList);
+        } else if($functionName == 'getenvvar'){
+            $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
+            $saveResultVariable = env($key);
         }
 
         //Save result if needed

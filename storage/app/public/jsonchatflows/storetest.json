@@ -410,6 +410,113 @@
           "text": "Tengo residuos para reciclar",
           "enabled": true,
           "nextResponse": "residuos"
+        },
+        {
+          "text": "Dame un gato aleatoria",
+          "keywords": [
+            "Dame un gato random"
+          ],
+          "nextResponse": {
+            "type": "Function",
+            "name": "getEnvVar",
+            "key": "CAT_API_KEY",
+            "result": "CatApiKey",
+            "nextResponse": {
+              "type": "Function",
+              "name": "api",
+              "method": "get",
+              "url": "https://api.thecatapi.com/v1/images/search",
+              "headers": {
+                "x-api-key": "{CatApiKey}"
+              },
+              "result": "resultImageApi",
+              "nextResponse": {
+                "type": "Function",
+                "name": "get",
+                "array": "resultImageApi",
+                "find": "0",
+                "result": "firstImage",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "get",
+                  "map": "firstImage",
+                  "find": "url",
+                  "result": "resultImage",
+                  "nextResponse": {
+                    "text": "Aqui hay un gatito",
+                    "attachment": {
+                      "type": "Image",
+                      "url": "{resultImage}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "text": "Necesito una foto",
+          "nextResponse": {
+            "type": "Question",
+            "text": "Qué imagen busca?",
+            "saveKey": "imageQuery",
+            "nextResponse": {
+              "type": "Function",
+              "name": "getEnvVar",
+              "key": "UNSPLASH_API_KEY",
+              "result": "unsplashApiKey",
+              "nextResponse": {
+                "type": "Function",
+                "name": "api",
+                "method": "get",
+                "url": "https://api.unsplash.com/search/photos",
+                "headers": {
+                  "Accept-Version": "v1"
+                },
+                "queryParams": {
+                  "client_id": "{unsplashApiKey}",
+                  "query": "{imageQuery}",
+                  "per_page": 1
+                },
+                "result": "imageApiResult",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "get",
+                  "map": "imageApiResult",
+                  "find": "results",
+                  "result": "ResultsImage",
+                  "nextResponse": {
+                    "type": "Function",
+                    "name": "get",
+                    "array": "ResultsImage",
+                    "find": "0",
+                    "result": "FoundImage",
+                    "nextResponse": {
+                      "type": "Function",
+                      "name": "get",
+                      "map": "FoundImage",
+                      "find": "urls",
+                      "result": "ImageUrls",
+                      "nextResponse": {
+                        "type": "Function",
+                        "name": "get",
+                        "map": "ImageUrls",
+                        "find": "regular",
+                        "result": "regularImg",
+                        "nextResponse": {
+                          "text": "Aquí está su imagen",
+                          "attachment": {
+                            "type": "Image",
+                            "url": "{regularImg}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       ]
     },
