@@ -726,10 +726,6 @@
             "Puntos",
             "limpios"
           ]
-        },
-        {
-          "text": "Test",
-          "nextResponse": "wena"
         }
       ]
     },
@@ -875,17 +871,11 @@
                   }
                 }
               },
-              "else": {
-                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
-                "nextResponse": "Tamos casi listos"
-              },
-              "nextResponse": {
-                "text": "Tamos listos con el if",
+              "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
               "nextResponse": {
                 "type": "Function",
                 "name": "clear",
                 "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
-                }
               }
             }
           }
@@ -951,12 +941,9 @@
                 "nextResponse": "Tamos casi listos"
               },
               "nextResponse": {
-                "text": "Tamos listos con el if",
-              "nextResponse": {
                 "type": "Function",
                 "name": "clear",
-                "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
-                }
+                "variable": ["resultGestorResiduo", "countResult", "lastresultGestorResiduo", "comuna", "residuo", "mapItems"]
               }
             }
           }
