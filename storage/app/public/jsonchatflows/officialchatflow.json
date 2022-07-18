@@ -744,12 +744,13 @@
         "type": "BotReply",
         "text": "Mucho gusto {name}",
         "nextResponse": "businessQuestion"
-      }
+      },
+      "saveLog": false
     },
     "businessQuestion": {
       "type": "BotResponse",
       "text": "Es usted una persona o representa una empresa?",
-      "saveLog": true,
+      "saveLog": false,
       "buttons": [
         {
           "text": "Persona",
@@ -760,6 +761,7 @@
           "nextResponse": {
             "type": "BotResponse",
             "text": "{name}, esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?",
+            "saveLog": false,
             "buttons": [
               {
                 "text": "Si, me parece bien",
@@ -803,7 +805,7 @@
       "validationRegex": "phone",
       "saveKey": "phone",
       "errorMessage": "El número debe estar en el formato de \"+56912345678\", intente de nuevo por favor",
-      "saveLog": true
+      "saveLog": false
     },
     "emailQuestion":{
       "type": "Question",
@@ -818,15 +820,14 @@
       },
       "validationRegex": "email",
       "saveKey": "email",
+      "saveLog": false,
       "trySaveContactData": true,
-      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor",
-      "saveLog": true
+      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor"
     },
     "preguntasNatural": {
       "type": "BotResponse",
       "text": "Bienvenido! Qué desea saber?",
       "autoRoot": true,
-      "saveLog": true,
       "buttons": [
         {
           "text": "Ubicación de puntos limpios para reciclar",
@@ -869,8 +870,8 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduos"
         }
-      ],
-      "saveLog": true
+      ]
+      
     },
     "preguntaResiduos":{
       "type":"BotResponse",
@@ -925,8 +926,8 @@
           "text":"Vidrio",
           "nextResponse":"findComunaResiduos"
         }
-      ],
-      "saveLog": true
+      ]
+      
     },
     "findComunaResiduos": {
       "type": "Function",
@@ -980,9 +981,13 @@
                     "puntosLimpios": "{lastresultPuntosLimpios}",
                     "imgItems": "{mapItems}"
                   }
+                  
                 }
               },
-              "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+              "else": {
+                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}"
+                
+              },
               "nextResponse": {
                 "type": "Function",
                 "name": "clear",
@@ -1045,9 +1050,13 @@
                     "gestoresDeResiduos": "{lastresultGestorResiduo}",
                     "imgItems": "{mapItems}"
                   }
+                  
                 }
               },
-              "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+              "else": {
+                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}"
+                
+              },
               "nextResponse": {
                 "type": "Function",
                 "name": "clear",
@@ -1068,13 +1077,13 @@
       "autoRoot": true,
       "botTypingSeconds": 1,
       "displayButtons": true,
-      "saveLog": true,
       "buttons": [
         {
           "text": "¿En que consiste la empresa?",
           "nextResponse": {
             "type": "BotReply",
             "text": "Somos una empresa que busca mantener una relación armónica entre las personas, la sociedad y la naturaleza, para contribuir a una mejor calidad de vida."
+            
           },
           "keywords": [
             "De qué trata la empresa?",
@@ -1086,6 +1095,7 @@
           "nextResponse": {
             "type": "BotReply",
             "text": "Brindamos soluciones ambientales, para la gestión integral de residuos."
+            
           },
           "keywords": [
             "¿Qué ofrecen?",
@@ -1109,6 +1119,7 @@
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
                   }
+                  
                 }
               },
               {
@@ -1119,6 +1130,7 @@
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/condominios-comunidades/"
                   }
+                  
                 }
               },
               {
@@ -1129,6 +1141,7 @@
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
                   }
+                  
                 }
               },
               {
@@ -1139,6 +1152,7 @@
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/condominios-comunidades/"
                   }
+                  
                 }
               },
               {
@@ -1149,6 +1163,7 @@
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/conciencia-ambiental/"
                   }
+                  
                 }
               }
             ]
@@ -1156,8 +1171,8 @@
           "keywords": [
             "Quiero cotizar servicios",
             "Deseo cotizar servicios"
-          ],
-          "saveLog": true
+          ]
+          
         },
         {
           "text":"Ubicación de empresas gestoras de residuos",
@@ -1207,9 +1222,9 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduosGestores"
         }
-      ],
+      ]
       
-      "saveLog": true
+      
     },
     "preguntaResiduosGestores":{
       "type":"BotResponse",
@@ -1264,8 +1279,8 @@
           "text":"Metales",
           "nextResponse":"findGestorResiduos"
         }
-      ],
-      "saveLog": true
+      ]
+      
     }
   }
 }

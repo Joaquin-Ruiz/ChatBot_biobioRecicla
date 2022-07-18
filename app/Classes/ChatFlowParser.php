@@ -75,7 +75,7 @@ class ChatFlowParser{
                 $nextResponse = fn() => ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
 
         // Save log
-        $saveLog = false;
+        $saveLog = true;
         if(isset($jsonObject->saveLog)) $saveLog = $jsonObject->saveLog;
 
         // Try save contact data
@@ -214,6 +214,12 @@ class ChatFlowParser{
                 if(gettype($jsonObject->learningArray) == 'string') 
                     $learningArray = ChatFlowParser::get_variable($context, $jsonObject->learningArray);
                 else $learningArray = json_decode(json_encode($jsonObject->learningArray), true);
+            }
+
+            if(isset($jsonObject->keywords)){
+                foreach($jsonObject->keywords as $keyword){
+                    array_push($learningArray, ChatFlowParser::replace_text_by_variables($context, $keyword));
+                }
             }
 
             $isMultiple = false;
