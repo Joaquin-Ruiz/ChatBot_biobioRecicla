@@ -1,9 +1,9 @@
 {
-  "name": "Testing ChatFlow Json",
+  "version": "1",
   "variables": {
     "tiposResiduos": {
       "0": "Metales",
-      "1": "Carton",
+      "1": "Cartón",
       "2": "Plásticos",
       "3": "Aceite",
       "4": "Escombros",
@@ -472,7 +472,7 @@
         "longitud":"-73,09316",
         "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
-        "comuna":"San Pedro",
+        "comuna":"San Pedro de la Paz",
         "itemImg": {
           "type": "text",
           "title": "Colo colo 249",
@@ -497,7 +497,7 @@
         "longitud":"-73,104942",
         "residuos":"Latas, Papeles, Carton",
         "administracion":"Municipalidad San pedro de la paz",
-        "comuna":"San Pedro",
+        "comuna":"San Pedro de la Paz",
         "itemImg": {
           "type": "text",
           "title": "Los fresnos 4130000",
@@ -510,7 +510,7 @@
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
-            "url": "https://www.google.com/maps/search/36%C2%B084'71.4%22S+73%C2%B006'12.2%22W/@-36.8439655,-73.1046456,17z"
+            "url": "https://www.google.com/maps/search/?api=1&query=-36.847141%2C-73.104942"
           }
         }
       },
@@ -651,7 +651,7 @@
         "telefono":"numero2",
         "email":"email@f2.com",
         "direccionWeb":"www.hola2.cl",
-        "comuna":"San Pedro",
+        "comuna":"San Pedro de la Paz",
         "calle":"calle2",
         "numero":"2",
         "latitud":"-36,098994",
@@ -730,7 +730,7 @@
     "comunaToImg": {
       "Concepción": "{concepcionimg}",
       "Talcahuano": "{talcahuanoimg}",
-      "San Pedro": "{sanpedroimg}",
+      "San Pedro de la Paz": "{sanpedroimg}",
       "Coronel": "{coronelimg}",
       "Chiguayante": "{chiguayanteimg}"
     }
@@ -752,7 +752,7 @@
           "text": "Si, represento a una empresa",
           "nextResponse": {
             "type": "BotResponse",
-            "text": "{name}, ¿estás de acuerdo con que nos proporciones tu número de teléfono y email para que podamos contactarte después para una atención mas personalizada?",
+            "text": "{name}, ¿estás de acuerdo con que nos proporciones tu número de teléfono y email para que podamos contactarte después?",
             "saveLog": false,
             "buttons": [
               {
@@ -831,6 +831,7 @@
         "¡Hola! ¿En qué te puedo ayudar?",
         "¡Bienvenido! ¿Qué necesitas saber?"
       ],
+      "botTypingSeconds": 3,
       "autoRoot": true,
       "buttons": [
         {
@@ -863,7 +864,7 @@
           "nextResponse":"preguntaResiduos"
         },
         {
-          "text": "San Pedro",
+          "text": "San Pedro de la Paz",
           "nextResponse":"preguntaResiduos",
           "keywords":[
             "san piter"
@@ -914,7 +915,7 @@
           "nextResponse":"findComunaResiduos"
         },
         {
-          "text":"Carton",
+          "text":"Cartón",
           "nextResponse":"findComunaResiduos"
         },
         {
@@ -985,7 +986,7 @@
                 "get": "itemImg",
                 "result": "mapItems",
                 "nextResponse": {
-                  "text": "Aquí puedes encontrar puntos limpios en la comuna de {comuna}. Hay {countResult} puntos que reciclan {residuo}",
+                  "text": "Aquí puedes encontrar puntos limpios en la comuna de {comuna}. Hay {countResult} punto(s) que recicla(n) {residuo}",
                   "attachment": {
                     "type": "Image",
                     "url": "{comunaImg}"
@@ -1054,7 +1055,7 @@
                 "get": "itemImg",
                 "result": "mapItems",
                 "nextResponse": {
-                  "text": "Aquí hay {countResult} empresas gestores de la comuna de {comuna}, que reciclan {residuo}",
+                  "text": "Aquí hay {countResult} empresa(s) gestor(es) de la comuna de {comuna}, que recicla(n) {residuo}",
                   "attachment": {
                     "type": "Image",
                     "url": "{comunaImg}"
@@ -1087,11 +1088,12 @@
         "¡Hola! ¿Cómo te puedo ayudar?",
         "¡Bienvenido! ¿En qué puedo ayudarte?"        
       ],
+      "botTypingSeconds": 3,
       "autoRoot": true,
       "displayButtons": true,
       "buttons": [
         {
-          "text": "¿En que consiste la empresa?",
+          "text": "¿En qué consiste la empresa?",
           "nextResponse": {
             "type": "BotReply",
             "text": "Somos una empresa que busca mantener una relación armónica entre las personas, la sociedad y la naturaleza, para contribuir a una mejor calidad de vida."
@@ -1227,7 +1229,7 @@
           "nextResponse":"preguntaResiduosGestores"
         },
         {
-          "text": "San Pedro",
+          "text": "San Pedro de la Paz",
           "nextResponse":"preguntaResiduosGestores",
           "keywords": [
             "san piter"
@@ -1279,7 +1281,7 @@
           "nextResponse":"findGestorResiduos"
         },
         {
-          "text":"Carton",
+          "text":"Cartón",
           "nextResponse":"findGestorResiduos"
         },
         {
