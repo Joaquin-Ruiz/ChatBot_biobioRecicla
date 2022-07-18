@@ -738,29 +738,21 @@
   "responses": {
     "start": {
       "type": "Question",
-      "text": "Cuál es su nombre?",
+      "text": "Antes de comenzar, ¿cuál es tu nombre?",
       "saveKey": "name",
-      "nextResponse": {
-        "type": "BotReply",
-        "text": "Mucho gusto {name}",
-        "nextResponse": "businessQuestion"
-      },
+      "nextResponse": "businessQuestion",
       "saveLog": false
     },
     "businessQuestion": {
       "type": "BotResponse",
-      "text": "Es usted una persona o representa una empresa?",
+      "text": "¡Mucho gusto {name}! Por último, ¿Representas a una empresa?",
       "saveLog": false,
       "buttons": [
         {
-          "text": "Persona",
-          "nextResponse": "preguntasNatural"
-        },
-        {
-          "text": "Empresa",
+          "text": "Si, represento a una empresa",
           "nextResponse": {
             "type": "BotResponse",
-            "text": "{name}, esta usted de acuerdo con que nos proporcione su número de teléfono y email para que podamos contactarlo para una atención mas personalizada?",
+            "text": "{name}, ¿estás de acuerdo con que nos proporciones tu número de teléfono y email para que podamos contactarte después para una atención mas personalizada?",
             "saveLog": false,
             "buttons": [
               {
@@ -791,25 +783,33 @@
             ]
           },
           "keywords": [
-            "tengo un negocio",
-            "represento a una empresa",
-            "Soy una persona"
+            "Si, tengo un negocio",
+            "Si, represento a una empresa"
           ]
-        }
+        },
+        {
+          "text": "No, soy una persona interesada por el reciclaje",
+          "nextResponse": "preguntasNatural",
+          "keywords": [
+            "No",
+            "No, soy una persona natural",
+            "No, soy una persona"
+          ]
+        }        
       ]
     },
     "phoneQuestion":{
       "type": "Question",
-      "text": "Cuál es su número de teléfono?",
+      "text": "Perfecto, ¿Cuál es tu número de teléfono?",
       "nextResponse": "emailQuestion",
       "validationRegex": "phone",
       "saveKey": "phone",
-      "errorMessage": "El número debe estar en el formato de \"+56912345678\", intente de nuevo por favor",
+      "errorMessage": "El número debe estar en el formato de \"+56912345678\", intenta de nuevo por favor",
       "saveLog": false
     },
     "emailQuestion":{
       "type": "Question",
-      "text": "Por último necesitamos su email",
+      "text": "Por último necesitamos tu email",
       "nextResponse": {
         "type": "Function",
         "name": "updateContact",
@@ -822,11 +822,15 @@
       "saveKey": "email",
       "saveLog": false,
       "trySaveContactData": true,
-      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor"
+      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intenta de nuevo por favor"
     },
     "preguntasNatural": {
       "type": "BotResponse",
-      "text": "Bienvenido! Qué desea saber?",
+      "text": [
+        "¡Bienvenido! ¿Qué deseas saber?",
+        "¡Hola! ¿En qué te puedo ayudar?",
+        "¡Bienvenido! ¿Qué necesitas saber?"
+      ],
       "autoRoot": true,
       "buttons": [
         {
@@ -834,14 +838,17 @@
           "nextResponse": "preguntaPuntosLimpios",
           "keywords":[
             "Puntos",
-            "limpios"
+            "limpios",
+            "Puntos limpios",
+            "Quiero reciclar",
+            "Donde puedo reciclar"
           ]
         }
       ]
     },
     "preguntaPuntosLimpios":{
       "type": "BotResponse",
-      "text": "¿En el punto limpio de que comuna desea dejar sus residuos?",
+      "text": "¿En qué comuna deseas dejar tus residuos?",
       "saveKey": "comuna",
       "buttons":[
         {
@@ -875,7 +882,7 @@
     },
     "preguntaResiduos":{
       "type":"BotResponse",
-      "text":"Qué tipo de residuo desea reciclar?",
+      "text":"¿Qué tipo de residuo deseas reciclar?",
       "saveKey": "residuo",
       "buttons":[
         {
@@ -912,7 +919,10 @@
         },
         {
           "text":"Botellas PET",
-          "nextResponse":"findComunaResiduos"
+          "nextResponse":"findComunaResiduos",
+          "keywords": [
+            "Botellas"
+          ]
         },
         {
           "text":"Aceite Vegetal",
@@ -920,7 +930,10 @@
         },
         {
           "text":"Tetrapak",
-          "nextResponse":"findComunaResiduos"
+          "nextResponse":"findComunaResiduos",
+          "keywords": [
+            "Envases tetrapak"
+          ]
         },
         {
           "text":"Vidrio",
@@ -972,7 +985,7 @@
                 "get": "itemImg",
                 "result": "mapItems",
                 "nextResponse": {
-                  "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                  "text": "Aquí puedes encontrar puntos limpios en la comuna de {comuna}. Hay {countResult} puntos que reciclan {residuo}",
                   "attachment": {
                     "type": "Image",
                     "url": "{comunaImg}"
@@ -1041,7 +1054,7 @@
                 "get": "itemImg",
                 "result": "mapItems",
                 "nextResponse": {
-                  "text": "Ok, aqui tiene gestores de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                  "text": "Aquí hay {countResult} empresas gestores de la comuna de {comuna}, que reciclan {residuo}",
                   "attachment": {
                     "type": "Image",
                     "url": "{comunaImg}"
@@ -1054,7 +1067,7 @@
                 }
               },
               "else": {
-                "text": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}"
+                "text": "No hay gestores de residuos en la comuna de {comuna} que reciclen {residuo}"
                 
               },
               "nextResponse": {
@@ -1070,12 +1083,11 @@
     "preguntasEmpresa":{
       "type": "BotResponse",
       "text": [
-        "Bienvenido! Qué desea saber?",
-        "Hola! Cómo lo puedo ayudar?",
-        "En qué puedo ayudarlo?"        
+        "¡Bienvenido! ¿Qué deseas saber?",
+        "¡Hola! ¿Cómo te puedo ayudar?",
+        "¡Bienvenido! ¿En qué puedo ayudarte?"        
       ],
       "autoRoot": true,
-      "botTypingSeconds": 1,
       "displayButtons": true,
       "buttons": [
         {
@@ -1083,11 +1095,14 @@
           "nextResponse": {
             "type": "BotReply",
             "text": "Somos una empresa que busca mantener una relación armónica entre las personas, la sociedad y la naturaleza, para contribuir a una mejor calidad de vida."
-            
           },
           "keywords": [
             "De qué trata la empresa?",
-            "Quiero saber de qué trata la empresa"
+            "Quiero saber de qué trata la empresa",
+            "En qué consiste biobio recicla?",
+            "Qué es biobio recicla?",
+            "Quiero saber de qué trata biobio recicla",
+            "Qué es biobio recicla"
           ]
         },
         {
@@ -1106,16 +1121,16 @@
           ]
         },
         {
-          "text": "Desea cotizar algun servicio que ofrecemos?",
+          "text": "Quiero cotizar un servicio de Biobío Recicla",
           "nextResponse": {
             "type":"BotResponse",
-            "text": "OK! Qué servicio desea cotizar?",
+            "text": "¿Qué servicio deseas cotizar?",
             "buttons": [
               {
                 "text": "Gestión de residuos",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
+                  "text": "Ingresa a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
                   }
@@ -1126,7 +1141,7 @@
                 "text": "Puntos limpios",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/",
+                  "text": "Ingresa a este link: https://biobiorecicla.cl/condominios-comunidades/",
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/condominios-comunidades/"
                   }
@@ -1137,7 +1152,7 @@
                 "text": "Consultoría",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
+                  "text": "Ingresa a este link: https://biobiorecicla.cl/cotizacion-empresas-instituciones/",
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/cotizacion-empresas-instituciones/"
                   }
@@ -1148,7 +1163,7 @@
                 "text": "Educación Ambiental",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/condominios-comunidades/",
+                  "text": "Ingresa a este link: https://biobiorecicla.cl/condominios-comunidades/",
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/condominios-comunidades/"
                   }
@@ -1159,7 +1174,7 @@
                 "text": "Biciclaje",
                 "nextResponse": {
                   "type": "BotReply",
-                  "text": "Ingrese a este link: https://biobiorecicla.cl/conciencia-ambiental/",
+                  "text": "Ingresa a este link: https://biobiorecicla.cl/conciencia-ambiental/",
                   "additionalParameters": {
                     "link": "https://biobiorecicla.cl/conciencia-ambiental/"
                   }
@@ -1170,7 +1185,8 @@
           },
           "keywords": [
             "Quiero cotizar servicios",
-            "Deseo cotizar servicios"
+            "Deseo cotizar servicios",
+            "Qué servicios puedo cotizar?"
           ]
           
         },
@@ -1196,7 +1212,7 @@
     },
     "preguntaComunaGestores":{
       "type": "BotResponse",
-      "text": "¿En el punto limpio de que comuna desea dejar sus residuos?",
+      "text": "¿En qué comuna deseas dejar tus residuos?",
       "saveKey":"comuna",
       "buttons":[
         {
@@ -1212,7 +1228,10 @@
         },
         {
           "text": "San Pedro",
-          "nextResponse":"preguntaResiduosGestores"
+          "nextResponse":"preguntaResiduosGestores",
+          "keywords": [
+            "san piter"
+          ]
         },
         {
           "text": "Chiguayante",
@@ -1228,7 +1247,7 @@
     },
     "preguntaResiduosGestores":{
       "type":"BotResponse",
-      "text":"Qué tipo de residuo desea reciclar?",
+      "text":"¿Qué tipo de residuo deseas reciclar?",
       "saveKey":"residuo",
       "buttons":[
         {
