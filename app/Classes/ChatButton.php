@@ -6,11 +6,15 @@ use Closure;
 
 class ChatButton{
     public $text;
+    public $additionalKeywords;
+
+    public $visible = true;
+    public $enabled = true;
+
     public $botResponse;
 
     /**
      * Should return a bot response
-     * @var Closure
      */
     public $createBotResponse;
 
@@ -22,12 +26,18 @@ class ChatButton{
 
     public function __construct(
         string $text, 
-        Closure $createBotResponse, 
-        ?Closure $onPressed = null
+        $createBotResponse, 
+        array $additionalKeywords = [],
+        ?Closure $onPressed = null,
+        bool $visible = true,
+        bool $enabled = true
     )
     {
         $this->text = $text;
         $this->createBotResponse = $createBotResponse;
         $this->onPressed = $onPressed;
+        $this->additionalKeywords = $additionalKeywords;
+        $this->enabled = $enabled;
+        $this->visible = $visible;
     }
 }

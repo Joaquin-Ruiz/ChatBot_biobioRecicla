@@ -1,0 +1,3119 @@
+/**
+ * @package CL Price Table
+ * @author ThemeChoice http://www.codesless.com
+ * @copyright Copyright (c) 2017 CL Price Table
+ * @license http://www.codesless.com or later
+*/
+/*=======================================*
+ *======= 	TABLE OF CONTENT	 ========*
+ *=======================================*
+
+	01. Common Css	
+	02. Price table style1 CSS
+	03. Price table style2 CSS
+	04. Price table style3 CSS
+	05. Price table style4 CSS
+	06. Price table style5 CSS
+	07. Price table style6 CSS
+	08. Price table style7 CSS
+	09. Price table style8 CSS
+	10. Price table style9 CSS
+	11. Price table style10CSS
+	12. Price table style11 CSS
+	13. Price table style12 CSS
+	14. Price table style13 CSS
+	15. Price table style14 CSS
+	16. Price table style15 CSS
+	
+=======================================*/
+/*=======================================*
+ *======= 	Common Css	 ========*
+ *=======================================*/
+.btn-table {
+  border: 0px;
+  box-shadow: 0 0 0 !important;
+}
+.hide {
+  display: none;
+}
+.bottom,
+.featured {
+  text-align: center;
+}
+.bottom p,
+.featured {
+  margin: 0px;
+  padding: 0;
+}
+.btn-code {
+  padding-top: 15px;
+}
+/*=======================================*
+ *======= Start Pricing Table Css	 ========*
+ *=======================================*/
+.clpricing-table {
+  /*=======================================*
+ *======= Price table style1 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style2 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style3 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style4 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style5 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style6 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style7 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style8 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style9 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style10 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+ *======= Price table style11 CSS	 ========*
+ *=======================================*/
+  /*=======================================*
+*======= Price table style12 CSS	 ========*
+*=======================================*/
+  /*=======================================*
+*======= Price table style13 CSS	 ========*
+*=======================================*/
+  /*=======================================*
+*======= Price table style14 CSS	 ========*
+*=======================================*/
+  /*=======================================*
+*======= Price table style15 CSS	 ========*
+*=======================================*/
+}
+.clpricing-table .pricing-title {
+  margin-bottom: 20px;
+}
+.clpricing-table h6 {
+  font-weight: normal;
+  padding: 0 15px;
+}
+.clpricing-table ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.clpricing-table a:hover {
+  text-decoration: none;
+}
+@media screen and (max-width: 991px) {
+  .clpricing-table .cl-pricetable-wrap {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .cl-pricetable-wrap {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+}
+.clpricing-table .main-header {
+  padding: 55px 0 40px;
+}
+.clpricing-table .main-header h2 {
+  font-size: 48px;
+  color: #000;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+  line-height: 48px;
+}
+.clpricing-table h4 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0 0 5px;
+  color: #000;
+}
+.clpricing-table h3 {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 0 0 5px;
+  color: #000;
+  line-height: 42px;
+}
+.clpricing-table h5 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0 0 5px;
+  padding: 0;
+}
+.clpricing-table a.btn-table {
+  text-decoration: none;
+}
+.clpricing-table .cl-pricetable-wrap,
+.clpricing-table .price-table {
+  position: relative;
+}
+.clpricing-table .cl-pricetable-wrap:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+.clpricing-table .price-table.style1 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top {
+  text-align: center;
+  padding: 0 8px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top .cl-header h4 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 30px 0 0;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top h3 {
+  margin: 4px 0 0px;
+  display: inline-block;
+  font-size: 60px;
+  font-weight: 300;
+  line-height: 60px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top h3 .dolar {
+  bottom: 24px;
+  font-size: 22px;
+  font-weight: 800;
+  padding-right: 3px;
+  position: relative;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top h6 {
+  margin-top: 10px;
+  padding-top: 0px;
+  font-weight: normal;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: lowercase;
+  display: inline-block;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  font-size: 18px;
+  padding-bottom: 38px;
+  text-transform: initial;
+  font-weight: 400;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 16px 12px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .highlight {
+  color: #000;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .feature_icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -102px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom ul li .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom .btn-table {
+  margin: 12px auto 0;
+  width: 100%;
+  max-width: 140px;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+.clpricing-table .price-table.style1 .cl-pricetable-wrap .bottom p {
+  margin-bottom: 0px;
+}
+.clpricing-table .price-table.style1 .price-1 {
+  background: #f9f9f9;
+}
+.clpricing-table .price-table.style1 .price-1 .top {
+  color: #f44336;
+}
+.clpricing-table .price-table.style1 .price-1 .top h4,
+.clpricing-table .price-table.style1 .price-1 .top h5,
+.clpricing-table .price-table.style1 .price-1 .top h3 {
+  color: #f44336;
+}
+.clpricing-table .price-table.style1 .price-1 .top .cl-subheader {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style1 .price-1 .bottom {
+  background: #eeeeee;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style1 .price-1 .btn-table {
+  color: #ffffff !important;
+  background: #f44336;
+}
+.clpricing-table .price-table.style1 .price-style2 {
+  background: #f9f9f9;
+}
+.clpricing-table .price-table.style1 .price-style2 .top {
+  color: #e91e63;
+}
+.clpricing-table .price-table.style1 .price-style2 .top h4,
+.clpricing-table .price-table.style1 .price-style2 .top h5,
+.clpricing-table .price-table.style1 .price-style2 .top h3 {
+  color: #e91e63;
+}
+.clpricing-table .price-table.style1 .price-style2 .top .cl-subheader {
+  color: #eeeeee;
+}
+.clpricing-table .price-table.style1 .price-style2 .bottom {
+  background: #eeeeee;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style1 .price-style2 .btn-table {
+  color: #ffffff !important;
+  background: #e91e63;
+}
+.clpricing-table .price-table.style1 .price-3 {
+  background: #f9f9f9;
+}
+.clpricing-table .price-table.style1 .price-3 .top {
+  color: #9c27b0;
+}
+.clpricing-table .price-table.style1 .price-3 .top h4,
+.clpricing-table .price-table.style1 .price-3 .top h5,
+.clpricing-table .price-table.style1 .price-3 .top h3 {
+  color: #9c27b0;
+}
+.clpricing-table .price-table.style1 .price-3 .top .cl-subheader {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style1 .price-3 .bottom {
+  background: #eeeeee;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style1 .price-3 .btn-table {
+  color: #ffffff !important;
+  background: #9c27b0;
+}
+.clpricing-table .price-table.style2 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap {
+  text-align: center;
+  background: #ffffff none repeat scroll 0 0;
+  color: #333333;
+  margin-right: 0;
+  padding: 20px;
+  position: relative;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.8);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap:hover .dolar {
+  transform: rotate(360deg);
+  transition: all 1s !important;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top {
+  padding-bottom: 20px;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top .cl-header h4 {
+  font-size: 23px;
+  font-weight: normal;
+  margin: -20px -20px 64px;
+  padding: 20px;
+  text-transform: uppercase;
+  line-height: 24px;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top .cl-header h4 .dolar {
+  border-radius: 100px;
+  box-shadow: 0 5px 20px #dddddd inset, 0 3px 0 #999999 inset;
+  display: block;
+  font: bold 25px/100px Georgia, serif;
+  height: 100px;
+  margin: 20px auto -65px;
+  width: 100px;
+  transition: all .5s;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top .btn-table {
+  border-radius: 10px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  max-width: 170px;
+  background: transparent !important;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top .btn-table:before {
+  border-radius: 5px;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .top .btn-table:hover {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .bottom ul li.show {
+  border-radius: 8px;
+  outline: none;
+  padding: 12px 20px 12px 10px;
+  background: #f4f4f4;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .bottom ul li.show:before {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-bottom: 9px solid rgba(0, 0, 0, 0);
+  border-image: none;
+  border-left-color: inherit;
+  border-right: 9px solid rgba(0, 0, 0, 0);
+  border-style: solid;
+  border-top: 9px solid rgba(0, 0, 0, 0);
+  border-width: 9px;
+  content: "";
+  margin-top: 2px;
+  position: absolute;
+  right: 24px;
+  transition: all .38s ease;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .bottom ul li.open:before {
+  margin-top: 8px;
+  position: absolute;
+  right: 32px;
+  transform: rotate(90deg) !important;
+}
+.clpricing-table .price-table.style2 .cl-pricetable-wrap .bottom ul li {
+  line-height: 24px;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 10px 0;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style2 .price-1 {
+  background: #ffffff;
+  border: 1px solid #26a69a;
+}
+.clpricing-table .price-table.style2 .price-1 .top {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-1 .top h4,
+.clpricing-table .price-table.style2 .price-1 .top h5,
+.clpricing-table .price-table.style2 .price-1 .top h3 {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-1 .top .cl-header h4 {
+  background: #26a69a;
+}
+.clpricing-table .price-table.style2 .price-1 .top .cl-header .dolar {
+  background: #ffffff;
+  border: 5px solid #ffffff;
+  color: #26a69a;
+}
+.clpricing-table .price-table.style2 .price-1 .bottom {
+  background: #ffffff;
+  color: #777777;
+}
+.clpricing-table .price-table.style2 .price-1 .bottom li button {
+  border-left: 5px solid #26a69a !important;
+}
+.clpricing-table .price-table.style2 .price-1 .btn-table {
+  color: #1d2127;
+  background: #0c1f28;
+}
+.clpricing-table .price-table.style2 .price-1 .btn-table:before {
+  background: #26a69a !important;
+}
+.clpricing-table .price-table.style2 .price-style2 {
+  background: #ffffff;
+  border: 1px solid #f9a825;
+}
+.clpricing-table .price-table.style2 .price-style2 .top {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-style2 .top h4,
+.clpricing-table .price-table.style2 .price-style2 .top h5,
+.clpricing-table .price-table.style2 .price-style2 .top h3 {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-style2 .top .cl-header h4 {
+  background: #f9a825;
+}
+.clpricing-table .price-table.style2 .price-style2 .top .cl-header .dolar {
+  background: #ffffff;
+  border: 5px solid #ffffff;
+  color: #f9a825;
+}
+.clpricing-table .price-table.style2 .price-style2 .bottom {
+  background: #ffffff;
+  color: #777777;
+}
+.clpricing-table .price-table.style2 .price-style2 .bottom li button {
+  border-left: 5px solid #f9a825 !important;
+}
+.clpricing-table .price-table.style2 .price-3 {
+  background: #ffffff;
+  border: 1px solid #795548;
+}
+.clpricing-table .price-table.style2 .price-3 .top {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-3 .top h4,
+.clpricing-table .price-table.style2 .price-3 .top h5,
+.clpricing-table .price-table.style2 .price-3 .top h3 {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style2 .price-3 .top .cl-header h4 {
+  background: #795548;
+}
+.clpricing-table .price-table.style2 .price-3 .top .cl-header .dolar {
+  background: #ffffff;
+  border: 5px solid #ffffff;
+  color: #795548;
+}
+.clpricing-table .price-table.style2 .price-3 .bottom {
+  background: #ffffff;
+  color: #777777;
+}
+.clpricing-table .price-table.style2 .price-3 .bottom li button {
+  border-left: 5px solid #795548 !important;
+}
+.clpricing-table .price-table.style2 .price-3 .btn-table {
+  color: #1d2127;
+}
+.clpricing-table .price-table.style2 .price-3 .btn-table:before {
+  background: #795548 !important;
+}
+.clpricing-table .price-table.style3 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style3 .price-style3 {
+  margin-bottom: 35px !important;
+}
+.clpricing-table .price-table.style3 .featured p {
+  display: none;
+}
+.clpricing-table .price-table.style3 .col-md-12,
+.clpricing-table .price-table.style3 .col-sm-6 {
+  -moz-box-direction: normal;
+  display: flex;
+  padding: 0;
+  width: 100%;
+  margin-top: 40px;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .col-md-12,
+  .clpricing-table .price-table.style3 .col-sm-6 {
+    display: block;
+    width: 100%;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 0px;
+  margin-right: 0;
+  position: relative;
+  border-radius: 0;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.8);
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 14px;
+  left: 0;
+  padding: 6px 36px;
+  position: absolute;
+  text-transform: lowercase;
+  top: 0;
+  transform: rotate(0deg);
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .top {
+  display: table;
+  float: left;
+  height: 100%;
+  padding-bottom: 0;
+  width: 33.33%;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .top {
+    display: block;
+    width: 100%;
+    float: none;
+    padding: 30px 10px;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .top .cl-header {
+  display: table-cell;
+  vertical-align: middle;
+}
+@media screen and (min-width: 1001px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .top .cl-header {
+    height: 291px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .top .cl-header {
+    display: block;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .top .cl-header h4 {
+  border-radius: 2px 2px 0 0;
+  font-size: 26px;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured {
+  width: 33.33%;
+  float: left;
+  padding: 50px 0 50px 80px;
+  background: #eeeeee;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .featured {
+    width: 100%;
+    float: none;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul {
+  text-align: left;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li {
+  line-height: 24px;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 4px 0;
+  color: #363636;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: 0;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .featured ul li .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom {
+  width: 33.33%;
+  float: left;
+  height: 100%;
+  display: table;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom {
+    width: 100%;
+    float: none;
+    display: block;
+    padding: 0 0 31px;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer {
+  display: table-cell;
+  vertical-align: middle;
+}
+@media screen and (min-width: 1001px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer {
+    height: 291px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer {
+    display: block;
+  }
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer .dolar {
+  font: 700 35px/74px Georgia, serif;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer .btn-table {
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  text-transform: uppercase;
+  max-width: 170px;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer .btn-table:before {
+  background: #ffffff;
+  border-radius: 0 !important;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap .bottom .cl-footer .btn-table:hover {
+  color: #000000 !important;
+}
+.clpricing-table .price-table.style3 .cl-pricetable-wrap:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style3 .cl-pricetable-wrap:hover {
+    margin: 0 auto;
+  }
+}
+.clpricing-table .price-table.style3 .price-1 .top {
+  color: #EEEEEE;
+  background: #3873b3;
+}
+.clpricing-table .price-table.style3 .price-1 .top .cl-header h4 {
+  background: #3873b3;
+}
+.clpricing-table .price-table.style3 .price-1 .featured {
+  color: #363636;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style3 .price-1 .featured .fa {
+  color: #3873b3;
+}
+.clpricing-table .price-table.style3 .price-1 .bottom {
+  color: #363636;
+  background: #3873b3;
+}
+.clpricing-table .price-table.style3 .price-1 .bottom .dolar {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style3 .price-style2 .top {
+  color: #EEEEEE;
+  background: #36cccb;
+}
+.clpricing-table .price-table.style3 .price-style2 .top .cl-header h4 {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style3 .price-style2 .featured {
+  color: #363636;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style3 .price-style2 .featured .fa {
+  color: #36cccb;
+}
+.clpricing-table .price-table.style3 .price-style2 .bottom {
+  color: #363636;
+  background: #36cccb;
+}
+.clpricing-table .price-table.style3 .price-style2 .bottom .dolar {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style3 .price-3 .top {
+  color: #EEEEEE;
+  background: #32a144;
+}
+.clpricing-table .price-table.style3 .price-3 .top .cl-header h4 {
+  background: #32a144;
+}
+.clpricing-table .price-table.style3 .price-3 .featured {
+  color: #363636;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style3 .price-3 .featured .fa {
+  color: #32a144;
+}
+.clpricing-table .price-table.style3 .price-3 .bottom {
+  color: #363636;
+  background: #32a144;
+}
+.clpricing-table .price-table.style3 .price-3 .bottom .dolar {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style4 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+  margin-top: 55px;
+}
+.clpricing-table .price-table.style4 .cl-col-md-4 {
+  padding: 0;
+}
+.clpricing-table .price-table.style4 .cl-col-md-4:nth-child(odd) .cl-pricetable-wrap {
+  border: 3px solid #e97d68;
+  padding-bottom: 35px;
+}
+@media screen and (max-width: 991px) {
+  .clpricing-table .price-table.style4 .cl-col-md-4 {
+    padding: 0 10px;
+  }
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap {
+  border-radius: 0;
+  padding-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top {
+  text-align: center;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top .cl-header h4 {
+  font-size: 19px;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 34px 0 0;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top h3 {
+  margin: 4px 0 0px;
+  display: inline-block;
+  font-size: 60px;
+  font-weight: 300;
+  line-height: 60px;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top h3 .dolar {
+  bottom: 24px;
+  font-size: 22px;
+  font-weight: 800;
+  padding-right: 3px;
+  position: relative;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: lowercase;
+  display: inline-block;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top h6 {
+  margin-top: 10px;
+  font-weight: normal;
+  padding-top: 0;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  font-size: 18px;
+  padding-bottom: 38px;
+  text-transform: initial;
+  font-weight: 400;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom {
+  background: #eeeeee;
+  color: #eeeeee;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom ul li {
+  color: #365260;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 16px 0;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom ul li .highlight {
+  color: #000;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom ul li:nth-child(odd) {
+  background: #ccc;
+  padding: 10px 0;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .btn-table {
+  background: #0c1f28;
+  border-radius: 8px;
+  color: #ffffff;
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 35px auto 0;
+  padding: 11px 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 140px;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .btn-table:hover {
+  border-radius: 8px;
+}
+.clpricing-table .price-table.style4 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #d32f2f;
+  border-radius: 8px;
+}
+.clpricing-table .price-table.style4 .price-1 .top {
+  color: #000000;
+}
+.clpricing-table .price-table.style4 .price-1 .top h3,
+.clpricing-table .price-table.style4 .price-1 .top h4,
+.clpricing-table .price-table.style4 .price-1 .top h5 {
+  color: #000000;
+}
+.clpricing-table .price-table.style4 .price-1 .btn-table {
+  background: #000000 !important;
+}
+.clpricing-table .price-table.style4 .price-style2 .top {
+  color: #e97d68;
+}
+.clpricing-table .price-table.style4 .price-style2 .top h3,
+.clpricing-table .price-table.style4 .price-style2 .top h4,
+.clpricing-table .price-table.style4 .price-style2 .top h5 {
+  color: #e97d68;
+}
+.clpricing-table .price-table.style4 .price-style2 .btn-table {
+  background: #e24747 !important;
+}
+.clpricing-table .price-table.style4 .price-3 .top {
+  color: #9c56b8;
+}
+.clpricing-table .price-table.style4 .price-3 .top h3,
+.clpricing-table .price-table.style4 .price-3 .top h4,
+.clpricing-table .price-table.style4 .price-3 .top h5 {
+  color: #9c56b8;
+}
+.clpricing-table .price-table.style4 .price-3 .btn-table {
+  background: #9c56b8 !important;
+}
+.clpricing-table .price-table.style5 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style5 .cl-col-md-4 {
+  padding: 0;
+}
+@media screen and (max-width: 991px) {
+  .clpricing-table .price-table.style5 .cl-col-md-4 {
+    padding: 0 10px;
+  }
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap {
+  border-radius: 0;
+  padding-bottom: 0px;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top {
+  text-align: center;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top .cl-header h4 {
+  font-size: 19px;
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 34px 0 0;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top h3 {
+  margin: 4px 0 0px;
+  display: inline-block;
+  font-size: 60px;
+  font-weight: 300;
+  line-height: 60px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top h3 .dolar {
+  bottom: 24px;
+  font-size: 22px;
+  font-weight: 800;
+  padding-right: 3px;
+  position: relative;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: lowercase;
+  display: inline-block;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .top h6 {
+  font-weight: normal;
+  margin-top: 10px;
+  padding-top: 0px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom {
+  padding-bottom: 40px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom ul li {
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 10px 5px;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom ul li .highlight {
+  color: #000;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .btn-table {
+  background: #0c1f28;
+  border-radius: 8px;
+  color: #ffffff;
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 35px auto 0;
+  padding: 11px 0;
+  text-align: center;
+  text-transform: uppercase;
+  width: 140px;
+}
+.clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #d32f2f;
+  border-radius: 8px;
+}
+.clpricing-table .price-table.style5 .price-1 {
+  background: #3aa4d1;
+}
+.clpricing-table .price-table.style5 .price-style2 {
+  background: #e98168;
+}
+.clpricing-table .price-table.style5 .price-3 {
+  background: #ae68ca;
+}
+.clpricing-table .clpricing-table .price-table.style5 .cl-pricetable-wrap .bottom .btn-table:before {
+  border-radius: 8px !important;
+}
+.clpricing-table .price-table.style6 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap {
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap:hover .btn-table {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .top {
+  padding: 35px 0 25px;
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  padding: 10px 15px;
+  text-transform: none !important;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap ul {
+  text-align: center;
+  list-style: none;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap ul li {
+  padding: 10px 0;
+  list-style: none;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap ul li:nth-child(odd) {
+  background: #ccc;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom {
+  padding-top: 42px;
+  /* Tooltip container */
+  /* Tooltip text */
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom p {
+  color: #365260;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0px 15px !important;
+  text-align: center;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom p .highlight {
+  color: #000;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -45px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+  line-height: 18px;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .btn-table {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  color: #ffffff;
+  display: block;
+  margin: 42px auto 0;
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 230px;
+  width: 80%;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.clpricing-table .price-table.style6 .cl-pricetable-wrap .bottom .btn-table:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.clpricing-table .price-table.style6 .price-1 .top {
+  background: #5343a3;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 .price-1 .bottom {
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style6 .price-1 .btn-table {
+  background: #5343a3;
+  border: #5343a3;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 .price-style2 .top {
+  background: #00796b;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 .price-style2 .bottom {
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style6 .price-style2 .btn-table {
+  background: #00796b;
+  border: #00796b;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 .price-3 .top {
+  background: #7a002b;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 .price-3 .bottom {
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style6 .price-3 .btn-table {
+  background: #7a002b;
+  border: #7a002b;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style6 h6 {
+  font-weight: normal;
+}
+.clpricing-table .price-table.style7 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap {
+  background: #ffffff none repeat scroll 0 0;
+  box-shadow: 0 6px 25px 7px #e5e5e5;
+  color: #333333;
+  margin-right: 0;
+  padding: 20px 20px 1px;
+  position: relative;
+  text-align: center;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top {
+  padding-bottom: 30px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .cl-header h4 {
+  border-radius: 2px 2px 0 0;
+  font-size: 18px;
+  font-weight: 400;
+  margin: -20px -20px 64px;
+  padding: 20px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .cl-header h4 .dolar {
+  border-radius: 100px;
+  box-shadow: 0 5px 20px #dddddd inset, 0 3px 0 #999999 inset;
+  display: block;
+  font: bold 25px/100px Georgia, serif;
+  height: 100px;
+  margin: 20px auto -65px;
+  width: 100px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .btn-table {
+  border-radius: 10px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  max-width: 170px;
+  background: transparent !important;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .btn-table:before {
+  border-radius: 5px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .top .btn-table:hover {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom ul li {
+  border-top: 1px solid #dddddd;
+  padding: 10px 0;
+  line-height: 24px;
+  font-size: 15px;
+  font-weight: 400;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style7 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style7 .price-style7 .top .cl-header h4 {
+  background: #26a69a;
+}
+.clpricing-table .price-table.style7 .price-style7 .top .dolar {
+  color: #26a69a;
+  background: #ffffff;
+  border: 5px solid #ffffff;
+}
+.clpricing-table .price-table.style7 .price-style7 .btn-table {
+  border: 2px solid #26a69a !important;
+}
+.clpricing-table .price-table.style7 .price-style7 .btn-table:before {
+  background: #26a69a !important;
+}
+.clpricing-table .price-table.style7 .price-style2 .top .cl-header h4 {
+  background: #f9a825;
+}
+.clpricing-table .price-table.style7 .price-style2 .top .dolar {
+  color: #f9a825;
+  background: #ffffff;
+  border: 5px solid #ffffff;
+}
+.clpricing-table .price-table.style7 .price-style2 .btn-table {
+  border: 2px solid #f9a825 !important;
+}
+.clpricing-table .price-table.style7 .price-style2 .btn-table:before {
+  background: #f9a825 !important;
+}
+.clpricing-table .price-table.style7 .price-3 .top .cl-header h4 {
+  background: #9c56b8;
+}
+.clpricing-table .price-table.style7 .price-3 .top .dolar {
+  color: #9c56b8;
+  background: #ffffff;
+  border: 5px solid #ffffff;
+}
+.clpricing-table .price-table.style7 .price-3 .btn-table {
+  border: 2px solid #9c56b8 !important;
+}
+.clpricing-table .price-table.style7 .price-3 .btn-table:before {
+  background: #9c56b8 !important;
+}
+.clpricing-table .price-table.style8 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap {
+  border-radius: 0;
+  padding-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap:hover .btn-table {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .top {
+  padding: 24px 0 38px;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .top h3 {
+  margin: 18px 0 14px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  padding: 10px 15px;
+  text-transform: none !important;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom {
+  padding-top: 42px;
+  background: #5c5c5c;
+  /* Tooltip container */
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .inner {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom li {
+  text-align: center;
+  font-weight: normal;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -70px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+  line-height: 18px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .btn-table {
+  color: #ffffff;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 400;
+  margin: 56px auto 0;
+  padding: 7px 0;
+  max-width: 185px;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .btn-table:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  border-radius: 8px;
+}
+.clpricing-table .price-table.style8 .cl-pricetable-wrap .bottom .btn-table:before {
+  border-radius: 8px;
+}
+.clpricing-table .price-table.style8 .price-1 {
+  background: #5c5c5c;
+  border-bottom: 4px solid #00a185;
+}
+.clpricing-table .price-table.style8 .price-1 .top {
+  background: #00a185;
+}
+.clpricing-table .price-table.style8 .price-1 .btn-table {
+  background: #00a185;
+}
+.clpricing-table .price-table.style8 .price-style2 {
+  background: #5c5c5c;
+  border-bottom: 4px solid #e87e03;
+}
+.clpricing-table .price-table.style8 .price-style2 .top {
+  background: #e87e03;
+}
+.clpricing-table .price-table.style8 .price-style2 .btn-table {
+  background: #e87e03;
+}
+.clpricing-table .price-table.style8 .price-3 {
+  background: #5c5c5c;
+  border-bottom: 4px solid #9c56b8;
+}
+.clpricing-table .price-table.style8 .price-3 .top {
+  background: #9c56b8;
+}
+.clpricing-table .price-table.style8 .price-3 .btn-table {
+  background: #9c56b8;
+}
+.clpricing-table .price-table.style9 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap {
+  border-radius: 0;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap:hover .btn-table {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top {
+  padding: 0 0 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .cl-header h4 {
+  padding: 12px 0;
+  line-height: 27px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .cl-subheader {
+  padding: 0 10px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top h3 {
+  padding: 12px 0 5px 0;
+  display: inline-block;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top h3 .dolar {
+  bottom: 13px;
+  font-size: 36px;
+  font-weight: 400;
+  position: relative;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: lowercase;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top h6 {
+  font-weight: normal;
+  padding-top: 0px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  padding-bottom: 20px;
+  padding-top: 8px;
+  text-transform: initial;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .btn-table {
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  color: #ffffff;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  width: 170px;
+  background: transparent !important;
+  transition: all .3s;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .btn-table:before {
+  border-radius: 5px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .top .btn-table:hover {
+  border: 2px solid #d32f2f !important;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom {
+  padding-top: 30px;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom ul {
+  list-style: outside none none;
+  margin: 0 25px;
+  padding: 0 0 30px;
+  text-align: center;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom ul li {
+  font-size: 15px;
+  color: #666666;
+  border: 1px solid #cccccc;
+  padding: 7px;
+  border-bottom: 0;
+  font-weight: 400;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom ul li:last-child {
+  border: 1px solid #cccccc;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom ul li .fa {
+  bottom: 2px;
+  color: #26a69a;
+  left: 3px;
+  position: relative;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .btn-table:hover {
+  border: 2px solid #d32f2f;
+}
+.clpricing-table .price-table.style9 .cl-pricetable-wrap .btn-table:before {
+  background: #d32f2f;
+}
+.clpricing-table .price-table.style9 .price-1 .top {
+  background: #26a69a;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style9 .price-1 .top .cl-header h4 {
+  background: #009688;
+}
+.clpricing-table .price-table.style9 .price-1 .bottom .feature_icon {
+  color: #009688 !important;
+}
+.clpricing-table .price-table.style9 .price-style2 .top {
+  background: #fbc02d;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style9 .price-style2 .top .cl-header h4 {
+  background: #f9a825;
+}
+.clpricing-table .price-table.style9 .price-style2 .bottom .feature_icon {
+  color: #f9a825 !important;
+}
+.clpricing-table .price-table.style9 .price-3 .top {
+  background: #ae68ca;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style9 .price-3 .top .cl-header h4 {
+  background: #9c56b8;
+}
+.clpricing-table .price-table.style9 .price-3 .bottom .feature_icon {
+  color: #9c56b8 !important;
+}
+.clpricing-table .price-table.style10 {
+  margin-bottom: 45px;
+}
+.clpricing-table .price-table.style10 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style10 .price-des {
+  margin-bottom: 40px;
+}
+.clpricing-table .price-table.style10 .cl-col-lg-4 {
+  padding: 0;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style10 .cl-col-lg-4 {
+    padding: 0 10px;
+  }
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 0px;
+  margin-right: 0;
+  position: relative;
+  border-radius: 0;
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  margin: 0px;
+  background-color: #232f39;
+  padding-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .top {
+  padding: 25px 10px;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style10 .cl-pricetable-wrap .top .cl-header {
+    display: block;
+  }
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .top .cl-header h4 {
+  border-radius: 2px 2px 0 0;
+  font-size: 30px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .top .cl-header h5 {
+  opacity: .8;
+  margin-top: 10px;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured ul li {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 8px 0;
+  border-bottom: none;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .featured .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .bottom .dolar {
+  font: 700 35px/74px Georgia, serif;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .bottom .btn-table {
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  text-transform: uppercase;
+  max-width: 170px;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #ffffff;
+  border-radius: 0 !important;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap:hover {
+  border-radius: 20px;
+  box-shadow: 0 20px 50px 0 rgba(54, 54, 54, 0.3);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 40px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap:hover h4,
+.clpricing-table .price-table.style10 .cl-pricetable-wrap:hover h5,
+.clpricing-table .price-table.style10 .cl-pricetable-wrap:hover .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap.popular_plan {
+  border-radius: 20px;
+  box-shadow: 0 20px 50px 0 rgba(54, 54, 54, 0.3);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 40px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap.popular_plan h4,
+.clpricing-table .price-table.style10 .cl-pricetable-wrap.popular_plan h5,
+.clpricing-table .price-table.style10 .cl-pricetable-wrap.popular_plan .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style10 .cl-pricetable-wrap.popular_plan .top .popular {
+  background: #ffffff none repeat scroll 0 0;
+  font-size: 14px;
+  left: -39px;
+  padding: 4px 10px;
+  position: absolute;
+  text-transform: lowercase;
+  top: 19px;
+  transform: rotate(-54deg);
+  width: 130px;
+  font-weight: 500;
+}
+.clpricing-table .price-table.style10 .price-1 {
+  border-bottom: 7px solid #bfc946;
+}
+.clpricing-table .price-table.style10 .price-1 .top {
+  color: #bfc946;
+}
+.clpricing-table .price-table.style10 .price-1 .top h3,
+.clpricing-table .price-table.style10 .price-1 .top h4,
+.clpricing-table .price-table.style10 .price-1 .top h5 {
+  color: #bfc946;
+}
+.clpricing-table .price-table.style10 .price-1 .featured {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-1 .featured .fa {
+  color: #bfc946;
+}
+.clpricing-table .price-table.style10 .price-1 .bottom {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-1 .bottom .btn-table {
+  border: 2px solid #bfc946;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-1 .bottom .btn-table:hover {
+  color: #bfc946 !important;
+}
+.clpricing-table .price-table.style10 .price-1:hover {
+  background: #bfc946;
+}
+.clpricing-table .price-table.style10 .price-1:hover .btn-table {
+  border: 2px solid #ffffff;
+}
+.clpricing-table .price-table.style10 .popular_plan {
+  border-bottom: 7px solid #36cccb;
+  background: #36cccb;
+}
+.clpricing-table .price-table.style10 .popular_plan .top {
+  color: #36cccb;
+}
+.clpricing-table .price-table.style10 .popular_plan .top h3,
+.clpricing-table .price-table.style10 .popular_plan .top h4,
+.clpricing-table .price-table.style10 .popular_plan .top h5 {
+  color: #36cccb;
+}
+.clpricing-table .price-table.style10 .popular_plan .featured {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .popular_plan .featured .fa {
+  color: #36cccb;
+}
+.clpricing-table .price-table.style10 .popular_plan .bottom {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .popular_plan .bottom .btn-table {
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .popular_plan:hover {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style10 .popular_plan:hover .btn-table {
+  border: 2px solid #ffffff;
+}
+.clpricing-table .price-table.style10 .price-3 {
+  border-bottom: 7px solid #d17f06;
+}
+.clpricing-table .price-table.style10 .price-3 .top {
+  color: #d17f06;
+}
+.clpricing-table .price-table.style10 .price-3 .top h3,
+.clpricing-table .price-table.style10 .price-3 .top h4,
+.clpricing-table .price-table.style10 .price-3 .top h5 {
+  color: #d17f06;
+}
+.clpricing-table .price-table.style10 .price-3 .featured {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-3 .featured .fa {
+  color: #d17f06;
+}
+.clpricing-table .price-table.style10 .price-3 .bottom {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-3 .bottom .btn-table {
+  border: 2px solid #d17f06;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style10 .price-3 .bottom .btn-table:hover {
+  color: #d17f06 !important;
+}
+.clpricing-table .price-table.style10 .price-3:hover {
+  background: #d17f06;
+}
+.clpricing-table .price-table.style10 .price-3:hover .btn-table {
+  border: 2px solid #ffffff;
+}
+.clpricing-table .price-table.style10 .price-style10 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style10 .category30 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style11 {
+  margin-bottom: 45px;
+}
+.clpricing-table .price-table.style11 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style11 .price-des {
+  margin-bottom: 40px;
+}
+.clpricing-table .price-table.style11 .cl-col-lg-4 {
+  padding: 0;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 0px;
+  margin-right: 0;
+  position: relative;
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  margin: 0px;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .inner-box {
+  border-radius: 10px;
+  padding: 20px 5px;
+  transition: all 0.4s ease-in-out 0s;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .inner-box:hover {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .top {
+  padding: 0 10px 20px;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style11 .cl-pricetable-wrap .top .cl-header {
+    display: block;
+  }
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .top .cl-header h4 {
+  border-radius: 2px 2px 0 0;
+  font-size: 22px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .price-table.style11 .cl-pricetable-wrap .top .cl-header h4 {
+    font-size: 20px;
+  }
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .top .cl-header h5 {
+  opacity: .8;
+  margin-top: 10px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured ul li {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  padding: 4px 0;
+  border-bottom: none;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured .feature_icon {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .featured .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .bottom .dolar {
+  font: 700 35px/74px Georgia, serif;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .bottom .btn-table {
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  text-transform: uppercase;
+  max-width: 170px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #d32f2f;
+  border-radius: 0 !important;
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .price-table.style11 .cl-pricetable-wrap .bottom .btn-table {
+    width: auto;
+  }
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap:hover {
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap:hover h4,
+.clpricing-table .price-table.style11 .cl-pricetable-wrap:hover h5,
+.clpricing-table .price-table.style11 .cl-pricetable-wrap:hover .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 35px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+  overflow: hidden;
+  padding-bottom: 35px;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan .inner-box {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan h4,
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan h5,
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style11 .cl-pricetable-wrap.popular_plan .top .popular {
+  background: #ffffff none repeat scroll 0 0;
+  color: #d32f2f;
+  font-size: 14px;
+  left: -39px;
+  padding: 4px 10px;
+  position: absolute;
+  text-transform: lowercase;
+  top: 19px;
+  transform: rotate(-54deg);
+  width: 130px;
+  font-weight: 500;
+}
+.clpricing-table .price-table.style11 .price-1 {
+  background: #bfc946;
+}
+.clpricing-table .price-table.style11 .price-1:hover .inner-box {
+  background: #232f39;
+  border: 1px solid #232f39;
+}
+.clpricing-table .price-table.style11 .price-1:hover .btn-table {
+  border: 2px solid #9ea72f !important;
+}
+.clpricing-table .price-table.style11 .price-1 .inner-box {
+  border: 1px solid #009688;
+}
+.clpricing-table .price-table.style11 .price-1 .btn-table {
+  border: 2px solid #ffffff !important;
+  color: #ffffff;
+  transition: all .7s;
+}
+.clpricing-table .price-table.style11 .price-1 .btn-table:before {
+  background: #9ea72f !important;
+}
+.clpricing-table .price-table.style11 .price-style2 {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style11 .price-style2:hover .inner-box {
+  background: #232f39;
+  border: 1px solid #232f39;
+}
+.clpricing-table .price-table.style11 .price-style2:hover .btn-table {
+  border: 2px solid #36cccb !important;
+}
+.clpricing-table .price-table.style11 .price-style2 .inner-box {
+  background: #232f39;
+  border: 1px solid #232f39;
+}
+.clpricing-table .price-table.style11 .price-style2 .btn-table {
+  border: 2px solid #ffffff !important;
+  color: #ffffff;
+  transition: all .7s;
+}
+.clpricing-table .price-table.style11 .price-style2 .btn-table:before {
+  background: #36cccb !important;
+}
+.clpricing-table .price-table.style11 .price-3 {
+  background: #009688;
+}
+.clpricing-table .price-table.style11 .price-3:hover .inner-box {
+  background: #232f39;
+  border: 1px solid #232f39;
+}
+.clpricing-table .price-table.style11 .price-3:hover .btn-table {
+  border: 2px solid #009688 !important;
+}
+.clpricing-table .price-table.style11 .price-3 .inner-box {
+  border: 1px solid #6fc7b3;
+}
+.clpricing-table .price-table.style11 .price-3 .btn-table {
+  border: 2px solid #ffffff !important;
+  color: #ffffff;
+  transition: all .7s;
+}
+.clpricing-table .price-table.style11 .price-3 .btn-table:before {
+  background: #009688 !important;
+}
+.clpricing-table .price-table.style11 .category28 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style11 .category30 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style12 {
+  margin-bottom: 45px;
+}
+.clpricing-table .price-table.style12 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style12 .price-des {
+  margin-bottom: 40px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 0px;
+  margin-right: 0;
+  position: relative;
+  transition: all 0.4s ease-in-out 0s;
+  width: 100%;
+  margin: 0px;
+  padding: 30px 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .inner-box {
+  border-radius: 10px;
+  padding: 20px 5px;
+  transition: all 0.4s ease-in-out 0s;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .inner-box:hover {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+  margin-top: -10px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .top {
+  padding: 0 10px 20px;
+}
+@media screen and (max-width: 1000px) {
+  .clpricing-table .price-table.style12 .cl-pricetable-wrap .top .cl-header {
+    display: block;
+  }
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .top .cl-header h4 {
+  border-radius: 2px 2px 0 0;
+  font-size: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 26px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .top .cl-header h5 {
+  opacity: .8;
+  margin-top: 10px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured ul {
+  text-align: center;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured ul li {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 4px 0;
+  border-bottom: none;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured .feature_icon {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -100px;
+  line-height: 18px;
+  overflow: visible;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .featured .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .bottom .dolar {
+  font: 700 35px/74px Georgia, serif;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .bottom .btn-table {
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 auto;
+  padding: 8px 0;
+  text-transform: uppercase;
+  max-width: 170px;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #d32f2f;
+  border-radius: 0 !important;
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .price-table.style12 .cl-pricetable-wrap .bottom .btn-table {
+    width: auto;
+  }
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap:hover {
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap:hover h4,
+.clpricing-table .price-table.style12 .cl-pricetable-wrap:hover h5,
+.clpricing-table .price-table.style12 .cl-pricetable-wrap:hover .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 35px;
+  transition: all 0.2s ease-in-out 0s;
+  z-index: 1;
+  overflow: hidden;
+  padding-bottom: 35px;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan .inner-box {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan h4,
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan h5,
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan .fa {
+  color: #fff !important;
+}
+.clpricing-table .price-table.style12 .cl-pricetable-wrap.popular_plan .top .popular {
+  background: #ffffff;
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 10px;
+  position: absolute;
+  right: -34px;
+  text-transform: lowercase;
+  top: 16px;
+  transform: rotate(45deg);
+  width: 130px;
+}
+.clpricing-table .price-table.style12 .price-1 {
+  background: #bfc946;
+}
+.clpricing-table .price-table.style12 .price-1 .inner-box:hover {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+  margin-top: -10px;
+}
+.clpricing-table .price-table.style12 .price-1 .btn-table:hover {
+  border: 2px solid #9ea72f !important;
+}
+.clpricing-table .price-table.style12 .price-1 .btn-table:before {
+  background: #9ea72f !important;
+}
+.clpricing-table .price-table.style12 .price-style2 {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style12 .price-style2 .inner-box:hover {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+  margin-top: -10px;
+}
+.clpricing-table .price-table.style12 .price-style2 .btn-table:hover {
+  border: 2px solid #169c9b !important;
+}
+.clpricing-table .price-table.style12 .price-style2 .btn-table:before {
+  background: #169c9b !important;
+}
+.clpricing-table .price-table.style12 .price-3 {
+  background: #e78900;
+}
+.clpricing-table .price-table.style12 .price-3 .inner-box:hover {
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+  margin-top: -10px;
+}
+.clpricing-table .price-table.style12 .price-3 .btn-table:hover {
+  border: 2px solid #c77a09 !important;
+}
+.clpricing-table .price-table.style12 .price-3 .btn-table:before {
+  background: #c77a09 !important;
+}
+.clpricing-table .price-table.style12 .category28 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style12 .category30 {
+  border-radius: 20px !important;
+}
+.clpricing-table .price-table.style13 .bottom p {
+  margin: 0;
+  padding: 0;
+}
+.clpricing-table .price-table.style13 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style13 .price-des {
+  margin-bottom: 40px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap {
+  border-radius: 5px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap:hover .dolar {
+  top: -40px !important;
+  transition: all 1s !important;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top {
+  text-align: center;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top .cl-header h4 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 20px 0;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top .cl-subheader {
+  min-height: 90px;
+  position: relative;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top .cl-subheader h3 {
+  margin: 0;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top .cl-subheader h3 .dolar {
+  border-radius: 100px;
+  box-shadow: 0 8px 19px 0 rgba(54, 54, 54, 0.5);
+  display: block;
+  font: 700 25px/100px Georgia, serif;
+  height: 100px;
+  left: 50%;
+  margin: 0 auto;
+  position: absolute;
+  top: -52px;
+  width: 100px;
+  transition: all .5s !important;
+  transition: all 0.4s ease-in-out 0s;
+  transform: translate(-50%);
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top h5 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: lowercase;
+  display: inline-block;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 14px;
+  left: -14px;
+  padding: 6px 19px;
+  position: absolute;
+  text-transform: lowercase;
+  top: 28px;
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom {
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom ul {
+  text-align: center;
+  margin: 0;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom ul li {
+  color: #365260;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 10px;
+  line-height: 23px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom ul li .fa {
+  bottom: 3px;
+  color: #0078f0;
+  margin-left: 4px;
+  position: relative;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom ul li .highlight {
+  color: #000;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom ul li:nth-child(odd) {
+  background: #ccc;
+  padding: 10px 12px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .btn-table {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 100%;
+  border: 0px solid #0c1f28;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .btn-table:before {
+  background: #d32f2f;
+  border-radius: 0 !important;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -45px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+  line-height: 18px;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style13 .cl-pricetable-wrap:hover .dolar {
+  margin-top: -10px;
+}
+.clpricing-table .price-table.style13 .price-1 .top .cl-subheader {
+  background: #3399ff;
+}
+.clpricing-table .price-table.style13 .price-1 .top .cl-subheader .dolar {
+  background: #0078f0;
+}
+.clpricing-table .price-table.style13 .price-1 .top .cl-header {
+  background: #0078f0;
+}
+.clpricing-table .price-table.style13 .price-1 .bottom .fa {
+  color: #0078f0 !important;
+}
+.clpricing-table .price-table.style13 .price-1 .btn-table {
+  background: #0078f0;
+  border: 2px solid #0078f0 !important;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style13 .price-style2 .top .cl-subheader {
+  background: #93c230;
+}
+.clpricing-table .price-table.style13 .price-style2 .top .cl-subheader .dolar {
+  background: #7ba428;
+}
+.clpricing-table .price-table.style13 .price-style2 .top .cl-header {
+  background: #7ba428;
+}
+.clpricing-table .price-table.style13 .price-style2 .bottom .fa {
+  color: #7ba428 !important;
+}
+.clpricing-table .price-table.style13 .price-style2 .btn-table {
+  background: #7ba428;
+  border: 2px solid #7ba428 !important;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style13 .price-3 .top .cl-subheader {
+  background: #e040fb;
+}
+.clpricing-table .price-table.style13 .price-3 .top .cl-subheader .dolar {
+  background: #9918ad;
+}
+.clpricing-table .price-table.style13 .price-3 .top .cl-header {
+  background: #9918ad;
+}
+.clpricing-table .price-table.style13 .price-3 .bottom .fa {
+  color: #9918ad !important;
+}
+.clpricing-table .price-table.style13 .price-3 .btn-table {
+  background: #9918ad;
+  border: 2px solid #9918ad !important;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style13 .price-4 .top .cl-subheader {
+  background: #40d6d5;
+}
+.clpricing-table .price-table.style13 .price-4 .top .cl-subheader .dolar {
+  background: #1fb5b4;
+}
+.clpricing-table .price-table.style13 .price-4 .top .cl-header {
+  background: #1fb5b4;
+}
+.clpricing-table .price-table.style13 .price-4 .bottom .fa {
+  color: #1fb5b4 !important;
+}
+.clpricing-table .price-table.style13 .price-4 .btn-table {
+  background: #1fb5b4;
+  border: 2px solid #1fb5b4 !important;
+  color: #ffffff;
+}
+.clpricing-table .price-table.style14 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap {
+  background: #fff;
+  border-radius: 4px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap:hover .btn-table {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top {
+  padding: 35px 0 25px;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top .cl-header h4 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0 0 5px;
+  padding: 0 10px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top .cl-subheader .short-desc {
+  padding: 10px 15px;
+  text-transform: none !important;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top .cl-subheader h5 small {
+  color: #ffffff;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-right: 80vw solid #eeeeee;
+  border-top: 100px solid rgba(0, 0, 0, 0);
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom {
+  padding: 42px 10px 30px;
+  background: #eeeeee;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom li {
+  color: #365260;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  text-transform: uppercase;
+  list-style: none;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -45px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+  line-height: 18px;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .btn-table {
+  border-radius: 0px;
+  color: #ffffff;
+  display: block;
+  margin: 35px auto 0;
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 230px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.clpricing-table .price-table.style14 .cl-pricetable-wrap .bottom .btn-table:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.clpricing-table .price-table.style14 .price-1 .top {
+  background: #00796b;
+}
+.clpricing-table .price-table.style14 .price-1 .btn-table {
+  background: #00796b;
+}
+.clpricing-table .price-table.style14 .price-style2 .top {
+  background: #447ab6;
+}
+.clpricing-table .price-table.style14 .price-style2 .btn-table {
+  background: #447ab6;
+}
+.clpricing-table .price-table.style14 .price-3 .top {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style14 .price-3 .btn-table {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style14 .price-4 .top {
+  background: #ff9e80;
+}
+.clpricing-table .price-table.style14 .price-4 .btn-table {
+  background: #ff9e80;
+}
+.clpricing-table .price-table.style14 .price-5 .top {
+  background: #8d6e63;
+}
+.clpricing-table .price-table.style14 .price-5 .btn-table {
+  background: #8d6e63;
+}
+.clpricing-table .price-table.style14 .price-6 .top {
+  background: #9e9d24;
+}
+.clpricing-table .price-table.style14 .price-6 .btn-table {
+  background: #9e9d24;
+}
+.clpricing-table .price-table.style15 .pricing-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 18px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 9px 0 rgba(54, 54, 54, 0.2), 0 5px 0 0 rgba(54, 54, 54, 0.2);
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap:hover .btn-table {
+  -webkit-transform: scale(1.1) !important;
+  transform: scale(1.1) !important;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top {
+  padding: 35px 15px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top h3,
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top h4,
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top h5 {
+  color: #3c4857;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top .cl-header h4 {
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 25px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top .popular {
+  background: #d32f2f;
+  color: #ffffff;
+  font-size: 11px;
+  left: -43px;
+  padding: 18px 34px 6px;
+  position: absolute;
+  text-transform: lowercase;
+  top: -6px;
+  transform: rotate(-50deg);
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .top:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .price-table.style15 .cl-pricetable-wrap .top:after {
+    border-right: 170vw solid #fff;
+  }
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom {
+  padding: 0 20px 20px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom li {
+  color: #365260;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom li:nth-child(odd) {
+  border-top: 1px dotted #ccc;
+  border-bottom: 1px dotted #ccc;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .feature_icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .tooltip {
+  position: relative !important;
+  display: inline-block;
+  opacity: 1 !important;
+  z-index: auto !important;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .tooltip:after {
+  font-family: 'FontAwesome';
+  font-size: 13px;
+  content: "\f059";
+  position: absolute;
+  top: -20px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .tooltip .tooltiptext {
+  background-color: #555555;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  left: -45px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 20px;
+  visibility: hidden;
+  width: 114px;
+  z-index: 1;
+  line-height: 18px;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .btn-table {
+  border-radius: 0px;
+  color: #ffffff;
+  display: block;
+  margin: 35px auto 0;
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 230px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .btn-table:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+@media screen and (max-width: 767px) {
+  .clpricing-table .price-table.style15 .cl-pricetable-wrap .bottom .btn-table {
+    width: auto;
+  }
+}
+.clpricing-table .price-table.style15 .price-1 .btn-table {
+  background: #447ab6;
+}
+.clpricing-table .price-table.style15 .price-style2 .btn-table {
+  background: #36cccb;
+}
+.clpricing-table .price-table.style15 .price-3 .btn-table {
+  background: #9c56b8;
+}

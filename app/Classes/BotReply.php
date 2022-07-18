@@ -9,7 +9,7 @@ use Closure;
 class BotReply extends BotResponse{
 
     public function __construct(
-        string $text,
+        $text,
         ?Closure $nextResponse = null,
         array $additionalParams = [],
         ?Attachment $attachment = null,
@@ -29,7 +29,13 @@ class BotReply extends BotResponse{
             null,
             $attachment,
             $botTypingSeconds,
+            false,
             $onExecute
         );
+    }
+
+    public static function get_parser_name() : string
+    {
+        return 'botreply';
     }
 }

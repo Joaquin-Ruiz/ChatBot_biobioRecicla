@@ -1,0 +1,689 @@
+{
+  "version": 1,
+  "variables": {
+    "testVariable": "OnlyATestVariable",
+    "colors": [
+      "Rojo", "Azul", "Verde", "Morado", "Negro"
+    ],
+    "tiposResiduos": {
+      "0": "Metales",
+      "1": "Carton",
+      "2": "Plásticos",
+      "3": "Aceite",
+      "4": "Escombros",
+      "5": "Textiles",
+      "6": "Latas",
+      "8": "Botellas PET",
+      "9": "Papel",
+      "10": "Envases Tetrapak"
+    },
+    "puntosLimpios": [
+      {
+        "nombre":"punto1",
+        "calle":"null",
+        "numero":"null",
+        "latitud":"-36,781836",
+        "longitud":"-73,074929",
+        "residuos":"Plasticos, Aceite",
+        "administracion":"Municipalidad Concepción",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto1",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 100
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto2",
+        "calle":"null",
+        "numero":"null",
+        "latitud":"-36,781836",
+        "longitud":"-73,074929",
+        "residuos":"Escombros, Textiles, Metales",
+        "administracion":"Sodimac",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto2",
+          "description": "Sodimac",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto3",
+        "calle":"Victor Lamas",
+        "numero":"567",
+        "latitud":"-36,8328",
+        "longitud":"-73,0476",
+        "residuos":"Papel, Carton, Latas, Botellas",
+        "administracion":"Municipalidad Concepcion",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto3",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto4",
+        "calle":"Av.Collao ",
+        "numero":"1202 casilla 5-C",
+        "latitud":"-36,81115",
+        "longitud":"-73,01583",
+        "residuos":"Papel, Carton, Latas, Botellas PET",
+        "administracion":"Municipalidad Concepcion",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto4",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto5",
+        "calle":"Av. Los Carrera",
+        "numero":"301",
+        "latitud":"-36,80494",
+        "longitud":"-73,06167",
+        "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
+        "administracion":"Sodimac",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto5",
+          "description": "Sodimac",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto6",
+        "calle":"Victor Lamas",
+        "numero":"1290 casilla 160-C",
+        "latitud":"-36,82925",
+        "longitud":"-73,03429",
+        "residuos":"Latas, Plasticos, Papel",
+        "administracion":"Universidad de Concepcion",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto6",
+          "description": "Universidad de Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto7",
+        "calle":"Arturo Prat",
+        "numero":"879",
+        "latitud":"-36,82603",
+        "longitud":"-73,06154",
+        "residuos":"Latas, Plasticos, Papel",
+        "administracion":"Universidad  Santo Tomas",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto7",
+          "description": "Universidad Santo Tomás",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto8",
+        "calle":"Av. Los Carrera",
+        "numero":"301",
+        "latitud":"-36,82872",
+        "longitud":"-73,06361",
+        "residuos":"Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
+        "administracion":"Tottus",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto8",
+          "description": "Tottus",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto9",
+        "calle":"Av. Costanera Andalien",
+        "numero":"336",
+        "latitud":"-36,77542",
+        "longitud":"-73,04407",
+        "residuos":"Papel, Carton, Botellas, Vidrio, Aceite",
+        "administracion":"Municipalidad de Concepcion",
+        "comuna": "Concepcion",
+        "itemImg": {
+          "type": "text",
+          "title": "punto9",
+          "description": "Municipalidad Concepción",
+          "position": {
+              "left": 100,
+              "top": 50
+          },
+          "sticky": false,
+          "customClassName": "interactive-item"
+        }
+      },
+      {
+        "nombre":"punto10",
+        "calle":"Av. Ejercito",
+        "numero":"330",
+        "latitud":"-36,77611",
+        "longitud":"-73,08949",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto11",
+        "calle":"Las Hortensias",
+        "numero":"4850",
+        "latitud":"-36,7556",
+        "longitud":"-73,09271",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto12",
+        "calle":"Las Garzas",
+        "numero":"193",
+        "latitud":"-36,72049",
+        "longitud":"-73,14115",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto13",
+        "calle":"28 de octubre",
+        "numero":"205",
+        "latitud":"-36,71104",
+        "longitud":"-73,11824",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto14",
+        "calle":"Almte. Neff ",
+        "numero":"270",
+        "latitud":"-36,74669",
+        "longitud":"-73,09157",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto15",
+        "calle":"Desiderio Garcia",
+        "numero":"979",
+        "latitud":"-36,75158",
+        "longitud":"-73,10564",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto16",
+        "calle":"Av. Colón",
+        "numero":"3260",
+        "latitud":"-36,74265",
+        "longitud":"-73,09816",
+        "residuos":"Botellas PET",
+        "administracion":"null",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto17",
+        "calle":"Sgto. Aldea",
+        "numero":"121",
+        "latitud":"-36,71406",
+        "longitud":"-73,11611",
+        "residuos":"Botellas PET",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto18",
+        "calle":"A",
+        "numero":"909",
+        "latitud":"-36,77664",
+        "longitud":"-73,07323",
+        "residuos":"Botellas PET, Papel, Carton, Aceite vegetal",
+        "administracion":"Municipalidad Talcahuano",
+        "comuna":"Talcahuano"
+      },
+      {
+        "nombre":"punto19",
+        "calle":"Colo colo",
+        "numero":"249",
+        "latitud":"-36,83774",
+        "longitud":"-73,09316",
+        "residuos":"Latas, Papeles, Carton",
+        "administracion":"Municipalidad San pedro de la paz",
+        "comuna":"San Pedro"
+      },
+      {
+        "nombre":"punto20",
+        "calle":"Los fresnos",
+        "numero":"4130000",
+        "latitud":"-36,847141",
+        "longitud":"-73,104942",
+        "residuos":"Latas, Papeles, Carton",
+        "administracion":"Municipalidad San pedro de la paz",
+        "comuna":"San Pedro"
+      },
+      {
+        "nombre":"punto21",
+        "calle":"Av. Manuel Rodriguez",
+        "numero":"1045",
+        "latitud":"-36,93034",
+        "longitud":"-73,021767",
+        "residuos":"Carton, Papeles, Plasticos",
+        "administracion":"Municipalidad Chiguayante",
+        "comuna":"Chiguayante"
+      },
+      {
+        "nombre":"punto22",
+        "calle":"Av. 8 Oriente",
+        "numero":"720",
+        "latitud":"-36,906445",
+        "longitud":"-73,031436",
+        "residuos":"Carton, Papeles, Plasticos",
+        "administracion":"Municipalidad Chiguayante",
+        "comuna":"Chiguayante"
+      },
+      {
+        "nombre":"punto23",
+        "calle":"Av.Gnrl Prats",
+        "numero":"80",
+        "latitud":"-37,023102",
+        "longitud":"-73,153526",
+        "residuos":"Carton, Papeles, Plasticos",
+        "administracion":"Municipalidad Coronel",
+        "comuna":"Coronel"
+      } 
+    ],
+    "chiguayanteimg": "http://127.0.0.1:8000/imgs/infografias/chiguayante.png",
+    "concepcionimg": "http://127.0.0.1:8000/imgs/infografias/concepcion.png",
+    "talcahuanoimg": "http://127.0.0.1:8000/imgs/infografias/talcahuano.png",
+    "sanpedroimg": "http://127.0.0.1:8000/imgs/infografias/sanpedro.png",
+    "coronelimg": "http://127.0.0.1:8000/imgs/infografias/coronel.png",
+    "comunaToImg": {
+      "Concepción": "{concepcionimg}",
+      "Talcahuano": "{talcahuanoimg}",
+      "San Pedro": "{sanpedroimg}",
+      "Coronel": "{coronelimg}",
+      "Chiguayante": "{chiguayanteimg}"
+    }
+  },
+  "responses": {
+    "start": {
+      "type": "Question",
+      "text": "Cuál es su nombre?",
+      "saveKey": "name",
+      "nextResponse": {
+        "type": "BotReply",
+        "text": "Mucho gusto {name}",
+        "nextResponse": "mainQuestion"
+      }
+    },
+    "mainQuestion": {
+      "text": "En qué lo puedo ayudar?",
+      "autoRoot": true,
+      "saveKey": "mainQuestionResult",
+      "buttons": [
+        {
+          "text": "Necesito la lista de compras",
+          "nextResponse": "Aqui está la lista de compras",
+          "enabled": true,
+          "keywords": [
+            "Quiero una lista de compras",
+            "Busco encontrar una lista de compras"
+          ]
+        },
+        {
+          "text": "Quiero una lista",
+          "enabled": true,
+          "nextResponse": "Aqui hay una lista normal"
+        },
+        {
+          "text": "Quiero un auto",
+          "nextResponse": "Aqui hay un porsche",
+          "visible": false,
+          "enabled": true
+        },
+        {
+          "text": "Estoy buscando puntos limpios",
+          "enabled": true,
+          "nextResponse": "puntoslimpios",
+          "keywords": [
+            "Estoy en busca de puntos limpios",
+            "Puntos limpios"
+          ]
+        },
+        {
+          "text": "Tengo residuos para reciclar",
+          "enabled": true,
+          "nextResponse": "residuos"
+        },
+        {
+          "text": "Dame un gato aleatoria",
+          "keywords": [
+            "Dame un gato random"
+          ],
+          "nextResponse": {
+            "type": "Function",
+            "name": "getEnvVar",
+            "key": "CAT_API_KEY",
+            "result": "CatApiKey",
+            "nextResponse": {
+              "type": "Function",
+              "name": "api",
+              "method": "get",
+              "url": "https://api.thecatapi.com/v1/images/search",
+              "headers": {
+                "x-api-key": "{CatApiKey}"
+              },
+              "result": "resultImageApi",
+              "nextResponse": {
+                "type": "Function",
+                "name": "get",
+                "array": "resultImageApi",
+                "find": "0",
+                "result": "firstImage",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "get",
+                  "map": "firstImage",
+                  "find": "url",
+                  "result": "resultImage",
+                  "nextResponse": {
+                    "text": "Aqui hay un gatito",
+                    "attachment": {
+                      "type": "Image",
+                      "url": "{resultImage}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "text": "Necesito una foto",
+          "nextResponse": {
+            "type": "Question",
+            "text": "Qué imagen busca?",
+            "saveKey": "imageQuery",
+            "nextResponse": {
+              "type": "Function",
+              "name": "getEnvVar",
+              "key": "UNSPLASH_API_KEY",
+              "result": "unsplashApiKey",
+              "nextResponse": {
+                "type": "Function",
+                "name": "api",
+                "method": "get",
+                "url": "https://api.unsplash.com/search/photos",
+                "headers": {
+                  "Accept-Version": "v1"
+                },
+                "queryParams": {
+                  "client_id": "{unsplashApiKey}",
+                  "query": "{imageQuery}",
+                  "per_page": 1
+                },
+                "result": "imageApiResult",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "get",
+                  "map": "imageApiResult",
+                  "find": "results",
+                  "result": "ResultsImage",
+                  "nextResponse": {
+                    "type": "Function",
+                    "name": "get",
+                    "array": "ResultsImage",
+                    "find": "0",
+                    "result": "FoundImage",
+                    "nextResponse": {
+                      "type": "Function",
+                      "name": "get",
+                      "map": "FoundImage",
+                      "find": "urls",
+                      "result": "ImageUrls",
+                      "nextResponse": {
+                        "type": "Function",
+                        "name": "get",
+                        "map": "ImageUrls",
+                        "find": "regular",
+                        "result": "regularImg",
+                        "nextResponse": {
+                          "text": "Aquí está su imagen",
+                          "attachment": {
+                            "type": "Image",
+                            "url": "{regularImg}"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "residuos": {
+      "text": "Estos son los residuos que puedes reciclar {mainQuestionResult}",
+      "buttons": [
+        {
+          "text": "Metales",
+          "nextResponse": "Estos son metales"
+        },
+        {
+          "text": "Textiles",
+          "nextResponse": "Estos son textiles",
+          "enabled": {
+            "condition": "!=",
+            "itemA": "{mainQuestionResult}",
+            "itemB": "Tengo residuos para reciclar"
+          }
+        },
+        {
+          "text": "Vidrio",
+          "nextResponse": "Estos son vidrio"
+        }
+      ]
+    },
+    "zapatos": {
+      "type": "Question",
+      "text": "Si, qué modelo busca?",
+      "saveKey": "shoesModel",
+      "processAnswer": true,
+      "learningArray": [
+        "Zapatos", 
+        "Zapatillas", 
+        "Sandalias",
+        "Tacones",
+        "Botas",
+        "Botines"
+      ],
+      "nextResponse": {
+        "text": "Ok, y qué talla busca?",
+        "type": "Question",
+        "saveKey": "shoesSize",
+        "validationRange": [
+          "40", "41", "42", "43", "44"
+        ],
+        "nextResponse": "Aquí están sus {shoesModel}, talla {shoesSize}"
+      }      
+    },
+    "pantalones": {
+      "type": "Question",
+      "text": "De qué color prefiere sus pantalones?",
+      "processAnswer": true,
+      "learningArray": "colors",
+      "saveKey": "pantsColor",
+      "nextResponse": {
+        "text": "Seleccione una talla",
+        "saveKey": "pantsSize",
+        "buttons": [
+          {
+            "text": "40",
+            "nextResponse": {
+              "text": "Excelente, aqui puede encontrar pantalones {pantsColor}, talla {pantsSize}",
+              "additionalParameters": {
+                "link": "https://api.color.es/?color={pantsColor}&size={pantsSize}"
+              }
+            }
+          },
+          {
+            "text": "41",
+            "nextResponse": {
+              "text": "Excelente, aqui puede encontrar pantalones {pantsColor}, talla {pantsSize}",
+              "additionalParameters": {
+                "link": "https://api.color.es?color={pantsColor}&size={pantsSize}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "puntoslimpios": {
+      "text": "De qué comuna?",
+      "type": "Question",
+      "processAnswer": true,
+      "saveKey": "comuna",
+      "learningArray": {
+        "Chiguayante": "",
+        "Concepción": "conce",
+        "Talcahuano": "",
+        "San Pedro": "",
+        "Coronel": ""
+      },
+      "nextResponse": {
+        "text": "¿Qué tipo de residuos?",
+        "type": "Question",
+        "saveKey": "residuo",
+        "processAnswer": true,
+        "isMultiple": true,
+        "learningArray": "tiposResiduos",
+        "nextResponse": {
+          "type": "Function",
+          "name": "getFromMap",
+          "map": "comunaToImg",
+          "find": "{comuna}",
+          "result": "comunaImg",
+          "nextResponse": {
+            "type": "Function",
+            "name": "where",
+            "array": "puntosLimpios",
+            "key": "residuos",
+            "value": "{residuo}",
+            "condition": "contains",
+            "or": true,
+            "result": "resultPuntosLimpios",
+            "strict": false,
+            "nextResponse": {
+              "type": "Function",
+              "name": "where",
+              "array": "resultPuntosLimpios",
+              "key": "comuna",
+              "value": "{comuna}",
+              "condition": "contains",
+              "result": "lastresultPuntosLimpios",
+              "strict": false,
+              "nextResponse": {
+                "type": "Function",
+                "name": "count",
+                "array": "lastresultPuntosLimpios",
+                "result": "countResult",
+                "nextResponse": {
+                  "type": "Function",
+                  "name": "if",
+                  "itemA": "{countResult}",
+                  "itemB": "0",
+                  "condition": ">",
+                  "then": {
+                    "type": "Function",
+                    "name": "map",
+                    "array": "lastresultPuntosLimpios",
+                    "get": "itemImg",
+                    "result": "mapItems",
+                    "nextResponse": {
+                      "text": "Ok, aqui tiene puntos de la comuna de {comuna}, que reciclan {residuo}. Hay {countResult}",
+                      "attachment": {
+                        "type": "Image",
+                        "url": "{comunaImg}"
+                      },
+                      "additionalParameters": {
+                        "puntosLimpios": "{lastresultPuntosLimpios}",
+                        "imgItems": "{mapItems}"
+                      }
+                    }
+                  },
+                  "else": "No hay puntos limpios en la comuna de {comuna} que reciclen {residuo}",
+                  "nextResponse": {
+                    "text": "Tamos listos con el if",
+                    "nextResponse": {
+                      "type": "Function",
+                      "name": "clear",
+                      "variable": ["resultPuntosLimpios", "countResult", "lastresultPuntosLimpios", "comuna", "residuo", "mapItems"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

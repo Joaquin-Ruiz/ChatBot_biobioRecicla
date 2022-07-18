@@ -4,6 +4,9 @@ namespace App\Classes;
 
 use App\Contact;
 use App\Classes\BotResponse;
+use App\Classes\NlpProcessing\NlpScore;
+use App\Classes\NlpProcessing\PairNlp;
+use App\Classes\NlpProcessing\PairNlpOption;
 use App\Conversations\BaseFlowConversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
@@ -13,6 +16,12 @@ use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
 use Closure;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use DonatelloZa\RakePlus\RakePlus;
+
+use App\Conversations\BotConversation;
+use BotMan\BotMan\BotMan;
+use Exception;
+use Opis\Closure\SerializableClosure;
 
 class ConversationFlow{
 
@@ -86,15 +95,32 @@ class ConversationFlow{
         return str_replace(',', '', preg_replace('/\s+/', '', strtolower($value)));
     }
 
+    public bool $flowFromJson = false;
+
     public function start_flow(BotResponse $botResponse, ?BotResponse $rootResponse = null){
         $this->create_question($this->rootContext, $botResponse, $rootResponse);
     }
 
-    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null){        
+    
+    public static $lowProbability;
+    public array $temporalRootResponses = [];
+    public function create_question($context, BotResponse $botResponse, ?BotResponse $rootResponse = null, ?BotResponse $temporalRootResponse = null){           
+        
         // Context is required
         if($context == null) return;
         if($context->getBot() == null) return;
         if($botResponse == null) return;
+
+        if($botResponse instanceof EmptyResponse)
+            return $this->create_question(
+                $context, 
+                $rootResponse,
+                $rootResponse,
+                $temporalRootResponse
+            );
+
+        // Get text to display
+        $textToDisplay = gettype($botResponse->text) == 'array'? array_random($botResponse->text) : $botResponse->text;
         
         // Add question or response to responses
         array_push($this->responses, $botResponse->text);
@@ -107,8 +133,24 @@ class ConversationFlow{
         // Set root response to bot response, ONLY if bot response hasn't root response
         else if($botResponse->rootResponse == null) $botResponse->rootResponse = $rootResponse;
 
-        // Only declare root response to use
-        $rootResponseToUse = $botResponse->rootResponse;
+        // Only declare root response to use (CAN BE TEMPORAL)
+        $realRootResponse = $botResponse->rootResponse;
+        $rootResponseToUse = $realRootResponse;
+
+        if($botResponse->temporalRootResponse != null){
+            $rootResponseToUse = ($botResponse->temporalRootResponse)();
+            array_push($this->temporalRootResponses, $rootResponseToUse);
+            $botResponse->temporalRootResponse = null;
+        }
+        else if($temporalRootResponse != null && $temporalRootResponse instanceof BotResponse){
+            $rootResponseToUse = $temporalRootResponse;
+        } else if($temporalRootResponse == null){
+            array_pop($this->temporalRootResponses);
+            $nextTemporalResponseToUse = end($this->temporalRootResponses);
+            if($nextTemporalResponseToUse instanceof BotResponse) $rootResponseToUse = $nextTemporalResponseToUse;
+        }
+
+        Storage::disk('public')->append('rootTest.txt', ($temporalRootResponse != null)? 'NOT NULL' : 'NULL');
 
         // Add bot typing effect
         if($botResponse->botTypingSeconds != null) $context->getBot()->typesAndWaits($botResponse->botTypingSeconds);
@@ -117,37 +159,44 @@ class ConversationFlow{
         $rootContextToUse = $this->rootContext;
 
         // Call 'onExecute' function of bot responses
-        if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);
+        if($botResponse->onExecute != null) $botResponse->onExecute->call($rootContextToUse, $rootContextToUse);        
 
         // Check if is open question
         if($botResponse instanceof BotOpenQuestion){
             $thisContext = $this;
-            $question = Question::create($botResponse->text)
+            $question = Question::create($textToDisplay)
                 ->fallback('Unable to ask question')
                 ->callbackId('ask_'.count($this->responses));
 
-            return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $rootContextToUse){
+            return $context->ask($question, function(Answer $answer) use ($thisContext, $botResponse, $rootResponseToUse, $realRootResponse, $rootContextToUse){
+                if(!$this instanceof BotConversation) return;
+                
+                $processedAnswer = $botResponse->process_answer($answer->getText());
+
                 // Run validation function of BotOpenQuestions
-                if($botResponse->validationCallback->call($rootContextToUse, $answer, $rootContextToUse, $this)){
+                if(gettype($processedAnswer) != 'boolean' && $botResponse->validationCallback->call($rootContextToUse, $processedAnswer, $rootContextToUse, $this)){
+                    
                     // Answer is correct so continue or back to root response
-                     // Add selected button to responses array
-                    array_push($thisContext->responses, $answer->getText());
+                    // Add selected button to responses array
+                    array_push($thisContext->responses, $processedAnswer);
 
                     // Call 'onValidatedAnswer' of BotOpenQuestions
-                    if($botResponse->onValidatedAnswer != null) $botResponse->onValidatedAnswer->call($rootContextToUse, $answer, $rootContextToUse);
+                    if($botResponse->onValidatedAnswer != null) $botResponse->onValidatedAnswer->call($rootContextToUse, $processedAnswer, $rootContextToUse);
 
                     if($rootResponseToUse != null)
                         return $thisContext->create_question(
                             $this, 
                             ($botResponse->nextResponse) != null? 
-                                $botResponse->nextResponse->call($rootContextToUse, $answer, $rootContextToUse) 
+                                $botResponse->nextResponse->call($rootContextToUse, $processedAnswer, $rootContextToUse) 
                                 : $rootResponseToUse, 
-                            $rootResponseToUse
+                            $realRootResponse,
+                            ($botResponse->nextResponse) != null? $rootResponseToUse : null
                         );
                     else if(($botResponse->nextResponse) != null)
                         return $thisContext->create_question(
                             $this, 
-                            $botResponse->nextResponse->call($rootContextToUse, $answer, $rootContextToUse),
+                            $botResponse->nextResponse->call($rootContextToUse, $processedAnswer, $rootContextToUse),
+                            $realRootResponse,
                             $rootResponseToUse
                         );
                 }
@@ -162,12 +211,14 @@ class ConversationFlow{
                     return $thisContext->create_question(
                         $this, 
                         $botResponse->errorResponse ?? $botResponse->onErrorBackToRoot? $rootResponseToUse : $botResponse, 
-                        $rootResponseToUse
+                        $realRootResponse,
+                        ($botResponse->errorResponse != null)? $rootResponseToUse : ($botResponse->onErrorBackToRoot? null : $rootResponseToUse)
                     );
                 else
                     return $thisContext->create_question(
                         $this, 
                         $botResponse->errorResponse ?? $botResponse, 
+                        $realRootResponse,
                         $rootResponseToUse
                     );
                 
@@ -177,74 +228,209 @@ class ConversationFlow{
         // If buttons are null, so display bot response text and then display root response (it's like chatbot menu)
         if($botResponse->buttons == null){
             // Create outgoing message with possible attachment
-            $outgoingMessage = OutgoingMessage::create($botResponse->text, $botResponse->attachment);
+            $outgoingMessage = OutgoingMessage::create($textToDisplay, $botResponse->attachment);
             $context->say($outgoingMessage, $botResponse->additionalParams);
 
-            if($botResponse->nextResponse != null) return $this->create_question($context, $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), $rootResponseToUse);
-            if($rootResponseToUse != null) return $this->create_question($context, $rootResponseToUse, $rootResponseToUse);
+            if($botResponse->nextResponse != null) return $this->create_question(
+                $context, 
+                $botResponse->nextResponse->call($this->rootContext, $rootContextToUse), 
+                $realRootResponse,
+                $rootResponseToUse);
+            if($rootResponseToUse != null) return $this->create_question(
+                $context, 
+                $rootResponseToUse,
+                $realRootResponse,
+                null
+            );
             return;
         }
 
+        $buttonsToDisplay = array();
+        $buttonsEnabled = array();
+        foreach($botResponse->buttons as $buttonRef){
+            if($buttonRef->enabled) {
+                array_push($buttonsEnabled, $buttonRef);
+                if($buttonRef->visible) array_push($buttonsToDisplay, $buttonRef);
+            }
+            else continue;
+        }
+
+        $botResponse->buttons = $buttonsEnabled;
+
         // If there are buttons, so create question
-        $question = Question::create($botResponse->text)
+        $question = Question::create($textToDisplay)
             ->fallback('Unable to ask question')
-            ->callbackId('ask_'.count($this->responses)) // Maybe this callback Id should be calculated according to $responses last id added
-            ->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $botResponse->buttons ));
+            ->callbackId('ask_'.count($this->responses)); // Maybe this callback Id should be calculated according to $responses last id added
+        if($botResponse->displayButtons)
+            $question->addButtons(array_map( function($value){ return Button::create($value->text)->value($value->text);}, $buttonsToDisplay ));
+        
 
         // Finally ask question and wait response
         $thisContext = $this;
         
-        return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $rootContextToUse){
+        return $context->ask($question, function (Answer $answer) use ($thisContext, $context, $botResponse, $rootResponseToUse, $realRootResponse, $rootContextToUse){
+            if(!$this instanceof BotConversation) return;
             $foundButtons = array();
+
+            // TODO: use lowProbability with pairnlp
+            ConversationFlow::$lowProbability = array();
 
             if ($answer->isInteractiveMessageReply()) {
                 // Get selected pressed button
                 $foundButtons = array_filter($botResponse->buttons, function($value, $key)  use($answer){
                     return $value->text == $answer->getValue();
                 }, ARRAY_FILTER_USE_BOTH);
+
+                $foundButtons = array_map(fn(ChatButton $item) => new PairNlp(
+                        new NlpScore(1,1,1),
+                        $item->text, 
+                        $item->text, 
+                        $item
+                    ), 
+                    $foundButtons
+                );
             }
             else {
-                // Get selected Typed button
-                $foundButtons = array_filter($botResponse->buttons, function($value, $key)  use($thisContext, $answer){
-                    return $thisContext->button_value_to_process($value->text) == $thisContext->button_value_to_process($answer->getText())
-                        || str_contains($thisContext->button_value_to_process($value->text), $thisContext->button_value_to_process($answer->getText()));
-                }, ARRAY_FILTER_USE_BOTH);
+                $pairsValues = array_map(fn(ChatButton $item) => new PairNlpOption($item->text, $item->additionalKeywords, $item), $botResponse->buttons);
+                $foundButtons = PairNlp::get_nlp_pairs(
+                    $answer->getText(), 
+                    $pairsValues
+                );  
+                PairNlp::sort($foundButtons);
             }
 
             // Just check if selected button is found
-            if(count($foundButtons) <= 0 || count($foundButtons) > 1){
+            if(count($foundButtons) <= 0){
                 // If not found, display error message and repeat question
                 if($botResponse->errorMessage != null) 
                     $this->say($botResponse->errorMessage, $botResponse->additionalParams);
-                else $this->say("'".$answer->getText()."' no lo entiendo. Intente nuevamente.", $botResponse->additionalParams);
+                else {
+                    if(count(ConversationFlow::$lowProbability) > 0){
+                        ksort(ConversationFlow::$lowProbability);
+
+                        //$firstElem = end(ConversationFlow::$lowProbability);
+                        $indecisionResponse = $thisContext->get_indecision_response(
+                            ConversationFlow::$lowProbability,
+                            clone $botResponse,
+                            $rootContextToUse,
+                            $answer
+                        );
+
+                        return $thisContext->create_question(
+                            $this, 
+                            $indecisionResponse, 
+                            $realRootResponse,
+                            $rootResponseToUse
+                        );
+                    }
+
+                    $this->say("'".$answer->getText()."' no lo entiendo. Intente nuevamente.", $botResponse->additionalParams);
+                }
 
                 return $thisContext->create_question(
                     $this, 
                     clone $botResponse, 
+                    $realRootResponse,
                     $rootResponseToUse
                 );
             }
 
-            // Get first found button 
-            $foundButton = array_shift($foundButtons); 
+            $foundButton = null;
+
+            PairNlp::saveTest($foundButtons, 'beforeUnique');
+            $foundButtons = PairNlp::nlp_unique($foundButtons);
+
+            // DEBUG: 
+            //$this->say("testFoundButtons: ".count($foundButtons), $botResponse->additionalParams);
+            if(count($foundButtons) > 1){
+
+                $finalButtons = PairNlp::filter_by_tolerance($foundButtons);
+
+                if(count($finalButtons) > 1){
+                    $indecisionResponse = $thisContext->get_indecision_response(
+                        array_map(fn(PairNlp $item) => $item->value, $finalButtons),
+                        clone $botResponse,
+                        $rootContextToUse,
+                        $answer
+                    );
+
+                    return $thisContext->create_question(
+                        $this, 
+                        $indecisionResponse, 
+                        $realRootResponse, 
+                        $rootResponseToUse
+                    );
+                }
+                
+                $foundButton = end($finalButtons);
+            } else {
+                // Get first found button 
+                $foundButton = array_shift($foundButtons); 
+            }
+
+            if(!$foundButton instanceof PairNlp) throw new Exception('Found button is not Pair Nlp');
 
             // Add selected button to responses array
-            array_push($thisContext->responses, $foundButton->text);
+            array_push($thisContext->responses, $foundButton->value->text);
 
             // If response should be saved, so save conversation log
             if($botResponse->saveLog) $thisContext->save_conversation_log();
 
             // Execute custom on pressed from found button
-            if($foundButton->onPressed != null) $foundButton->onPressed->call($rootContextToUse, $rootContextToUse);
+            if($foundButton->value->onPressed != null) $foundButton->value->onPressed->call($rootContextToUse, $rootContextToUse);
 
             // Then go to bot response from found button
             return $thisContext->create_question(
                 $this, 
-                $foundButton->createBotResponse != null? $foundButton->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->botResponse, 
+                $foundButton->value->createBotResponse != null? $foundButton->value->createBotResponse->call($rootContextToUse, $rootContextToUse) : $foundButton->value->botResponse, 
+                $realRootResponse,
                 $rootResponseToUse
             );
             
         }, $botResponse->additionalParams);
+    }
+
+    public function get_indecision_response(array $buttons, BotResponse $botResponse, BaseFlowConversation $rootContextToUse, $answer){
+        
+        $negativeQuestion = new ChatButton('No, preguntar nuevamente', fn() => $botResponse, ['No']);
+        array_push($buttons, $negativeQuestion);
+        
+        return new BotResponse(
+            '¿Quisiste decir alguna de estas opciones?',
+            array_map(
+                function(ChatButton $buttonValue) use ($rootContextToUse, $answer){
+                    $onPressed = function() use($buttonValue, $rootContextToUse){
+                        if($buttonValue->onPressed != null) $buttonValue->onPressed->call($rootContextToUse, $rootContextToUse);
+                    };
+                    return new ChatButton(
+                        $buttonValue->text, 
+                        $buttonValue->createBotResponse,
+                        $buttonValue->additionalKeywords,
+                        function()use($answer, $buttonValue, $onPressed,$rootContextToUse){
+                            ($onPressed)();
+
+                            // Add this option to knowledge base
+                            if($buttonValue->text == 'No, preguntar nuevamente') return;
+
+                            $diskName = 'chatknowledge';
+                            $fileName = 'newknowledge.csv';
+
+                            $existsKnowledgeContent = Storage::disk($diskName)->exists($fileName);
+                            if(!$existsKnowledgeContent){
+                                Storage::disk($diskName)->append($fileName, 'Person Answer,Expected,FlowName,Version');
+                            }
+
+                            $knowledgeContent = Storage::disk($diskName)->append(
+                                $fileName, 
+                                $answer->getText().','.$buttonValue->text.','.($rootContextToUse->get_flow_name()??'').','.($rootContextToUse->get_version() ?? '')
+                            );                            
+                        }
+                    );
+            }, 
+            $buttons)
+        );
+
+        
     }
 
     public function save_conversation_log(){
@@ -279,4 +465,16 @@ class ConversationFlow{
     public static function email_regex(){
         return "/^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/";
     }
+
+    public static function remove_accents($string) {
+        $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+        $string = strtr( $string, $unwanted_array );
+        return $string;
+    }
 }
+
+
