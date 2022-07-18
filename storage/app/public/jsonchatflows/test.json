@@ -1,0 +1,51 @@
+{
+    "name": "Test",
+    "responses": {
+        "start": {
+            "type": "BotOpenQuestion",
+            "text": "Cuál es su teléfono?",
+            "saveAnswerKey": "phone",
+            "nextResponse": "autoRootTest"
+        },
+        "autoRootTest": {
+            "autoRoot": true,
+            "type": "BotResponse",
+            "text": "En qué lo puedo ayudar? $phone",
+            "buttons": [
+                {
+                    "text": "Comer",
+                    "nextResponse": "respuesta"
+                },
+                {
+                    "text": "Tomar awa",
+                    "nextResponse": "respuesta"
+                }
+            ],
+            "additionalParameters": {
+                "gpsLatitud": "123213123",
+                "empresas": [
+                    {
+                        "nombre": "pepito",
+                        "lat": "29384923",
+                        "long": "234234",
+                        "descripcion": "dfksjjkdsf"
+                    },
+                    {
+                        "nombre": "no pepito",
+                        "lat": "29384923",
+                        "long": "234234",
+                        "descripcion": "dfksjjkdsf"
+                    }
+                ]
+            }
+        },
+        "respuesta": {
+            "type": "BotResponse",
+            "text": "Dale",
+            "attachment": {
+                "type": "Image",
+                "url": "http://c.files.bbci.co.uk/48DD/production/_107435681_perro1.jpg"
+            }
+        }
+    }
+}
