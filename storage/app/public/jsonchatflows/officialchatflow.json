@@ -189,11 +189,6 @@
           }
         }
       },
-      
-
-
-
-
       {
         "nombre":"punto8",
         "calle":"Av. Los Carrera",
@@ -308,8 +303,8 @@
           "title": "Las Garzas 193",
           "description": "Botellas PET",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 100,
+              "top": 200
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -333,8 +328,8 @@
           "title": "28 de octubre 205",
           "description": "Botellas PET",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 180,
+              "top": 190
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -358,8 +353,8 @@
           "title": "Almte. Neff 270",
           "description": "Botellas PET",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 290,
+              "top": 400
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -383,8 +378,8 @@
           "title": "Desiderio Garcia 979",
           "description": "Botellas PET",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 220,
+              "top": 450
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -778,6 +773,7 @@
                   "Afirmativo",
                   "Bueno"
                 ]
+                
               },
               {
                 "text": "No estoy de acuerdo",
@@ -806,7 +802,8 @@
       "nextResponse": "emailQuestion",
       "validationRegex": "phone",
       "saveKey": "phone",
-      "errorMessage": "El número debe estar en el formato de \"+56912345678\", intente de nuevo por favor"
+      "errorMessage": "El número debe estar en el formato de \"+56912345678\", intente de nuevo por favor",
+      "saveLog": true
     },
     "emailQuestion":{
       "type": "Question",
@@ -822,7 +819,8 @@
       "validationRegex": "email",
       "saveKey": "email",
       "trySaveContactData": true,
-      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor"
+      "errorMessage": "El email debe estar en el formato de \"tumail@dominio.com\", intente de nuevo por favor",
+      "saveLog": true
     },
     "preguntasNatural": {
       "type": "BotResponse",
@@ -871,7 +869,8 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     },
     "preguntaResiduos":{
       "type":"BotResponse",
@@ -926,7 +925,8 @@
           "text":"Vidrio",
           "nextResponse":"findComunaResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     },
     "findComunaResiduos": {
       "type": "Function",
@@ -1063,7 +1063,7 @@
       "text": [
         "Bienvenido! Qué desea saber?",
         "Hola! Cómo lo puedo ayudar?",
-        "En qué puedo ayudarlo?"
+        "En qué puedo ayudarlo?"        
       ],
       "autoRoot": true,
       "botTypingSeconds": 1,
@@ -1156,7 +1156,8 @@
           "keywords": [
             "Quiero cotizar servicios",
             "Deseo cotizar servicios"
-          ]
+          ],
+          "saveLog": true
         },
         {
           "text":"Ubicación de empresas gestoras de residuos",
@@ -1206,7 +1207,9 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduosGestores"
         }
-      ]
+      ],
+      
+      "saveLog": true
     },
     "preguntaResiduosGestores":{
       "type":"BotResponse",
@@ -1261,7 +1264,8 @@
           "text":"Metales",
           "nextResponse":"findGestorResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     }
   }
 }
