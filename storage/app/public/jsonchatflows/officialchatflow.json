@@ -28,8 +28,8 @@
           "title": "lat: -36,781836 , lon: -73,074929",
           "description": "Plasticos, Aceite",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 170,
+              "top": 230
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -53,11 +53,15 @@
           "title": "lat: -36,781836 , lon: -73,074929",
           "description": "Escombros, Textiles, Metales, administrado por sodimac",
           "position": {
-              "left": 50,
-              "top": 50
+              "left": 170,
+              "top": 230
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/search/?api=1&query=-36.781836%2C-73.074929"
+          }
         }
       },
       {
@@ -74,11 +78,15 @@
           "title": "Victor Lamas 567",
           "description": "Papel, Carton, Latas, Botellas",
           "position": {
-              "left": 100,
-              "top": 50
+              "left":240,
+              "top": 380
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/V%C3%ADctor+Lamas+567,+Concepci%C3%B3n,+4070282,+B%C3%ADo+B%C3%ADo/@-36.8322558,-73.0482057,16.65z/data=!4m5!3m4!1s0x9669b5d65d87b84b:0x904a5d78c6e38cfd!8m2!3d-36.8324298!4d-73.0479298"
+          }
         }
       },
       {
@@ -95,11 +103,15 @@
           "title": "Av.Collao 1202 casilla 5-C",
           "description": "Papel, Carton, Latas, Botellas PET",
           "position": {
-              "left": 60,
-              "top": 60
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/Punto+Limpio+UBB/@-36.8206456,-73.0162111,17.82z/data=!4m9!1m2!2m1!1spunto+de+reciclaje!3m5!1s0x9669b5ee6b97f9ed:0x2bba010db65bc237!8m2!3d-36.8202266!4d-73.0157784!15sChJwdW50byBkZSByZWNpY2xhamWSASBib3R0bGVfYW5kX2Nhbl9yZWRlbXB0aW9uX2NlbnRlcg"
+          }
         }
       },
       {
@@ -116,11 +128,15 @@
           "title": "Av. Los Carrera 301",
           "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
           "position": {
-              "left": 55,
-              "top": 60
+              "left": 180,
+              "top": 385
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/Punto+Limpio+TriCiclos+-+Sodimac+Concepci%C3%B3n/@-36.831313,-73.0641709,17z/data=!4m9!1m2!2m1!1spunto+de+reciclaje!3m5!1s0x9669b5db4aa9e559:0x48990f8e3e4c5daf!8m2!3d-36.830223!4d-73.0646926!15sChJwdW50byBkZSByZWNpY2xhamWSARByZWN5Y2xpbmdfY2VudGVy"
+          }
         }
       },
       {
@@ -137,11 +153,15 @@
           "title": "Victor Lamas 1290 casilla 160-C",
           "description": "Latas, Plasticos, Papel",
           "position": {
-              "left": 70,
-              "top": 70
+              "left": 330,
+              "top": 350
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/V%C3%ADctor+Lamas+1290,+Concepci%C3%B3n,+4070386,+B%C3%ADo+B%C3%ADo/@-36.8286845,-73.0391732,17z/data=!4m5!3m4!1s0x9669b42b65d73bcd:0x94fe7c89ac9a9607!8m2!3d-36.8285171!4d-73.0386368"
+          }
         }
       },
       {
@@ -158,13 +178,22 @@
           "title": "Arturo Prat 879",
           "description": "Latas, Plasticos, Papel",
           "position": {
-              "left": 90,
-              "top": 80
+              "left": 200,
+              "top": 370
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/Arturo+Prat+879,+Concepci%C3%B3n,+4080536,+B%C3%ADo+B%C3%ADo/@-36.8263333,-73.063814,17z/data=!3m1!4b1!4m5!3m4!1s0x9669b5dd27f92feb:0x4ff12e9105dc4aa1!8m2!3d-36.8263376!4d-73.0616253"
+          }
         }
       },
+      
+
+
+
+
       {
         "nombre":"punto8",
         "calle":"Av. Los Carrera",
@@ -179,13 +208,21 @@
           "title": "Av. Los Carrera 301",
           "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
           "position": {
-              "left": 80,
-              "top": 90
+              "left": 280,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.cl/maps/place/Av.+los+Carrera+301,+Concepci%C3%B3n,+B%C3%ADo+B%C3%ADo/@-36.8312959,-73.0660055,17z/data=!3m1!4b1!4m5!3m4!1s0x9669b5ddf949bc47:0x7a647507e1a61fe4!8m2!3d-36.8313002!4d-73.0638168"
+          }
         }
       },
+
+
+
+
       {
         "nombre":"punto9",
         "calle":"Av. Costanera Andalien",
@@ -200,11 +237,15 @@
           "title": "Av. Costanera Andalien 336",
           "description": "Papel, Carton, Botellas, Vidrio, Aceite",
           "position": {
-              "left": 200,
-              "top": 200
+              "left": 300,
+              "top": 230
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Av.+Costanera+Andali%C3%A9n+336,+Concepci%C3%B3n,+B%C3%ADo+B%C3%ADo/@-36.7945821,-73.0447468,14.08z/data=!4m5!3m4!1s0x9669b51e85388f01:0x4fcc84e7f3f1d34d!8m2!3d-36.7757023!4d-73.0443073"
+          }
         }
       },
       {
@@ -221,11 +262,15 @@
           "title": "Av. Ejercito 330",
           "description": "Botellas PET",
           "position": {
-              "left": 120,
-              "top": 110
+              "left": 350,
+              "top": 700
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.759643,-73.0906149,14.04z/data=!4m14!1m8!4m7!1m3!2m2!1d-73.0868625!2d-36.7660227!1m2!1m1!2s-36,77611,-73,08949!3m4!1s0x9669b557ef02d4af:0x9b528a7756dae4c4!8m2!3d-36.7660962!4d-73.0867625!5m1!1e1"
+          }
         }
       },
       {
@@ -242,11 +287,15 @@
           "title": "Las Hortensias 4850",
           "description": "Botellas PET",
           "position": {
-              "left": 100,
-              "top": 50
+              "left": 270,
+              "top": 500
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Las+Hortensias+4850,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7555364,-73.0948944,17z/data=!3m1!4b1!4m5!3m4!1s0x96683554903f09a9:0x63b5c1124e0a87f!8m2!3d-36.7555407!4d-73.0927057"
+          }
         }
       },
       {
@@ -263,11 +312,15 @@
           "title": "Las Garzas 193",
           "description": "Botellas PET",
           "position": {
-              "left": 50,
-              "top": 50
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Las+Garzas+193,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7202451,-73.1432425,17z/data=!3m1!4b1!4m5!3m4!1s0x966834567ed53191:0x26b534670f9a24df!8m2!3d-36.7202494!4d-73.1410538"
+          }
         }
       },
       {
@@ -284,11 +337,15 @@
           "title": "28 de octubre 205",
           "description": "Botellas PET",
           "position": {
-              "left": 60,
-              "top": 60
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Veintiocho+de+Octubre+205,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7111486,-73.1202067,17z/data=!3m1!4b1!4m5!3m4!1s0x966835a486298edf:0x53954193e0647322!8m2!3d-36.7111529!4d-73.118018"
+          }
         }
       },
       {
@@ -305,11 +362,15 @@
           "title": "Almte. Neff 270",
           "description": "Botellas PET",
           "position": {
-              "left": 80,
-              "top": 80
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Almte.+Neff+270,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7466002,-73.093622,17z/data=!3m1!4b1!4m5!3m4!1s0x96683559d7f31c2f:0x770cb62208851b28!8m2!3d-36.7466045!4d-73.0914333"
+          }
         }
       },
       {
@@ -326,11 +387,15 @@
           "title": "Desiderio Garcia 979",
           "description": "Botellas PET",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Desiderio+Garc%C3%ADa+979,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7516366,-73.1077123,17z/data=!3m1!4b1!4m5!3m4!1s0x966835492b3b0763:0x7c9f25587b2ee789!8m2!3d-36.7516409!4d-73.1055236"
+          }
         }
       },
       {
@@ -347,11 +412,15 @@
           "title": "Av. Colón 3260",
           "description": "Botellas PET",
           "position": {
-              "left": 40,
-              "top": 40
+              "left": 250,
+              "top": 400
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Av.+Crist%C3%B3bal+Col%C3%B3n+3260,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7688478,-73.0884139,17z/data=!3m1!4b1!4m5!3m4!1s0x9669b5585ee138c7:0x5b4b13c641bfc806!8m2!3d-36.7688521!4d-73.0862252"
+          }
         }
       },
       {
@@ -368,11 +437,15 @@
           "title": "Sgto. Aldea 121",
           "description": "Botellas PET",
           "position": {
-              "left": 150,
+              "left": 230,
               "top": 150
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Sgto.+Aldea+121,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7140057,-73.1178087,17z/data=!3m1!4b1!4m5!3m4!1s0x966835a15c0e927f:0xc199577d27ae5dd7!8m2!3d-36.71401!4d-73.11562"
+          }
         }
       },
       {
@@ -389,11 +462,15 @@
           "title": "A 909",
           "description": "Botellas PET, Papel, Carton, Aceite vegetal",
           "position": {
-              "left": 160,
-              "top": 50
+              "left": 320,
+              "top": 400
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/C.+A,+Talcahuano,+B%C3%ADo+B%C3%ADo/@-36.7410253,-73.0897804,17z/data=!3m1!4b1!4m5!3m4!1s0x96684aa754689b2d:0x4f1911c0017b973!8m2!3d-36.7410296!4d-73.0875917"
+          }
         }
       },
       {
@@ -410,11 +487,15 @@
           "title": "Colo colo 249",
           "description": "Latas, Papeles, Carton",
           "position": {
-              "left": 100,
-              "top": 85
+              "left": 250,
+              "top": 170
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Colo+Colo+249,+Concepci%C3%B3n,+San+Pedro+de+la+Paz+4130328,+B%C3%ADo+B%C3%ADo/@-36.8412168,-73.0942258,17z/data=!3m1!4b1!4m5!3m4!1s0x9669c9ff60612349:0x5bcc5e63c55dac2!8m2!3d-36.8412211!4d-73.0920371"
+          }
         }
       },
       {
@@ -431,11 +512,15 @@
           "title": "Los fresnos 4130000",
           "description": "Latas, Papeles, Carton",
           "position": {
-              "left": 65,
-              "top": 100
+              "left": 300,
+              "top": 250
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/search/36%C2%B084'71.4%22S+73%C2%B006'12.2%22W/@-36.8439655,-73.1046456,17z"
+          }
         }
       },
       {
@@ -452,11 +537,15 @@
           "title": "Av. Manuel Rodriguez 1045",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 100,
-              "top": 75
+              "left": 240,
+              "top": 385
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Av.+Manuel+Rodr%C3%ADguez+1045,+Chiguayante,+B%C3%ADo+B%C3%ADo/@-36.9305096,-73.0259057,17z/data=!3m1!4b1!4m5!3m4!1s0x9669b9c15d6c59e9:0xa81cda82381f996!8m2!3d-36.930514!4d-73.021421"
+          }
         }
       },
       {
@@ -473,11 +562,15 @@
           "title": "Av. 8 Oriente 720",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 35,
-              "top": 100
+              "left": 200,
+              "top": 450
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Calle+8+Ote.+720,+Chiguayante,+B%C3%ADo+B%C3%ADo/@-36.904436,-73.0336136,17z/data=!3m1!4b1!4m5!3m4!1s0x9669b770639e421f:0x9eb9636c70805924!8m2!3d-36.9044403!4d-73.0314249"
+          }
         }
       },
       {
@@ -494,11 +587,15 @@
           "title": "Av.Gnrl Prats 80",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 300,
+              "top": 420
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/place/Av.+Carlos+Prats+80,+Coronel,+B%C3%ADo+B%C3%ADo/@-37.0214205,-73.1568161,17z/data=!3m1!4b1!4m5!3m4!1s0x9669c13447d3d769:0x63a348b43b30cf3c!8m2!3d-37.0214248!4d-73.1546274"
+          }
         }
       } 
     ],
@@ -521,11 +618,15 @@
           "title": "Gestor S.A, Certificada",
           "description": "Carton, Papeles, Plasticos, Aceite",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item",
+          "link": {
+            "label": "Cómo llegar",
+            "url": "https://www.google.com/maps/search/?api=1&query=-36.781836%2C-73.074929"
+          }
         }
       },
       {
@@ -546,8 +647,8 @@
           "title": "Biobio Recicla, Certificada",
           "description": "Electrónica, Plásticos",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -571,11 +672,11 @@
           "title": "Gestorsitos S.A, Certificada",
           "description": "Neumáticos, Pilas, Escombros",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
-          "customClassName": "interactive-item"
+          "customClassName": "interactive-item"         
         }
       },
       {
@@ -596,8 +697,8 @@
           "title": "Gestortotes S.A, Certificada",
           "description": "Madera, Papel, Textiles",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
           "customClassName": "interactive-item"
@@ -621,11 +722,12 @@
           "title": "Gestorsaurios S.A, Certificada",
           "description": "Orgánicos, Metales, Escombros",
           "position": {
-              "left": 100,
-              "top": 100
+              "left": 250,
+              "top": 300
           },
           "sticky": false,
           "customClassName": "interactive-item"
+         
         }
       }
     ],
