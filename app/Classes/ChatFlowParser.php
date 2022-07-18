@@ -75,7 +75,7 @@ class ChatFlowParser{
                 $nextResponse = fn() => ChatFlowParser::json_object_to_response($context, $jsonObject->nextResponse, $responsesList);
 
         // Save log
-        $saveLog = false;
+        $saveLog = true;
         if(isset($jsonObject->saveLog)) $saveLog = $jsonObject->saveLog;
 
         // Try save contact data
@@ -214,6 +214,12 @@ class ChatFlowParser{
                 if(gettype($jsonObject->learningArray) == 'string') 
                     $learningArray = ChatFlowParser::get_variable($context, $jsonObject->learningArray);
                 else $learningArray = json_decode(json_encode($jsonObject->learningArray), true);
+            }
+
+            if(isset($jsonObject->keywords)){
+                foreach($jsonObject->keywords as $keyword){
+                    array_push($learningArray, ChatFlowParser::replace_text_by_variables($context, $keyword));
+                }
             }
 
             $isMultiple = false;
@@ -457,6 +463,17 @@ class ChatFlowParser{
         } else if($functionName == 'getenvvar'){
             $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
             $saveResultVariable = env($key);
+        } else if($functionName == 'updatecontact'){
+            $firstName = ChatFlowParser::replace_text_by_variables($context, $jsonObject->firstName);
+            $phone = ChatFlowParser::replace_text_by_variables($context, $jsonObject->phone);
+            $email = ChatFlowParser::replace_text_by_variables($context, $jsonObject->email);
+
+            $context->get_conversation_flow()->update_contact(
+                $firstName, 
+                $phone,
+                $email,
+                true
+            );
         }
 
         //Save result if needed
