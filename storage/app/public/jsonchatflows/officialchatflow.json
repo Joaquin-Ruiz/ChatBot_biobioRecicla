@@ -31,7 +31,7 @@
               "left": 170,
               "top": 230
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -56,7 +56,7 @@
               "left": 170,
               "top": 230
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -81,7 +81,7 @@
               "left":240,
               "top": 380
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -106,7 +106,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -131,7 +131,7 @@
               "left": 180,
               "top": 385
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -156,7 +156,7 @@
               "left": 330,
               "top": 350
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -181,7 +181,7 @@
               "left": 200,
               "top": 370
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -206,7 +206,7 @@
               "left": 280,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -231,7 +231,7 @@
               "left": 300,
               "top": 230
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -256,7 +256,7 @@
               "left": 350,
               "top": 700
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -281,7 +281,7 @@
               "left": 270,
               "top": 500
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -306,7 +306,7 @@
               "left": 100,
               "top": 200
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -331,7 +331,7 @@
               "left": 180,
               "top": 190
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -356,7 +356,7 @@
               "left": 290,
               "top": 400
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -381,7 +381,7 @@
               "left": 220,
               "top": 450
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -406,7 +406,7 @@
               "left": 250,
               "top": 400
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -431,7 +431,7 @@
               "left": 230,
               "top": 150
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -456,7 +456,7 @@
               "left": 320,
               "top": 400
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -481,7 +481,7 @@
               "left": 250,
               "top": 170
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -506,7 +506,7 @@
               "left": 300,
               "top": 250
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -531,7 +531,7 @@
               "left": 240,
               "top": 385
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -556,7 +556,7 @@
               "left": 200,
               "top": 450
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -581,7 +581,7 @@
               "left": 300,
               "top": 420
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -612,7 +612,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item",
           "link": {
             "label": "Cómo llegar",
@@ -641,7 +641,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item"
         }
       },
@@ -666,7 +666,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item"         
         }
       },
@@ -691,7 +691,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item"
         }
       },
@@ -716,7 +716,7 @@
               "left": 250,
               "top": 300
           },
-          "sticky": false,
+          "sticky": true,
           "customClassName": "interactive-item"
          
         }
