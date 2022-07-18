@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      - main
+      - master
 name: 🚀 Deploy on protofabrica web
 jobs:
   web-deploy:
