@@ -722,11 +722,11 @@
         }
       }
     ],
-    "chiguayanteimg": "http://127.0.0.1:8000/imgs/infografias/chiguayante.png",
-    "concepcionimg": "http://127.0.0.1:8000/imgs/infografias/concepcion.png",
-    "talcahuanoimg": "http://127.0.0.1:8000/imgs/infografias/talcahuano.png",
-    "sanpedroimg": "http://127.0.0.1:8000/imgs/infografias/sanpedro.png",
-    "coronelimg": "http://127.0.0.1:8000/imgs/infografias/coronel.png",
+    "chiguayanteimg": "http://chatbotapi.protofabrica.cl/imgs/infografias/chiguayante.png",
+    "concepcionimg": "http://chatbotapi.protofabrica.cl/imgs/infografias/concepcion.png",
+    "talcahuanoimg": "http://chatbotapi.protofabrica.cl/imgs/infografias/talcahuano.png",
+    "sanpedroimg": "http://chatbotapi.protofabrica.cl/imgs/infografias/sanpedro.png",
+    "coronelimg": "http://chatbotapi.protofabrica.cl/imgs/infografias/coronel.png",
     "comunaToImg": {
       "Concepción": "{concepcionimg}",
       "Talcahuano": "{talcahuanoimg}",
