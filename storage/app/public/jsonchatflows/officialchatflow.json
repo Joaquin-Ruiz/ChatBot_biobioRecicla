@@ -179,7 +179,7 @@
           "description": "Latas, Plasticos, Papel",
           "position": {
               "left": 200,
-              "top": 380
+              "top": 370
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -208,7 +208,7 @@
           "title": "Av. Los Carrera 301",
           "description": "Papel, Carton, Botellas PET, Latas, Envases Tetrapak",
           "position": {
-              "left": 250,
+              "left": 280,
               "top": 300
           },
           "sticky": false,
@@ -413,7 +413,7 @@
           "description": "Botellas PET",
           "position": {
               "left": 250,
-              "top": 300
+              "top": 400
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -488,7 +488,7 @@
           "description": "Latas, Papeles, Carton",
           "position": {
               "left": 250,
-              "top": 300
+              "top": 170
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -512,8 +512,8 @@
           "title": "Los fresnos 4130000",
           "description": "Latas, Papeles, Carton",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 300,
+              "top": 250
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -537,8 +537,8 @@
           "title": "Av. Manuel Rodriguez 1045",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 240,
+              "top": 385
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -562,8 +562,8 @@
           "title": "Av. 8 Oriente 720",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 200,
+              "top": 450
           },
           "sticky": false,
           "customClassName": "interactive-item",
@@ -587,8 +587,8 @@
           "title": "Av.Gnrl Prats 80",
           "description": "Carton, Papeles, Plasticos",
           "position": {
-              "left": 250,
-              "top": 300
+              "left": 300,
+              "top": 420
           },
           "sticky": false,
           "customClassName": "interactive-item",
