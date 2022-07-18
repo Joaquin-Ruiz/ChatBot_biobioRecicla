@@ -860,7 +860,8 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     },
     "preguntaResiduos":{
       "type":"BotResponse",
@@ -915,7 +916,8 @@
           "text":"Vidrio",
           "nextResponse":"findComunaResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     },
     "findComunaResiduos": {
       "type": "Function",
@@ -1052,8 +1054,7 @@
       "text": [
         "Bienvenido! Qué desea saber?",
         "Hola! Cómo lo puedo ayudar?",
-        "En qué puedo ayudarlo?",
-        
+        "En qué puedo ayudarlo?"        
       ],
       "autoRoot": true,
       "botTypingSeconds": 1,
@@ -1145,7 +1146,8 @@
           "keywords": [
             "Quiero cotizar servicios",
             "Deseo cotizar servicios"
-          ]
+          ],
+          "saveLog": true
         },
         {
           "text":"Ubicación de empresas gestoras de residuos",
@@ -1192,7 +1194,9 @@
           "text": "Coronel",
           "nextResponse":"preguntaResiduosGestores"
         }
-      ]
+      ],
+      
+      "saveLog": true
     },
     "preguntaResiduosGestores":{
       "type":"BotResponse",
@@ -1247,7 +1251,8 @@
           "text":"Metales",
           "nextResponse":"findGestorResiduos"
         }
-      ]
+      ],
+      "saveLog": true
     }
   }
 }
