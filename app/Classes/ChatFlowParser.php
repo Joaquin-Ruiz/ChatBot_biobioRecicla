@@ -457,6 +457,17 @@ class ChatFlowParser{
         } else if($functionName == 'getenvvar'){
             $key = ChatFlowParser::replace_text_by_variables($context, $jsonObject->key);
             $saveResultVariable = env($key);
+        } else if($functionName == 'updatecontact'){
+            $firstName = ChatFlowParser::replace_text_by_variables($context, $jsonObject->firstName);
+            $phone = ChatFlowParser::replace_text_by_variables($context, $jsonObject->phone);
+            $email = ChatFlowParser::replace_text_by_variables($context, $jsonObject->email);
+
+            $context->get_conversation_flow()->update_contact(
+                $firstName, 
+                $phone,
+                $email,
+                true
+            );
         }
 
         //Save result if needed

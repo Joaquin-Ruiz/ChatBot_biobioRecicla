@@ -219,10 +219,6 @@
           }
         }
       },
-
-
-
-
       {
         "nombre":"punto9",
         "calle":"Av. Costanera Andalien",
@@ -758,6 +754,7 @@
     "businessQuestion": {
       "type": "BotResponse",
       "text": "Es usted una persona o representa una empresa?",
+      "saveLog": true,
       "buttons": [
         {
           "text": "Persona",
@@ -814,7 +811,14 @@
     "emailQuestion":{
       "type": "Question",
       "text": "Por último necesitamos su email",
-      "nextResponse": "preguntasEmpresa",
+      "nextResponse": {
+        "type": "Function",
+        "name": "updateContact",
+        "firstName": "{name}",
+        "email": "{email}",
+        "phone": "{phone}",
+        "nextResponse": "preguntasEmpresa"
+      },
       "validationRegex": "email",
       "saveKey": "email",
       "trySaveContactData": true,
@@ -824,6 +828,7 @@
       "type": "BotResponse",
       "text": "Bienvenido! Qué desea saber?",
       "autoRoot": true,
+      "saveLog": true,
       "buttons": [
         {
           "text": "Ubicación de puntos limpios para reciclar",
@@ -1063,6 +1068,7 @@
       "autoRoot": true,
       "botTypingSeconds": 1,
       "displayButtons": true,
+      "saveLog": true,
       "buttons": [
         {
           "text": "¿En que consiste la empresa?",
@@ -1179,7 +1185,10 @@
       "buttons":[
         {
           "text": "Concepción",
-          "nextResponse":"preguntaResiduosGestores"
+          "nextResponse":"preguntaResiduosGestores",
+          "keywords": [
+            "conce"
+          ]
         },
         {
           "text":"Talcahuano",
