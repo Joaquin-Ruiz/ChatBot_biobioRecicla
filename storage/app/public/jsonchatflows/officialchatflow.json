@@ -1191,24 +1191,6 @@
             "Qué servicios puedo cotizar?"
           ]
           
-        },
-        {
-          "text":"Ubicación de empresas gestoras de residuos",
-          "nextResponse":"preguntaComunaGestores",
-          "keywords": [
-            "Cuáles son las empresas gestoras de residuos",
-            "Qué empresas gestionan residuos",
-            "Cuál es la ubicación de empresas gestoras de residuos",
-            "Busco empresas gestores de residuos",
-            "Quiero saber la ubicación de gestores de residuos",
-            "Busco gestores de residuos",
-            "Quiero saber las ubicaciones de empresas",
-            "Ubicaciones de gestores de residuos",
-            "ubicaciones",
-            "Donde hay gestores de residuos",
-            "Busco empresas que reciclen",
-            "Busco empresas cercanas que reciclen residuos"
-          ]
         }
       ]
     },
